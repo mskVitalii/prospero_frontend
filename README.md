@@ -1,2 +1,5 @@
 # prospero_frontend
-TODO: ci/cd для тестов
+TODO: 
+
+* ci - github actions с тестами
+* cd на vercel или в контейнер
