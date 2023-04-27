@@ -16,17 +16,16 @@ export default function Home() {
   const [foundNews, setFoundNews] = useState([]);
 
   useEffect(() => {
-    const searchLowerCase = search.toLowerCase()
     setFoundNews([])
-    if (Boolean(searchLowerCase.length)) {
-      news.forEach((newsItem) => {
-        Object.entries(newsItem).forEach(([key, value]) => {
-          if (typeof value === 'string' && value.includes(searchLowerCase)) {
-            setFoundNews([...foundNews, newsItem])
-          }
-        })
-      })
-    }
+
+    const response = fetch('/api/search', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    setFoundNews(response.data)
   }, [search])
 
   const getNews = async () => {
