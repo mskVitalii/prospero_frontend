@@ -7,6 +7,7 @@
 3. RTK
 4. FSD
 5. Mantine UI
+6. SCSS
 
 ## Getting Started
 
