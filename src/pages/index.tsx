@@ -45,11 +45,13 @@ export default function Home() {
       body: JSON.stringify({ search })
     })
     const res = await response.json()
-    return res.data
+    return res
   }
 
   const updateNewsList = async () => {
-    setNews(await getNews())
+    const result = await getNews()
+    console.log("updateNewsList", result);
+    setNews(result)
   }
 
   return (<>
