@@ -29,7 +29,7 @@ export default function Home() {
         body: JSON.stringify({ search })
       })
 
-      const result: Article[] = await response.json()
+      const result: Article[] = (await response.json()).data
       setFoundNews(result)
     }
 
@@ -50,8 +50,8 @@ export default function Home() {
 
   const updateNewsList = async () => {
     const result = await getNews()
-    console.log("updateNewsList", result);
-    setNews(result)
+    console.log("updateNewsList", result.data);
+    setNews(result.data)
   }
 
   return (<>
