@@ -74,10 +74,10 @@ export default function Home() {
         <Text>[Debounced value]</Text>
       </section>
 
-      <section>
+      {/* <section>
         <Text>Пример redux</Text>
         <Counter />
-      </section>
+      </section> */}
       <section>
         <button onClick={updateNewsList}>Получить новости</button>
         <Text>
