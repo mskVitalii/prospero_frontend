@@ -22,7 +22,7 @@ export default function Home() {
     async function GetNews() {
 
       const response = await fetch('/api/search', {
-        method: 'GET',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
