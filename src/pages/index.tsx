@@ -20,7 +20,7 @@ export default function Home() {
     if (search.length === 0) return;
 
     async function GetNews() {
-
+      console.log("Отправляем запрос");
       const response = await fetch('/api/search', {
         method: 'POST',
         headers: {
@@ -38,10 +38,11 @@ export default function Home() {
 
   const getNews = async () => {
     const response = await fetch('/api/news', {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify({ search })
     })
     const res = await response.json()
     return res.data
@@ -81,6 +82,7 @@ export default function Home() {
       <section>
         <button onClick={updateNewsList}>Получить новости</button>
         <Text>
+          {Boolean(news.length) && !Boolean(foundNews.length) && <Text>foundNews</Text>}
           {Boolean(news.length) && !Boolean(foundNews.length) && news.map((newsItem, i) => {
             return <div key={i}>
               <h3>{newsItem.name}</h3>
@@ -88,6 +90,7 @@ export default function Home() {
               <p>{newsItem.address?.country} {newsItem.address?.city}</p>
             </div>
           })}
+          {Boolean(foundNews.length) && <Text>foundNews</Text>}
           {Boolean(foundNews.length) && foundNews.map((newsItem, i) => {
             return <div key={i}>
               <h3>{newsItem.name}</h3>
