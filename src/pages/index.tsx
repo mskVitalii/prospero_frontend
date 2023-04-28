@@ -84,7 +84,7 @@ export default function Home() {
       <section>
         <button onClick={updateNewsList}>Получить новости</button>
         <Text>
-          {Boolean(news.length) && !Boolean(foundNews.length) && <Text>foundNews</Text>}
+          {Boolean(news.length) && !Boolean(foundNews.length) && <Text>news</Text>}
           {Boolean(news.length) && !Boolean(foundNews.length) && news.map((newsItem, i) => {
             return <div key={i}>
               <h3>{newsItem.name}</h3>
