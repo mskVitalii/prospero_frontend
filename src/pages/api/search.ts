@@ -1,23 +1,22 @@
-import type { NextApiHandler } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next'
 import { Article, mockArticles } from "@/pages/api/news";
 
-const searchHandler: NextApiHandler = async (request, response) => {
-  const { search } = request.body
-  const searchLowerCase = search.toLowerCase()
-  console.log('search', searchLowerCase)
+type Override<T1, T2> = Omit<T1, keyof T2> & T2;
+type NextApiRequestWithBody<Body> = Override<NextApiRequest, { body: Body }>
 
-  if (!Boolean(searchLowerCase.length)) return
 
-  let result: Article[] = []
-  mockArticles.forEach((newsItem) => {
-    Object.values(newsItem).forEach((value) => {
-      if (typeof value === 'string' && value.includes(searchLowerCase)) {
-        result.push(newsItem)
-      }
-    })
-  })
+export default async function searchHandler(
+  request: NextApiRequestWithBody<{ search: string }>,
+  response: NextApiResponse<{ data: Article[] }>) {
 
-  response.json({ data: result })
+  const search = request.body.search.toLowerCase()
+  console.log('/api/search', search)
+  if (search.length < 2) return
+
+  const data = mockArticles.filter(article =>
+    article.name.toLocaleLowerCase().includes(search) ||
+    article.description.toLocaleLowerCase().includes(search)
+  )
+
+  response.status(200).json({ data })
 }
-
-export default searchHandler

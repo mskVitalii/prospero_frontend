@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.scss'
+import styles from '@/appFSD/styles/Home.module.scss'
 import { useDebouncedState } from '@mantine/hooks';
 import { Text, TextInput } from '@mantine/core';
 import Counter from '@/redux/slices/example/Counter';
@@ -13,14 +13,15 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
 
   const [search, setSearch] = useDebouncedState('', 200);
-  const [news, setNews] = useState<Article[]>([]);
   const [foundNews, setFoundNews] = useState<Article[]>([]);
 
   useEffect(() => {
-    if (search.length === 0) return;
+    // Initial load
+    if (search.length < 2) return;
 
+    // TODO: RTK Query
     async function GetNews() {
-      console.log("Отправляем запрос");
+      console.log("/api/search");
       const response = await fetch('/api/search', {
         method: 'POST',
         headers: {
@@ -36,23 +37,6 @@ export default function Home() {
     GetNews()
   }, [search])
 
-  const getNews = async () => {
-    const response = await fetch('/api/news', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ search })
-    })
-    const res = await response.json()
-    return res
-  }
-
-  const updateNewsList = async () => {
-    const result = await getNews()
-    console.log("updateNewsList", result.data);
-    setNews(result.data)
-  }
 
   return (<>
     <Head>
@@ -73,33 +57,21 @@ export default function Home() {
       </section>
 
       <section>
-        <Text>{search}</Text>
-        <Text>[Debounced value]</Text>
+        <Text>[Debounced value]: {search}</Text>
       </section>
 
       {/* <section>
         <Text>Пример redux</Text>
         <Counter />
       </section> */}
+
       <section>
-        <button onClick={updateNewsList}>Получить новости</button>
-        <Text>
-          {Boolean(news.length) && !Boolean(foundNews.length) && <Text>news</Text>}
-          {Boolean(news.length) && !Boolean(foundNews.length) && news.map((newsItem, i) => {
-            return <div key={i}>
-              <h3>{newsItem.name}</h3>
-              <p>{newsItem.description}</p>
-              <p>{newsItem.address?.country} {newsItem.address?.city}</p>
-            </div>
-          })}
-          {Boolean(foundNews.length) && <Text>foundNews</Text>}
-          {Boolean(foundNews.length) && foundNews.map((newsItem, i) => {
-            return <div key={i}>
-              <h3>{newsItem.name}</h3>
-              <p>{newsItem.description}</p>
-            </div>
-          })}
-        </Text>
+        {Boolean(foundNews.length) && foundNews.map((newsItem, i) => {
+          return <div key={i}>
+            <h3>{newsItem.name}</h3>
+            <Text>{newsItem.description}</Text>
+          </div>
+        })}
       </section>
     </main>
   </>)

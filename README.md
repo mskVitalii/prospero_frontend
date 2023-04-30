@@ -1,21 +1,57 @@
-# prospero_frontend
+# Prospero Frontend
+Визуальная часть проекта
 
-## Stack
-
-1. Next.js
-2. Typescript
-3. RTK
-4. FSD
-5. Mantine UI
-6. SCSS
-
-## Getting Started
+## Запуск проекта
 
 ```bash
-pnpm dev
+pnpm i && pnpm run dev
 ```
 
-## Docs
+## Стек и его смысл
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Next.js** - роутинг, отрисовка компонентов react, SSR и SSG из коробки;
+2. **Typescript** - уменьшения ошибок с типизацией и подсказок в коде;
+3. **RTK & RTK Query** - хранение состояния и API
+4. **FSD** - организация кода;
+5. **Mantine UI** - подходящие UI компоненты и React хуки (useDebouncedValue);
+6. **SCSS** - наследование;
+7. **Yandex Maps** – визуализации новостей на карте;
+8. **Yandex.Metrica** – сбор статистики и действий пользователя; 
+
+
+## Документации
+
+- [Next.js Documentation](https://nextjs.org/docs).
+- [Feature-Sliced Design](https://feature-sliced.design/) - продуманная файловая структура
+
+## Заметки
+
+### FSD
+```/app``` ~→ ```/appFSD```
+[Переименовал согласно решению конфликтов](https://feature-sliced.design/ru/docs/about/understanding/naming#when-can-naming-interfere)
+
+У Next.js свои правила на папку app и pages
+
+---
+
+### GraphQL
+неактуально: только 1 ручка и 1 сущность новости
+
+---
+
+### Админка
+Мб, понадобится Prospero Admin
+0. Авторизация
+1. Ввод RSS источника
+2. Маппинг полей
+3. Скрипт или файл на JS/GO (XML → JS)
+4. Тест значения (ручка для файла на GO)
+5. Загрузка в redis ссылки и схемы для скрипта
+6. Круто, если за это отвечает микросервис получения статей
+
+---
+
+### Комиссия
+На защите подкинули идею: границы окна Yandex.Maps задают границы карты. За границей карты новости не рисуются
+
+График за новостями оказался понятен комиссии
