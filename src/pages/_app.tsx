@@ -1,8 +1,8 @@
-import '@/appFSD/styles/globals.scss'
+import '@/shared/base.scss'
 import type { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
 import { MantineProvider } from '@mantine/core';
-import store from '@/redux/store';
+import store from '@/appFSD/appStore';
 
 export default function App({ Component, pageProps }: AppProps) {
   return <>

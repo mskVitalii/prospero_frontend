@@ -1,8 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiResponse } from 'next'
 import { Article, mockArticles } from "@/pages/api/news";
-
-type Override<T1, T2> = Omit<T1, keyof T2> & T2;
-type NextApiRequestWithBody<Body> = Override<NextApiRequest, { body: Body }>
+import { NextApiRequestWithBody } from '@/shared/lib/NextApiRequestWithBodyType';
 
 
 export default async function searchHandler(

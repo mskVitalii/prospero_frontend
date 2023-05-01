@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import styles from '@/appFSD/styles/Home.module.scss'
 import { useDebouncedState } from '@mantine/hooks';
 import { Text, TextInput } from '@mantine/core';
-import Counter from '@/redux/slices/example/Counter';
+import Counter from '@/widgets/Counter';
 import { useEffect, useState } from "react";
 import { Article } from './api/news';
 
@@ -60,10 +60,10 @@ export default function Home() {
         <Text>[Debounced value]: {search}</Text>
       </section>
 
-      {/* <section>
+      <section>
         <Text>Пример redux</Text>
         <Counter />
-      </section> */}
+      </section>
 
       <section>
         {Boolean(foundNews.length) && foundNews.map((newsItem, i) => {
