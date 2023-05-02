@@ -1,6 +1,6 @@
 import React from 'react'
 import { CounterButtonAsync, counter } from '@entities/counter'
-import { useAppDispatch } from '@shared/lib/hooks'
+import { useAppDispatch } from '@shared/lib'
 
 type Props = {
   amount: number

@@ -1,4 +1,4 @@
-import { Article } from "@shared/lib/ArticleType"
+import { Article } from "@shared/lib"
 
 export type SearchString = {
   stringId: number,

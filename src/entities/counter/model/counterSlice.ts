@@ -1,12 +1,8 @@
 import type { AppState, AppThunk } from '@app/store'
-import { fetchCount } from '@shared/api/counterAPI'
+import { fetchCount } from '@shared/api'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { CounterState } from './type'
 
-
-export type CounterState = {
-  value: number
-  status: 'idle' | 'loading' | 'failed'
-}
 
 const initialState: CounterState = {
   value: 0,

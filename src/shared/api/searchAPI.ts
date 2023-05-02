@@ -1,4 +1,4 @@
-import { Article } from "@shared/lib/ArticleType"
+import { Article } from "@shared/lib"
 
 export async function searchApi(search: string): Promise<Article[]> {
   const response = await fetch('/api/search', {

@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { searchApi } from "@shared/api/searchAPI"
-import { SearchState } from "./type"
+import { searchApi } from "@shared/api"
+import { SearchState, SearchString } from "./type"
 
 
 const initialState: SearchState = {

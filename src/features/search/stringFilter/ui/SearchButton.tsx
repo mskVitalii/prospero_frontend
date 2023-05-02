@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from '@mantine/core'
 import { search } from '@entities/search'
-import { useAppDispatch, useAppSelector } from '@shared/lib/hooks'
+import { useAppDispatch, useAppSelector } from '@shared/lib'
 
 export const SearchButton = () => {
   const dispatch = useAppDispatch()

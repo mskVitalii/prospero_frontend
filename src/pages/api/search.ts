@@ -1,7 +1,7 @@
 import type { NextApiResponse } from 'next'
 import { mockArticles } from "@pages/api/news";
-import { Article } from '@shared/lib/ArticleType'
-import { NextApiRequestWithBody } from '@shared/lib/NextApiRequestWithBodyType';
+import { Article } from '@shared/lib'
+import { NextApiRequestWithBody } from '@shared/lib';
 
 
 export default async function searchHandler(

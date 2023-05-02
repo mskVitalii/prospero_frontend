@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google'
 import { Text } from '@mantine/core';
 import { Counter } from '@widgets/Counter';
 import { LayoutHeader } from '@widgets/LayoutHeader';
-import { useAppSelector } from '@shared/lib/hooks';
+import { useAppSelector } from '@shared/lib';
 import classNames from "classnames";
 
 const inter = Inter({ subsets: ['latin'] })

@@ -3,7 +3,7 @@ import styles from './SearchByString.module.scss'
 import { SearchString, search as searchSlice } from '@entities/search'
 import { TextInput } from '@mantine/core'
 import { useDebouncedState } from '@mantine/hooks'
-import { useAppDispatch } from '@shared/lib/hooks'
+import { useAppDispatch } from '@shared/lib'
 
 
 type Props = {

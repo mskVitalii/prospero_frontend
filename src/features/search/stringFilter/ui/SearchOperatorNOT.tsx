@@ -1,5 +1,5 @@
 import { SearchString, search } from '@entities/search'
-import { useAppDispatch } from '@shared/lib/hooks'
+import { useAppDispatch } from '@shared/lib'
 import { Button } from '@mantine/core'
 import React from 'react'
 

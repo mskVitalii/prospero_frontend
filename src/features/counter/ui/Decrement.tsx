@@ -1,5 +1,5 @@
 import React from 'react'
-import { useAppDispatch } from '@shared/lib/hooks'
+import { useAppDispatch } from '@shared/lib'
 import { CounterButton, counter } from '@entities/counter'
 
 

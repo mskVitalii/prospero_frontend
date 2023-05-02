@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from "./LayoutHeader.module.scss"
 import { Group, Text } from '@mantine/core';
-import { useAppSelector } from '@shared/lib/hooks';
+import { useAppSelector } from '@shared/lib';
 import { SearchField } from '@widgets/SearchField';
 import { SearchButton } from '@features/search/stringFilter';
 

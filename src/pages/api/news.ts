@@ -1,4 +1,4 @@
-import { Article } from '@shared/lib/ArticleType'
+import { Article } from '@shared/lib'
 import type { NextApiHandler } from 'next'
 
 const newsHandler: NextApiHandler = async (request, response) => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from '@mantine/core'
-import { useAppDispatch } from '@shared/lib/hooks'
+import { useAppDispatch } from '@shared/lib'
 import { SearchString, search } from '@entities/search'
 
 

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useAppSelector } from '@shared/lib/hooks'
+import { useAppSelector } from '@shared/lib'
 import { counter } from '@entities/counter'
 import styles from './Counter.module.scss'
 import {
