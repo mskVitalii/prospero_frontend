@@ -1,9 +1,9 @@
 import { combineReducers } from '@reduxjs/toolkit'
-import counterSlice from '@entities/counter/model/counterSlice'
-import searchSlice from '@entities/search/model/searchSlice'
+import { counter } from '@entities/counter'
+import { search } from '@entities/search'
 
 // Регистрируем редюсеры
 export const rootReducer = combineReducers({
-  [counterSlice.name]: counterSlice.reducer,
-  [searchSlice.name]: searchSlice.reducer
+  [counter.counterSlice.name]: counter.counterSlice.reducer,
+  [search.searchSlice.name]: search.searchSlice.reducer
 })

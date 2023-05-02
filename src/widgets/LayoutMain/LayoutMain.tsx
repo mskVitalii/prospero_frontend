@@ -2,14 +2,14 @@ import React from 'react'
 import styles from './LayoutMain.module.scss'
 import { Inter } from 'next/font/google'
 import { Text } from '@mantine/core';
-import Counter from '@widgets/Counter/Counter';
-import LayoutHeader from '@widgets/LayoutHeader/LayoutHeader';
+import { Counter } from '@widgets/Counter';
+import { LayoutHeader } from '@widgets/LayoutHeader';
 import { useAppSelector } from '@shared/lib/hooks';
 import classNames from "classnames";
 
 const inter = Inter({ subsets: ['latin'] })
 
-const LayoutMain = () => {
+export const LayoutMain = () => {
   const foundNews = useAppSelector(state => state.search.articles)
 
   return <main className={classNames(styles.main, inter.className)}>
@@ -29,5 +29,3 @@ const LayoutMain = () => {
     </section>
   </main >
 }
-
-export default LayoutMain

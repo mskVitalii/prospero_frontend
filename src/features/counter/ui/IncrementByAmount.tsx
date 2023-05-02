@@ -1,18 +1,17 @@
 import React from 'react'
 import { useAppDispatch } from '@shared/lib/hooks'
-import { incrementByAmount } from '@entities/counter/model/counterSlice'
-import CounterButton from '@entities/counter/ui/CounterButton'
+import { CounterButton, counter } from '@entities/counter'
 
 
 type Props = {
   amount: number
 }
 
-export default function IncrementByAmount({ amount }: Props) {
+export const IncrementByAmount = ({ amount }: Props) => {
   const dispatch = useAppDispatch()
 
   return <CounterButton
-    onClick={() => dispatch(incrementByAmount(amount))}
+    onClick={() => dispatch(counter.incrementByAmount(amount))}
   >
     Add Amount
   </CounterButton>

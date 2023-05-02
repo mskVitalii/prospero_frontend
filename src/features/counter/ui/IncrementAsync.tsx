@@ -1,19 +1,16 @@
 import React from 'react'
-import CounterButtonAsync from '@entities/counter/ui/CounterButtonAsync'
-import { incrementAsync } from '@entities/counter/model/counterSlice'
+import { CounterButtonAsync, counter } from '@entities/counter'
 import { useAppDispatch } from '@shared/lib/hooks'
 
 type Props = {
   amount: number
 }
 
-const IncrementAsync = ({ amount }: Props) => {
+export const IncrementAsync = ({ amount }: Props) => {
   const dispatch = useAppDispatch()
 
   return <CounterButtonAsync
-    onClick={() => dispatch(incrementAsync(amount))}>
+    onClick={() => dispatch(counter.incrementAsync(amount))}>
     Add Async
   </CounterButtonAsync>
 }
-
-export default IncrementAsync

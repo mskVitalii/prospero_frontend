@@ -1,4 +1,4 @@
-import { SearchString, toggleNegativeSearchString } from '@entities/search/model/searchSlice'
+import { SearchString, search } from '@entities/search'
 import { useAppDispatch } from '@shared/lib/hooks'
 import { Button } from '@mantine/core'
 import React from 'react'
@@ -8,16 +8,14 @@ type Props = {
   searchString: SearchString
 }
 
-const SearchOperatorNOT = ({ searchString }: Props) => {
+export const SearchOperatorNOT = ({ searchString }: Props) => {
   const dispatch = useAppDispatch()
 
   function toggleNegativeString() {
-    dispatch(toggleNegativeSearchString(searchString))
+    dispatch(search.toggleNegativeSearchString(searchString))
   }
 
   return <Button onClick={toggleNegativeString}>
     !
   </Button>
 }
-
-export default SearchOperatorNOT

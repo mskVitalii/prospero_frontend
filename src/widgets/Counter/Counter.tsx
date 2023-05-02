@@ -1,15 +1,18 @@
 import { useState } from 'react'
 import { useAppSelector } from '@shared/lib/hooks'
-import { selectCount } from '@entities/counter/model/counterSlice'
+import { counter } from '@entities/counter'
 import styles from './Counter.module.scss'
-import IncrementByAmount from '@features/counter/ui/IncrementByAmount'
-import IncrementAsync from '@features/counter/ui/IncrementAsync'
-import IncrementIfOdd from '@features/counter/ui/IncrementIfOdd'
-import Increment from '@features/counter/ui/Increment'
-import Decrement from '@features/counter/ui/Decrement'
+import {
+  IncrementByAmount,
+  IncrementAsync,
+  IncrementIfOdd,
+  Increment,
+  Decrement
+} from '@features/counter'
 
-function Counter() {
-  const count = useAppSelector(selectCount)
+
+export const Counter = () => {
+  const count = useAppSelector(counter.selectCount)
   const [incrementAmount, setIncrementAmount] = useState('2')
 
   const incrementValue = Number(incrementAmount) || 0
@@ -35,5 +38,3 @@ function Counter() {
 
   </div>
 }
-
-export default Counter

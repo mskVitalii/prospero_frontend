@@ -1,19 +1,21 @@
 import React from 'react'
-import styles from './searchString.module.scss'
+// import styles from './searchString.module.scss'
 import { Group } from '@mantine/core'
-import { SearchString } from '@entities/search/model/searchSlice'
-import SearchByString from '@features/search/stringFilter/ui/SearchByString'
-import SearchOperatorAND from '@features/search/stringFilter/ui/SearchOperatorAND'
-import SearchOperatorNOT from '@features/search/stringFilter/ui/SearchOperatorNOT'
-import SearchStringRemoveButton from '@features/search/stringFilter/ui/SearchStringRemoveButton'
+import { SearchString } from '@entities/search'
+import {
+  SearchByString,
+  SearchOperatorAND,
+  SearchOperatorNOT,
+  SearchStringRemoveButton
+} from '@features/search/stringFilter'
+
 
 type Props = {
   searchString: SearchString
 }
 
-const SearchField = ({ searchString }: Props) => {
-
-  return <div>
+export const SearchField = ({ searchString }: Props) =>
+  <div>
     <Group>
       <SearchOperatorNOT searchString={searchString} />
       <SearchByString searchString={searchString} />
@@ -21,6 +23,3 @@ const SearchField = ({ searchString }: Props) => {
     </Group>
     <SearchOperatorAND />
   </div>
-}
-
-export default SearchField

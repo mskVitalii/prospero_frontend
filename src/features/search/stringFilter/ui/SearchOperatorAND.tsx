@@ -1,18 +1,16 @@
-import { createSearchString } from '@entities/search/model/searchSlice'
+import { search } from '@entities/search'
 import { useAppDispatch } from '@shared/lib/hooks'
 import { Button } from '@mantine/core'
 import React from 'react'
 
-const SearchOperatorAND = () => {
+export const SearchOperatorAND = () => {
   const dispatch = useAppDispatch()
 
   function addNewString() {
-    dispatch(createSearchString())
+    dispatch(search.createSearchString())
   }
 
   return <Button onClick={addNewString}>
     &&
   </Button>
 }
-
-export default SearchOperatorAND

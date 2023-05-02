@@ -1,19 +1,7 @@
-import { searchApi } from "@shared/api/searchAPI"
-import { Article } from "@shared/lib/ArticleType"
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { searchApi } from "@shared/api/searchAPI"
+import { SearchState } from "./type"
 
-export type SearchString = {
-  stringId: number,
-  search: string,
-  isNegative: boolean
-}
-
-export type SearchState = {
-  filterStrings: SearchString[]
-  isLoading: boolean
-  isFailed: boolean
-  articles: Article[]
-}
 
 const initialState: SearchState = {
   filterStrings: [{ stringId: 0, search: "", isNegative: false }],

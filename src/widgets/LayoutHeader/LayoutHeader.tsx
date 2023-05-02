@@ -2,11 +2,11 @@ import React from 'react'
 import styles from "./LayoutHeader.module.scss"
 import { Group, Text } from '@mantine/core';
 import { useAppSelector } from '@shared/lib/hooks';
-import SearchField from '@widgets/SearchField/SearchField';
-import SearchButton from '@features/search/stringFilter/ui/SearchButton';
+import { SearchField } from '@widgets/SearchField';
+import { SearchButton } from '@features/search/stringFilter';
 
 
-const LayoutHeader = () => {
+export const LayoutHeader = () => {
   const filterStrings = useAppSelector(({ search }) => search.filterStrings)
   const filterString = filterStrings
     .filter(x => x.search.length !== 0)
@@ -28,5 +28,3 @@ const LayoutHeader = () => {
     </div>
   </section>
 }
-
-export default LayoutHeader

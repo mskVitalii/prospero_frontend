@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import LayoutMain from '@widgets/LayoutMain/LayoutMain';
+import { LayoutMain } from '@widgets/LayoutMain';
 
 export default function Home() {
   return <>
