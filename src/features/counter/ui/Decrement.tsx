@@ -1,7 +1,7 @@
 import React from 'react'
-import CounterButton from '@/entities/counter/CounterButton'
-import { useAppDispatch } from '@/shared/lib/hooks'
-import { decrement } from './counterSlice'
+import { useAppDispatch } from '@shared/lib/hooks'
+import { decrement } from '@entities/counter/model/counterSlice'
+import CounterButton from '@entities/counter/ui/CounterButton'
 
 
 const Decrement = () => {

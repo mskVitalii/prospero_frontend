@@ -1,7 +1,7 @@
 import React from 'react'
-import CounterButton from '@/entities/counter/CounterButton'
-import { useAppDispatch } from '@/shared/lib/hooks'
-import { incrementIfOdd } from './counterSlice'
+import CounterButton from '@entities/counter/ui/CounterButton'
+import { useAppDispatch } from '@shared/lib/hooks'
+import { incrementIfOdd } from '@entities/counter/model/counterSlice'
 
 
 type Props = {

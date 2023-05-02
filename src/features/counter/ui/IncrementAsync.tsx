@@ -1,7 +1,7 @@
 import React from 'react'
-import CounterButtonAsync from '@/entities/counter/CounterButtonAsync'
-import { incrementAsync } from './counterSlice'
-import { useAppDispatch } from '@/shared/lib/hooks'
+import CounterButtonAsync from '@entities/counter/ui/CounterButtonAsync'
+import { incrementAsync } from '@entities/counter/model/counterSlice'
+import { useAppDispatch } from '@shared/lib/hooks'
 
 type Props = {
   amount: number

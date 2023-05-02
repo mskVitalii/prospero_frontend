@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import type { AppState, AppThunk } from '@/appFSD/appStore'
-import { fetchCount } from '@/shared/api/counterAPI'
+import type { AppState, AppThunk } from '@app/store'
+import { fetchCount } from '@shared/api/counterAPI'
 
-export interface CounterState {
+export type CounterState = {
   value: number
   status: 'idle' | 'loading' | 'failed'
 }
@@ -79,4 +79,4 @@ export const incrementIfOdd =
       }
     }
 
-export default counterSlice.reducer
+export default counterSlice
