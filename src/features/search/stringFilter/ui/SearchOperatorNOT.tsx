@@ -16,6 +16,6 @@ export const SearchOperatorNOT = ({ searchString }: Props) => {
   }
 
   return <Button onClick={toggleNegativeString}>
-    !
+    НЕ
   </Button>
 }

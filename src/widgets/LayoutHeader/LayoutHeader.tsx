@@ -10,7 +10,7 @@ export const LayoutHeader = () => {
   const filterStrings = useAppSelector(({ search }) => search.filterStrings)
   const filterString = filterStrings
     .filter(x => x.search.length !== 0)
-    .map(x => `(${x.isNegative ? "!" : ""} ${x.isExact ? `"${x.search}"` : x.search})`)
+    .map(x => `(${x.isNegative ? "НЕ" : ""} ${x.isExact ? `&ldquo;${x.search}&rdquo;` : x.search})`)
     .join(" && ")
 
   return <section className={styles.filters}>

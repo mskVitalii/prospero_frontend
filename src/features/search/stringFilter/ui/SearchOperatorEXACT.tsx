@@ -16,6 +16,6 @@ export const SearchOperatorEXACT = ({ searchString }: Props) => {
   }
 
   return <Button onClick={toggleExactString}>
-    ""
+    &ldquo;&rdquo;
   </Button>
 }
