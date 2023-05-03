@@ -1,6 +1,6 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { searchApi } from "@shared/api"
+import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { SearchState, SearchString } from "./type"
+import { Article } from "@shared/lib"
 
 
 const initialState: SearchState = {
@@ -9,11 +9,6 @@ const initialState: SearchState = {
   isFailed: false,
   articles: []
 }
-
-export const searchRTKAction = createAsyncThunk(
-  'search/fetch',
-  searchApi
-)
 
 export const searchSlice = createSlice({
   name: 'search',
@@ -35,23 +30,7 @@ export const searchSlice = createSlice({
       state.filterStrings[payload.stringId].isNegative =
         !state.filterStrings[payload.stringId].isNegative
     }
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(searchRTKAction.pending, (state) => {
-        state.isLoading = true
-        state.isFailed = false
-      })
-      .addCase(searchRTKAction.fulfilled, (state, { payload }) => {
-        state.isLoading = false
-        state.isFailed = false
-        state.articles = payload
-      })
-      .addCase(searchRTKAction.rejected, (state) => {
-        state.isLoading = false
-        state.isFailed = true
-      })
-  },
+  }
 })
 
 export const {

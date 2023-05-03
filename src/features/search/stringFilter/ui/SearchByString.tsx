@@ -15,7 +15,6 @@ export const SearchByString = ({ searchString }: Props) => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    console.log("SearchString useEffect", search);
     if (search.length < 2) return;
     dispatch(searchSlice.updateSearchString({ ...searchString, search }))
   }, [search])

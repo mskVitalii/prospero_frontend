@@ -4,13 +4,16 @@ import { Inter } from 'next/font/google'
 import { Text } from '@mantine/core';
 import { Counter } from '@widgets/Counter';
 import { LayoutHeader } from '@widgets/LayoutHeader';
-import { useAppSelector } from '@shared/lib';
 import classNames from "classnames";
+import { useSearchArticlesMutation } from '@entities/search';
+
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const LayoutMain = () => {
-  const foundNews = useAppSelector(state => state.search.articles)
+  const [_, { data: articles }] = useSearchArticlesMutation({
+    fixedCacheKey: "shared-search-articles"
+  })
 
   return <main className={classNames(styles.main, inter.className)}>
     <LayoutHeader />
@@ -21,7 +24,7 @@ export const LayoutMain = () => {
     </section> */}
 
     <section className={styles.news}>
-      {Boolean(foundNews.length) && foundNews.map((newsItem, i) =>
+      {Boolean(articles?.length) && articles?.map((newsItem, i) =>
         <div key={i}>
           <h3>{newsItem.name}</h3>
           <Text>{newsItem.description}</Text>

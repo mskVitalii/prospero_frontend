@@ -6,7 +6,7 @@ const envVariables = z.object({
   NODE_ENV: z.string()
 })
 
-envVariables.parse(process.env)
+envVariables.safeParse(process.env)
 
 declare global {
   interface ImportProcessEnv extends z.infer<typeof envVariables> { }
