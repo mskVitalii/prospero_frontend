@@ -1,8 +1,8 @@
-import '@/styles/globals.scss'
+import store from '@app/store';
 import type { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
 import { MantineProvider } from '@mantine/core';
-import store from '@/redux/store';
+import '@shared/ui/base.scss'
 
 export default function App({ Component, pageProps }: AppProps) {
   return <>
