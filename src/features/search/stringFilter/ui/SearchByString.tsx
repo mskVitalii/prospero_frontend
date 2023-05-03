@@ -23,7 +23,7 @@ export const SearchByString = ({ searchString }: Props) => {
     type='search'
     label="Поиск новостей"
     defaultValue={search}
-    className={styles.inputFilter}
+    className={styles['input-filter']}
     onChange={e => setSearch(e.currentTarget.value)}
   />
 }

@@ -1,3 +1,4 @@
+/** Адрес */
 export type Address = {
   coords: [number, number],
   country: string,

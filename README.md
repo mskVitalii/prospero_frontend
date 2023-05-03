@@ -23,6 +23,7 @@ pnpm i && pnpm run dev
 
 - [Next.js Documentation](https://nextjs.org/docs).
 - [Feature-Sliced Design](https://feature-sliced.design/) - продуманная файловая структура
+- []
 
 ## Заметки
 
