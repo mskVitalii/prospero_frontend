@@ -17,7 +17,7 @@ export const SearchByString = ({ searchString }: Props) => {
   useEffect(() => {
     if (search.length < 2) return;
     dispatch(searchSlice.updateSearchString({ ...searchString, search }))
-  }, [search, searchString, dispatch])
+  }, [search, searchString.stringId, dispatch])
 
   return <TextInput
     type='search'
