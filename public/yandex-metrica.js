@@ -6,7 +6,7 @@
 })
   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-ym(93573875, "init", {
+ym(process.env.NEXT_PUBLIC_YM_ID, "init", {
   clickmap: true,
   trackLinks: true,
   accurateTrackBounce: true,
