@@ -10,13 +10,10 @@ export default class _Document extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          <Script defer type="text/javascript" src="/yandex-metrica.js" />
-        </Head>
+        <Head />
         <body>
           <Main />
           <NextScript />
-          <Script defer type="text/javascript" src="/yandex-metrica.js" />
         </body>
       </Html>
     );
