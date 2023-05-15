@@ -8,7 +8,6 @@ export default function Home() {
       <meta name="description" content="news aggregator" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="icon" href="/icon.svg" />
-      <script defer type="text/javascript" src="/yandex-metrica.js" />
     </Head>
     <LayoutMain />
   </>
