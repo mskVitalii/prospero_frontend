@@ -17,7 +17,8 @@ export const SearchByString = ({ searchString }: Props) => {
   useEffect(() => {
     if (search.length < 2) return;
     dispatch(searchSlice.updateSearchString({ ...searchString, search }))
-  }, [search, searchString, dispatch])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search, dispatch])
 
   return <TextInput
     type='search'
