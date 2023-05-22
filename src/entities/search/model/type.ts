@@ -9,8 +9,38 @@ export type SearchString = {
   isExact: boolean
 }
 
-/** Все поисковые */
+/** Фильтр по людям */
+export type SearchPeople = {
+  /** имя */
+  name: string
+}
+
+/** Фильтр по издания */
+export type SearchPublishers = {
+  /** название издания */
+  name: string
+}
+
+/** Фильтр по местоположению */
+export type SearchCountry = {
+  /** название страны */
+  country: string
+}
+
+export type SeachTime = {
+  /** Начало временного диапазона */
+  start: Date
+  /** Окончание временного диапазона */
+  end: Date
+}
+
+
+/** Все поисковые фильтры */
 export type SearchState = {
   /** Массив поисковых строк, оператор объединения && */
   filterStrings: SearchString[]
+  filterPeople: SearchPeople[]
+  filterPublishers: SearchPublishers[]
+  filterCountry: SearchCountry[]
+  filterTime: SeachTime
 }
