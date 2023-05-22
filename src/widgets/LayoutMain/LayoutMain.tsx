@@ -1,10 +1,14 @@
 import React from 'react'
+
 import styles from './LayoutMain.module.scss'
+import classNames from "classnames";
+
 import { Inter } from 'next/font/google'
 import { Text } from '@mantine/core';
-import { Counter } from '@widgets/Counter';
+
 import { LayoutHeader } from '@widgets/LayoutHeader';
-import classNames from "classnames";
+import { YandexMap } from "@widgets/YandexMap";
+
 import { useSearchArticlesMutation } from '@entities/search';
 
 
@@ -16,7 +20,7 @@ export const LayoutMain = () => {
   })
 
   return <main className={classNames(styles.main, inter.className)}>
-    <LayoutHeader />
+    <LayoutHeader/>
 
     {/* <section>
       <Text>Пример redux</Text>
@@ -30,5 +34,8 @@ export const LayoutMain = () => {
           <Text>{newsItem.description}</Text>
         </div>)}
     </section>
-  </main >
+    <section className={styles.map}>
+      <YandexMap></YandexMap>
+    </section>
+  </main>
 }

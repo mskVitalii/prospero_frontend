@@ -16,6 +16,9 @@ dependencies:
   '@mantine/next':
     specifier: ^6.0.9
     version: 6.0.9(@emotion/react@11.10.6)(@emotion/server@11.10.0)(next@13.3.1)(react-dom@18.2.0)(react@18.2.0)
+  '@pbe/react-yandex-maps':
+    specifier: ^1.2.4
+    version: 1.2.4(react@18.2.0)
   '@reduxjs/toolkit':
     specifier: ^1.9.5
     version: 1.9.5(react-redux@8.0.5)(react@18.2.0)
@@ -504,6 +507,16 @@ packages:
       fastq: 1.15.0
     dev: true
 
+  /@pbe/react-yandex-maps@1.2.4(react@18.2.0):
+    resolution: {integrity: sha512-3VL5wd92cinLUnkOqbsk27lAEqKrJBP+XmmbZK3L9trwUYbO2U5n/dlJiqHplYQQb6MnZlnWwZA6h8ZBQ/FsWg==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      react: ^16.x || ^17.x || ^18.x
+    dependencies:
+      '@types/yandex-maps': 2.1.29
+      react: 18.2.0
+    dev: false
+
   /@pkgr/utils@2.3.1:
     resolution: {integrity: sha512-wfzX8kc1PMyUILA+1Z/EqoE4UCXGy0iRGMhPwdfae1+f0OXlLqCk+By+aMzgJBzR9AzS4CDizioG6Ss1gvAFJw==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
@@ -696,6 +709,10 @@ packages:
 
   /@types/use-sync-external-store@0.0.3:
     resolution: {integrity: sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==}
+    dev: false
+
+  /@types/yandex-maps@2.1.29:
+    resolution: {integrity: sha512-nuibRWj3RU/9KXlCzTrRtDE+n6V9l7NbT9JakicqZ5OXIdwyb6blvV2Uwn6lB58WYm3DSUDP2I2AWlnWMc8z2w==}
     dev: false
 
   /@typescript-eslint/parser@5.59.1(eslint@8.39.0)(typescript@5.0.4):

@@ -9,6 +9,7 @@ export type Address = {
 export type Article = {
   name: string,
   description: string,
+  URL: string,
   image: string,
   address: Address,
   publisher: {
@@ -16,17 +17,17 @@ export type Article = {
     address: Address,
   },
   categories: any[],
-  tags: any[],
+  // tags: any[],
   people: {
-    address: Address,
+    // address: Address,
     type: string,
     fullName: string,
   }[],
-  companies?: [{
-    name: string,
-    country: string,
-  }],
-  links: any[],
+  // companies?: [{
+  //   name: string,
+  //   country: string,
+  // }],
+  links: string[],
   emotionalDescription?: string,
   datePublished: string | Date,
 }
