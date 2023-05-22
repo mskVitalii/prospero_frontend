@@ -11,6 +11,13 @@ const defaultSearchString: SearchString = {
 
 const initialState: SearchState = {
   filterStrings: [defaultSearchString],
+  filterCountry: [],
+  filterPeople: [],
+  filterPublishers: [],
+  filterTime: {
+    start: new Date(new Date().getDate() - 7),
+    end: new Date(Date.now())
+  }
 }
 
 //* Общий slice для поисковых сущностей
