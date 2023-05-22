@@ -4,11 +4,9 @@ import styles from './LayoutMain.module.scss'
 import classNames from "classnames";
 
 import { Inter } from 'next/font/google'
-import { Text } from '@mantine/core';
 
 import { LayoutHeader } from '@widgets/LayoutHeader';
-import { YandexMap } from "@widgets/YandexMap";
-
+import { YandexMap } from "@entities/article";
 import { useSearchArticlesMutation } from '@entities/search';
 
 

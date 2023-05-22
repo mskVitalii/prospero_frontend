@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { MultiSelect, Highlight } from '@mantine/core';
 import { useDebouncedState } from '@mantine/hooks';
-import { GoGame } from 'tabler-icons-react';
-import classes from "./SearchByCategory.module.scss"
+import { Users } from 'tabler-icons-react';
+import classes from "./SearchByPeople.module.scss"
 
-export const SearchByCategory = () => {
+export const SearchByPeople = () => {
   const [search, setSearch] = useDebouncedState("", 250);
-  const [data, setData] = useState(['politics', 'economics', 'tech', 'medicine', 'law', 'games'])
+  const [data, setData] = useState(['Joe Biden', 'Donald Tramp', 'Barack Obama', 'George Bush', 'Bill Klinton'])
 
   useEffect(() => {
     if (search.length === 0) return
@@ -16,20 +16,19 @@ export const SearchByCategory = () => {
 
 
   return <MultiSelect
-    icon={<GoGame size="1rem" />}
+    icon={<Users size="1rem" />}
     className={classes.filter}
     itemComponent={SelectItemRef}
     data={data.map(x => ({ value: x, label: x, search }))}
-    label="Categories"
-    placeholder="politics..."
+    label="People"
+    placeholder="Joe Biden..."
     searchable clearable
     onSearchChange={setSearch}
-    nothingFound="No such category"
+    nothingFound="No such person"
     filter={(value, selected, item) =>
-      !selected
-      && item.value?.toLowerCase().includes(value.toLowerCase().trim())
-    }
-  />
+      !selected &&
+      (item.value?.toLowerCase().includes(value.toLowerCase().trim()))
+    } />
 }
 
 

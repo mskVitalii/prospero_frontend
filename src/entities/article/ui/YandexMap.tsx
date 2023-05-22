@@ -48,8 +48,7 @@ export const YandexMap = () => {
   }}>
     <Map
       instanceRef={mapsRef}
-      width={"100%"}
-      height={"100%"}
+      width={"100%"} height={"100%"}
       modules={["control.ZoomControl"]}
       defaultOptions={{ autoFitToViewport: "always" }}
       defaultState={{ center: [55.75, 37.57], zoom: 8 }}>
