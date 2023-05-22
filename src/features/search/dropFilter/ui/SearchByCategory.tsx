@@ -18,7 +18,7 @@ export const SearchByCategory = () => {
   return <MultiSelect
     icon={<Category size="1rem" />}
     className={classes.filter}
-    itemComponent={SelectItem}
+    itemComponent={SelectItemRef}
     data={data.map(x => ({ value: x, label: x, search }))}
     label="Categories"
     placeholder="Pick all that you like"
@@ -38,9 +38,10 @@ interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
   label: string
 }
 
-const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
-  ({ label, search, ...others }: ItemProps, ref) =>
-    <Highlight highlight={[search]} ref={ref} {...others}>
+const SelectItemRef = React.forwardRef<HTMLDivElement, ItemProps>(
+  function SelectItem({ label, search, ...others }: ItemProps, ref) {
+    return <Highlight highlight={[search]} ref={ref} {...others}>
       {label}
     </Highlight>
+  }
 );
