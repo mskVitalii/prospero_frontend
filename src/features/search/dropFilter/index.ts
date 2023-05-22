@@ -1,0 +1,1 @@
+export { SearchByCategory } from "./ui/SearchByCategory"

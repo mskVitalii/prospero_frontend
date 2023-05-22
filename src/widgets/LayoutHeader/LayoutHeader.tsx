@@ -4,14 +4,15 @@ import { Group, Text } from '@mantine/core';
 import { useAppSelector } from '@shared/lib';
 import { SearchField } from '@widgets/SearchField';
 import { SearchButton, SearchOperatorAND } from '@features/search/stringFilter';
+import { SearchByCategory } from '@features/search/dropFilter';
 
 
 export const LayoutHeader = () => {
   const filterStrings = useAppSelector(({ search }) => search.filterStrings)
-  const filterString = filterStrings
-    .filter(x => x.search.length !== 0)
-    .map(x => `(${x.isNegative ? "НЕ" : ""} ${x.isExact ? `&ldquo;${x.search}&rdquo;` : x.search})`)
-    .join(" && ")
+  // const filterString = filterStrings
+  //   .filter(x => x.search.length !== 0)
+  //   .map(x => `(${x.isNegative ? "НЕ" : ""} ${x.isExact ? `&ldquo;${x.search}&rdquo;` : x.search})`)
+  //   .join(" && ")
 
   return <section className={styles.filters}>
 
@@ -25,7 +26,8 @@ export const LayoutHeader = () => {
     </Group>
 
     <div>
-      <Text>[Debounced value]: {filterString}</Text>
+      {/* <Text>[Debounced value]: {filterString}</Text> */}
+      <SearchByCategory />
     </div>
   </section>
 }

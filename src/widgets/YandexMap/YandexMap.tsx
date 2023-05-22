@@ -24,9 +24,6 @@ export const YandexMap = () => {
         <p>${article.description}</p>
 
         <div class="${classes.section}">
-        </div>
-
-        <div class="${classes.section}">
           <p><b>Categories</b>: ${article.categories.map(c => `<em>#${c}</em>`).join(" ")}</p>
           </div>
 
@@ -44,38 +41,36 @@ export const YandexMap = () => {
   })) ?? []
 
 
-  return <div className={classes.container}>
-    <YMaps preload query={{
-      apikey: config.Y_MAPS_ID,
-      mode: config.IS_PROD ? "release" : "debug",
-      lang: "en_RU",
-    }}>
-      <Map
-        instanceRef={mapsRef}
-        width={"100%"}
-        height={"600px"}
-        modules={["control.ZoomControl"]}
-        defaultOptions={{ autoFitToViewport: "always" }}
-        defaultState={{ center: [55.75, 37.57], zoom: 8 }}>
-        {/* <SearchControl options={{ float: "right" }} /> */}
-        {mapArticles?.map((article, i) =>
-          <Placemark
-            key={i}
-            instanceRef={ref => {
-              if (!ref) return
+  return <YMaps preload query={{
+    apikey: config.Y_MAPS_ID,
+    mode: config.IS_PROD ? "release" : "debug",
+    lang: "en_RU",
+  }}>
+    <Map
+      instanceRef={mapsRef}
+      width={"100%"}
+      height={"100%"}
+      modules={["control.ZoomControl"]}
+      defaultOptions={{ autoFitToViewport: "always" }}
+      defaultState={{ center: [55.75, 37.57], zoom: 8 }}>
+      {/* <SearchControl options={{ float: "right" }} /> */}
+      {mapArticles?.map((article, i) =>
+        <Placemark
+          key={i}
+          instanceRef={ref => {
+            if (!ref) return
 
-              if (clickEventsRef.current.includes(article.URL)) return
-              clickEventsRef.current.push(article.URL)
+            if (clickEventsRef.current.includes(article.URL)) return
+            clickEventsRef.current.push(article.URL)
 
-              ref.events.add('click', (e) => {
-                e.stopPropagation()
-                const coords = (e.originalEvent.target.geometry as any)["_coordinates"]
-                console.log("click", coords, article);
-                openBalloon([Number(coords[0]), Number(coords[1])], article)
-              });
-            }}
-            defaultGeometry={[article.latitude, article.longitude]} />)}
-      </Map>
-    </YMaps>
-  </div>
+            ref.events.add('click', (e) => {
+              e.stopPropagation()
+              const coords = (e.originalEvent.target.geometry as any)["_coordinates"]
+              console.log("click", coords, article);
+              openBalloon([Number(coords[0]), Number(coords[1])], article)
+            });
+          }}
+          defaultGeometry={[article.latitude, article.longitude]} />)}
+    </Map>
+  </YMaps>
 }

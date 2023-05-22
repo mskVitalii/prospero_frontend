@@ -20,22 +20,26 @@ export const LayoutMain = () => {
   })
 
   return <main className={classNames(styles.main, inter.className)}>
-    <LayoutHeader/>
+    <LayoutHeader />
 
     {/* <section>
       <Text>Пример redux</Text>
       <Counter />
     </section> */}
 
-    <section className={styles.news}>
+    {/* <section className={styles.news}>
       {Boolean(articles?.length) && articles?.map((newsItem, i) =>
         <div key={i}>
           <h3>{newsItem.name}</h3>
           <Text>{newsItem.description}</Text>
         </div>)}
-    </section>
+    </section> */}
     <section className={styles.map}>
-      <YandexMap></YandexMap>
+      <YandexMap />
+    </section>
+
+    <section className={styles.timeFilter}>
+
     </section>
   </main>
 }
