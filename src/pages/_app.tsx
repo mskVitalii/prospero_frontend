@@ -7,8 +7,8 @@ import { YandexMetricaProvider } from 'next-yandex-metrica';
 import '@shared/ui/base.scss'
 
 
-
 export default function App({ Component, pageProps }: AppProps) {
+
   return <>
     <Provider store={store}>
       <MantineProvider
@@ -19,12 +19,15 @@ export default function App({ Component, pageProps }: AppProps) {
           colorScheme: 'light',
         }}
       >
-        <YandexMetricaProvider
-          tagID={config.YM_ID}
-          initParameters={{ clickmap: true, trackLinks: true, accurateTrackBounce: true }}
-        >
-          <Component {...pageProps} />
-        </YandexMetricaProvider>
+        {config.IS_PROD ?
+          <YandexMetricaProvider
+            tagID={config.Y_METRICA_ID}
+            initParameters={{ clickmap: true, trackLinks: true, accurateTrackBounce: true }}
+          >
+            <Component {...pageProps} />
+          </YandexMetricaProvider>
+          : <Component {...pageProps} />}
+
       </MantineProvider>
     </Provider>
   </>

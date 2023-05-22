@@ -42,7 +42,6 @@ export const mockArticles: Article[] = [
     "tags": [
       "Politics"
     ],
-
     "image": "",
     "people": [
       {
@@ -2998,4 +2997,22 @@ export const mockArticles: Article[] = [
       }
     ]
   }
-]
+].map(article => ({
+  ...article,
+  URL: article.links[0],
+  address: {
+    ...article.address,
+    coords: getCoords(article.address.coords)
+  },
+  publisher: {
+    ...article.publisher,
+    address: {
+      ...article.publisher.address,
+      coords: getCoords(article.publisher.address.coords)
+    }
+  },
+}))
+
+function getCoords(arr: number[]): [number, number] {
+  return [arr[0], arr[1]]
+}
