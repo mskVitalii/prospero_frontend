@@ -22,12 +22,14 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-redux": "^8.0.5",
+    "react-svg-map": "^2.2.0",
     "tabler-icons-react": "^1.56.0"
   },
   "devDependencies": {
     "@types/node": "^18.16.1",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.1",
+    "@types/react-svg-map": "^2.1.2",
     "eslint": "^8.39.0",
     "eslint-config-next": "^13.3.1",
     "sass": "^1.62.1",

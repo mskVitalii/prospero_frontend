@@ -4,7 +4,7 @@ import { Group, Flex } from '@mantine/core';
 import { useAppSelector } from '@shared/lib';
 import { SearchField } from '@widgets/SearchField';
 import { SearchButton, SearchOperatorAND } from '@features/search/stringFilter';
-import { SearchByCategory, SearchByPeople, SearchByPublisher } from '@features/search/dropFilter';
+import { SearchByCategory, SearchByCountry, SearchByPeople, SearchByPublisher } from '@features/search/dropFilter';
 
 
 export const LayoutHeader = () => {
@@ -25,11 +25,12 @@ export const LayoutHeader = () => {
       <SearchButton />
     </Group>
 
-    <Flex gap="xl" className={styles.dropDownFilters}>
+    <Flex gap="xl" justify={"center"} className={styles.dropDownFilters}>
       {/* <Text>[Debounced value]: {filterString}</Text> */}
       <SearchByCategory />
       <SearchByPeople />
       <SearchByPublisher />
+      <SearchByCountry />
     </Flex>
   </section>
 }
