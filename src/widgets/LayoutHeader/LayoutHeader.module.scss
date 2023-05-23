@@ -2,7 +2,9 @@
   position        : relative;
   width           : 100%;
   background-color: gainsboro;
-  padding         : 2.5rem 6rem 1.5rem 6rem;
+  padding-block   : 1.5rem;
+  max-height      : 20vh;
+  z-index         : 1;
 }
 
 .dropDownFilters {
