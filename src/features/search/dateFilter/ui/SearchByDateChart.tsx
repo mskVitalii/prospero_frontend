@@ -69,7 +69,6 @@ const data = [
 
 const SearchByDateChart = () => {
 
-  const first = useRef()
   return <ResponsiveContainer width="100%" height="95%">
     <BarChart
       data={data}
