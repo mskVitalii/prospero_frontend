@@ -6,11 +6,11 @@ export const searchApi = baseApi.injectEndpoints({
   endpoints: build => ({
     searchArticles: build.mutation<Article[], string>({
       query: (search: string) => ({
-        url: "/search",
+        url: "/grandFilter",
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ search }),
+        body: { search },
         method: methodTypes.POST
       }),
       invalidatesTags: [tagTypes.SEARCH_TAG],
