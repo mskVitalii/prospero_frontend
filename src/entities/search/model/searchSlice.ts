@@ -15,8 +15,8 @@ const initialState: SearchState = {
   filterPeople: [],
   filterPublishers: [],
   filterTime: {
-    start: new Date(new Date().getDate() - 7),
-    end: new Date(Date.now())
+    start: new Date(new Date().getDate() - 7).toJSON(),
+    end: new Date(Date.now()).toJSON()
   }
 }
 

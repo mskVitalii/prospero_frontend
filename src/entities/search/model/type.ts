@@ -29,9 +29,9 @@ export type SearchCountry = {
 
 export type SeachTime = {
   /** Начало временного диапазона */
-  start: Date
+  start: string
   /** Окончание временного диапазона */
-  end: Date
+  end: string
 }
 
 
