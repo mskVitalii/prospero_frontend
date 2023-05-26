@@ -10,6 +10,8 @@ export const YandexMap = () => {
   const [_, { data: articles }] = useSearchArticlesMutation({
     fixedCacheKey: "shared-search-articles"
   })
+  console.table(articles)
+
   const mapsRef = useRef<ymaps.Map>()
   const clickEventsRef = useRef<string[]>([])
 
@@ -35,7 +37,7 @@ export const YandexMap = () => {
 
   const mapArticles = mockArticles?.map(article => ({
     ...article,
-    categories: [...article.categories, article.categories[0]],
+    categories: article.categories,
     latitude: (55.75 - 1 + Math.random() * 2).toFixed(4),
     longitude: (37.57 - 1 + Math.random() * 2).toFixed(4),
   })) ?? []

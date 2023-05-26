@@ -7,16 +7,16 @@ import { Inter } from 'next/font/google'
 
 import { LayoutHeader } from '@widgets/LayoutHeader';
 import { YandexMap } from "@entities/article";
-import { useSearchArticlesMutation } from '@entities/search';
+// import { useSearchArticlesMutation } from '@entities/search';
 import SearchByDateChart from '@features/search/dateFilter/ui/SearchByDateChart';
 
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const LayoutMain = () => {
-  const [_, { data: articles }] = useSearchArticlesMutation({
-    fixedCacheKey: "shared-search-articles"
-  })
+  // const [_, { data: articles }] = useSearchArticlesMutation({
+  //   fixedCacheKey: "shared-search-articles"
+  // })
 
   return <main className={classNames(styles.main, inter.className)}>
     <LayoutHeader />

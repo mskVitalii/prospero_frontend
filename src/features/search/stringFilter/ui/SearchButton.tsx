@@ -5,14 +5,13 @@ import { useSearchArticlesMutation } from '@entities/search'
 
 
 export const SearchButton = () => {
-  const filterStrings = useAppSelector(({ search }) => search.filterStrings)
+  const search = useAppSelector(({ search }) => search)
   const [searchTrigger] = useSearchArticlesMutation({
     fixedCacheKey: "shared-search-articles"
   })
 
   function runSearch() {
-    const filterString = filterStrings.map(x => x.search).join(" && ")
-    searchTrigger(filterString)
+    searchTrigger(search)
   }
 
   return <Button
