@@ -10,8 +10,7 @@ export const SearchByPeople = () => {
 
   useEffect(() => {
     if (search.length === 0) return
-    console.log("рисую: " + search + "_FETCHED");
-    setData(prev => Array.from(new Set([...prev, search + "_FETCHED"])))
+    setData(prev => Array.from(new Set([...prev, search])))
   }, [search])
 
 
@@ -20,7 +19,7 @@ export const SearchByPeople = () => {
     className={classes.filter}
     itemComponent={SelectItemRef}
     data={data.map(x => ({ value: x, label: x, search }))}
-    label="People"
+    label="Люди"
     placeholder="Joe Biden..."
     searchable clearable
     onSearchChange={setSearch}

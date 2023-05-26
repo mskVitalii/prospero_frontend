@@ -1,0 +1,27 @@
+.remove-btn {
+  position        : absolute;
+  right           : 0;
+  top             : 0;
+  transform       : translate(50%, -50%);
+  border-radius   : 50%;
+  aspect-ratio    : 1/1;
+  width           : max-content;
+  background-color: rgb(136, 132, 216);
+  padding         : 0;
+  transition      : transform, scale, opacity, box-shadow 0.3s;
+  opacity         : 0;
+
+  &:hover {
+    filter          : saturate(1.4);
+    background-color: rgb(136, 132, 216);
+    box-shadow      : rgb(136, 132, 216) 0px 1px 5px 1px;
+  }
+
+  &:active {
+    transform: translate(50%, -50%) scale(1.1);
+  }
+
+  &:focus {
+    opacity: 1;
+  }
+}

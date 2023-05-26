@@ -10,8 +10,7 @@ export const SearchByCategory = () => {
 
   useEffect(() => {
     if (search.length === 0) return
-    console.log("рисую: " + search + "_FETCHED");
-    setData(prev => Array.from(new Set([...prev, search + "_FETCHED"])))
+    setData(prev => Array.from(new Set([...prev, search])))
   }, [search])
 
 
@@ -20,7 +19,7 @@ export const SearchByCategory = () => {
     className={classes.filter}
     itemComponent={SelectItemRef}
     data={data.map(x => ({ value: x, label: x, search }))}
-    label="Categories"
+    label="Категории"
     placeholder="politics..."
     searchable clearable
     onSearchChange={setSearch}

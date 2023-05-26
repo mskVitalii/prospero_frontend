@@ -15,7 +15,9 @@ export const SearchButton = () => {
     searchTrigger(filterString)
   }
 
-  return <Button onClick={runSearch}>
+  return <Button
+    variant="gradient" gradient={{ from: 'orange', to: 'red' }}
+    onClick={runSearch}>
     Search
   </Button>
 }

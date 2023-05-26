@@ -1,4 +1,10 @@
 .search-field {
-  background-color: gray;
-  border-radius   : 15px;
+  border-radius: 15px;
+  position     : relative;
+  outline      : black 1rem;
+
+  &:hover button {
+    transition: opacity 0.3s;
+    opacity   : 1;
+  }
 }

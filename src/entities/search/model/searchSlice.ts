@@ -3,7 +3,7 @@ import { SearchState, SearchString } from "./type"
 
 
 const defaultSearchString: SearchString = {
-  stringId: 0,
+  stringId: Date.now().toString(),
   search: "",
   isNegative: false,
   isExact: false
@@ -27,23 +27,28 @@ export const searchSlice = createSlice({
   reducers: {
     //* 1. поисковые строки с операторами !, && и ""
     createSearchString: (state) => {
-      const last = state.filterStrings.length
-      state.filterStrings.push({ ...defaultSearchString, stringId: last })
+      state.filterStrings.push({ ...defaultSearchString, stringId: Date.now().toString() })
     },
     updateSearchString: (state, { payload }: PayloadAction<SearchString>) => {
-      state.filterStrings[payload.stringId] = payload
+      const id = state.filterStrings.findIndex(x => x.stringId === payload.stringId)
+      if (id === -1) return
+      state.filterStrings[id] = payload
     },
     deleteSearchString: (state, { payload }: PayloadAction<SearchString>) => {
-      state.filterStrings
+      state.filterStrings = state.filterStrings
         .filter(({ stringId }) => stringId !== payload.stringId)
     },
     toggleNegativeSearchString: (state, { payload }: PayloadAction<SearchString>) => {
-      state.filterStrings[payload.stringId].isNegative =
-        !state.filterStrings[payload.stringId].isNegative
+      const id = state.filterStrings.findIndex(x => x.stringId === payload.stringId)
+      if (id === -1) return
+      state.filterStrings[id].isNegative =
+        !state.filterStrings[id].isNegative
     },
     toggleExactSearchString: (state, { payload }: PayloadAction<SearchString>) => {
-      state.filterStrings[payload.stringId].isExact =
-        !state.filterStrings[payload.stringId].isExact
+      const id = state.filterStrings.findIndex(x => x.stringId === payload.stringId)
+      if (id === -1) return
+      state.filterStrings[id].isExact =
+        !state.filterStrings[id].isExact
     },
     //TODO 2. поиск по выпадающим менюшкам
     //TODO 3. поиск по карте

@@ -1,6 +1,6 @@
 /** Поисковая строка */
 export type SearchString = {
-  stringId: number
+  stringId: string
   /** Поисковая строка */
   search: string
   /** Оператор инверсии: новости БЕЗ этого search */

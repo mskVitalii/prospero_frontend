@@ -22,9 +22,8 @@ export const SearchByCountry = () => {
 
   return <Popover position="bottom" withArrow shadow="md">
     <Popover.Target>
-      <div>
+      <div className={classes.filterWrapper}>
         <MultiSelect
-          style={{ pointerEvents: "none" }}
           data={countriesData}
           limit={20}
           className={classes.filter}
@@ -33,7 +32,7 @@ export const SearchByCountry = () => {
           itemComponent={Item}
           readOnly
           placeholder="United States"
-          label="Location" />
+          label="Страна" />
       </div>
     </Popover.Target>
     <Popover.Dropdown w={"100%"}>

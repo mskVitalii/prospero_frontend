@@ -8,11 +8,11 @@ import classes from "./SearchByPublisher.module.scss"
 export const SearchByPublisher = () => {
   const [trigger, { data }] = useSearchPublishersMutation()
   const [search, setSearch] = useDebouncedState("", 250);
-  data && console.table(data)
 
   useEffect(() => {
-    if (search.length === 0) return
+    // if (search.length === 0) return
     trigger({ name: search })
+    data && console.table(data)
   }, [search])
 
 
@@ -21,7 +21,7 @@ export const SearchByPublisher = () => {
     className={classes.filter}
     itemComponent={SelectItemRef}
     data={data?.map(x => ({ value: x.name, label: x.name, search })) ?? []}
-    label="Publisher"
+    label="Издание"
     placeholder="The New York Times"
     searchable clearable
     onSearchChange={setSearch}
