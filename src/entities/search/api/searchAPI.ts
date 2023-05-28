@@ -15,7 +15,11 @@ export const searchApi = baseApi.injectEndpoints({
         method: methodTypes.POST
       }),
       invalidatesTags: [tagTypes.SEARCH_TAG],
-      transformResponse: (rawResult: { data: Article[] }) => rawResult.data
+      transformResponse: (rawResult: { data: Article[] }, meta) => {
+        const traceID = meta?.response?.headers.get("Prospero-Trace-Id")
+        console.log(`${meta?.request.url} traceID=${traceID}`)
+        return rawResult.data
+      }
     }),
   })
 })
