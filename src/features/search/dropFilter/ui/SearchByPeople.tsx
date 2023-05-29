@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { MultiSelect, Highlight } from '@mantine/core';
 import { useDebouncedState } from '@mantine/hooks';
 import { Users } from 'tabler-icons-react';
+import { search as store } from '@entities/search';
+import { useAppDispatch, useAppSelector } from '@shared/lib';
 import classes from "./SearchByPeople.module.scss"
 
 export const SearchByPeople = () => {
@@ -13,6 +15,15 @@ export const SearchByPeople = () => {
     setData(prev => Array.from(new Set([...prev, search])))
   }, [search])
 
+  //#region Redux
+  const dispatch = useAppDispatch()
+  const peopleStore = useAppSelector(({ search }) => search.filterPeople).map(x => x.name)
+
+  function selectPeople(value: string[]) {
+    const publishers = value.map(id => ({ name: id }))
+    dispatch(store.changePeopleFilter(publishers))
+  }
+  //#endregion
 
   return <MultiSelect
     icon={<Users size="1rem" />}
@@ -24,6 +35,8 @@ export const SearchByPeople = () => {
     searchable clearable
     onSearchChange={setSearch}
     nothingFound="Человек не найден"
+    value={peopleStore}
+    onChange={selectPeople}
     transitionProps={{ duration: 150, transition: 'pop-top-left', timingFunction: 'ease' }}
     filter={(value, selected, item) =>
       !selected &&

@@ -9,6 +9,11 @@ export type SearchString = {
   isExact: boolean
 }
 
+/** Фильтр по категориям */
+export type SearchCategory = {
+  name: string
+}
+
 /** Фильтр по людям */
 export type SearchPeople = {
   /** имя */
@@ -41,6 +46,7 @@ export type SearchState = {
   filterStrings: SearchString[]
   filterPeople: SearchPeople[]
   filterPublishers: SearchPublishers[]
+  filterCategories: SearchCategory[]
   filterCountry: SearchCountry[]
   filterTime: SeachTime
 }

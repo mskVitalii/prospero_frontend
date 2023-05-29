@@ -13,7 +13,7 @@ import { ScrollArea } from '@mantine/core';
 const inter = Inter({ subsets: ['latin'] })
 
 export const LayoutMain = () => {
-  const [isFeed, setIsFeed] = useState(true)
+  const [isFeed, setIsFeed] = useState(false)
 
   return <ScrollArea h={"100vh"} w={"100vw"} type="scroll" className={classes.scroll}>
     <main className={classNames(classes.main, inter.className)}>

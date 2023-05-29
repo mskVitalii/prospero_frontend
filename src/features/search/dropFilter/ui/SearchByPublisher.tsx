@@ -4,6 +4,8 @@ import { MultiSelect, Highlight } from '@mantine/core';
 import { useDebouncedState } from '@mantine/hooks';
 import { News } from 'tabler-icons-react';
 import classes from "./SearchByPublisher.module.scss"
+import { useAppDispatch, useAppSelector } from '@shared/lib';
+import { search as store } from '@entities/search';
 
 export const SearchByPublisher = () => {
   const [trigger, { data }] = useSearchPublishersMutation()
@@ -14,6 +16,15 @@ export const SearchByPublisher = () => {
     data && console.table(data)
   }, [search])
 
+  //#region Redux
+  const dispatch = useAppDispatch()
+  const publishersStore = useAppSelector(({ search }) => search.filterPublishers).map(x => x.name)
+
+  function selectPublisher(value: string[]) {
+    const publishers = value.map(id => ({ name: id }))
+    dispatch(store.changePublishersFilter(publishers))
+  }
+  //#endregion
 
   return <MultiSelect
     icon={<News size="1rem" />}
@@ -25,6 +36,8 @@ export const SearchByPublisher = () => {
     searchable clearable
     onSearchChange={setSearch}
     nothingFound="Издание не найдено"
+    value={publishersStore}
+    onChange={selectPublisher}
     transitionProps={{ duration: 150, transition: 'pop-top-left', timingFunction: 'ease' }}
     filter={(value, selected, item) => !selected}
   />

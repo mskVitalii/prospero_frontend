@@ -22,7 +22,6 @@ export const Feed = () => {
   const [aggregation, setAggregation] = useState("Категории")
 
   // articles && console.table(articles);
-  articles && console.log(articles.map(x => x.publisher.name));
 
   const groupArticles = (articles ?? []).reduce((acc, cur) => {
     switch (aggregation) {
@@ -49,7 +48,6 @@ export const Feed = () => {
     }
     return acc;
   }, {} as GroupArticles)
-  console.log(groupArticles);
 
   return <>
 

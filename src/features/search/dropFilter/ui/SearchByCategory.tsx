@@ -3,6 +3,9 @@ import { MultiSelect, Highlight } from '@mantine/core';
 import { useDebouncedState } from '@mantine/hooks';
 import { GoGame } from 'tabler-icons-react';
 import classes from "./SearchByCategory.module.scss"
+import { search as store } from '@entities/search';
+import { useAppDispatch, useAppSelector } from '@shared/lib';
+
 
 export const SearchByCategory = () => {
   const [search, setSearch] = useDebouncedState("", 250);
@@ -12,6 +15,16 @@ export const SearchByCategory = () => {
     if (search.length === 0) return
     setData(prev => Array.from(new Set([...prev, search])))
   }, [search])
+
+  //#region Redux
+  const dispatch = useAppDispatch()
+  const categoriesStore = useAppSelector(({ search }) => search.filterCategories).map(x => x.name)
+
+  function selectCategories(value: string[]) {
+    const categories = value.map(cat => ({ name: cat }))
+    dispatch(store.changeCategoryFilter(categories))
+  }
+  //#endregion  
 
 
   return <MultiSelect
@@ -24,6 +37,8 @@ export const SearchByCategory = () => {
     searchable clearable
     onSearchChange={setSearch}
     nothingFound="No such category"
+    value={categoriesStore}
+    onChange={selectCategories}
     transitionProps={{ duration: 150, transition: 'pop-top-left', timingFunction: 'ease' }}
     filter={(value, selected, item) =>
       !selected

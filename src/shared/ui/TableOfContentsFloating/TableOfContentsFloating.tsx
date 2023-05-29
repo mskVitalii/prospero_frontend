@@ -64,11 +64,8 @@ export function TableOfContentsFloating({ links, title }: TableOfContentsFloatin
     <Box<'a'>
       component="a"
       href={item.link}
-      onClick={(event) => {
-        // event.preventDefault();
-        setActive(index);
-      }}
-      key={item.label}
+      onClick={() => setActive(index)}
+      key={`${item.label}-${index}`}
       className={cx(classesInner.link, { [classesInner.linkActive]: active === index })}
       sx={(theme) => ({ paddingLeft: `calc(${item.order} * ${theme.spacing.lg})` })}
     >

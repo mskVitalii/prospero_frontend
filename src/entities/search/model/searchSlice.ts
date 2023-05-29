@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { SeachTime, SearchCountry, SearchPeople, SearchState, SearchString } from "./type"
+import { SeachTime, SearchCategory, SearchCountry, SearchPeople, SearchPublishers, SearchState, SearchString } from "./type"
 
 
 const defaultSearchString: SearchString = {
@@ -14,6 +14,7 @@ const initialState: SearchState = {
   filterCountry: [],
   filterPeople: [],
   filterPublishers: [],
+  filterCategories: [],
   filterTime: {
     start: new Date(new Date().getDate() - 7).toJSON(),
     end: new Date(Date.now()).toJSON()
@@ -50,11 +51,19 @@ export const searchSlice = createSlice({
       state.filterStrings[id].isExact =
         !state.filterStrings[id].isExact
     },
-    //TODO: 2. поиск по выпадающим менюшкам
-    // add/remove OR changePeopleFilter: (state, { payload }: PayloadAction<SearchPeople[]>) => {
-    //   state.filterCountry = payload
-    // },
-    //* 3. Выпадающее меню карты
+    //* 2. Выпадающее меню категорий
+    changeCategoryFilter: (state, { payload }: PayloadAction<SearchCategory[]>) => {
+      state.filterCategories = payload
+    },
+    //* 3. Выпадающее меню людей
+    changePeopleFilter: (state, { payload }: PayloadAction<SearchPeople[]>) => {
+      state.filterPeople = payload
+    },
+    //* 4. Выпадающее меню публицистов
+    changePublishersFilter: (state, { payload }: PayloadAction<SearchPublishers[]>) => {
+      state.filterPublishers = payload
+    },
+    //* 5. Выпадающее меню карты
     addCountryFilter: (state, { payload }: PayloadAction<SearchCountry>) => {
       state.filterCountry.push(payload)
     },
@@ -65,7 +74,7 @@ export const searchSlice = createSlice({
     changeCountryFilter: (state, { payload }: PayloadAction<SearchCountry[]>) => {
       state.filterCountry = payload
     },
-    //* 4. поиск по диапазону времени
+    //* 6. поиск по диапазону времени
     changeTimeFilter: (state, { payload }: PayloadAction<SeachTime>) => {
       state.filterTime = payload
     },
@@ -81,6 +90,9 @@ export const {
   changeTimeFilter,
   addCountryFilter,
   removeCountryFilter,
-  changeCountryFilter
+  changeCountryFilter,
+  changePublishersFilter,
+  changePeopleFilter,
+  changeCategoryFilter
 } = searchSlice.actions
 export default searchSlice

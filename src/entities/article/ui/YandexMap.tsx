@@ -40,14 +40,13 @@ export const YandexMap = () => {
   }
 
   const mapArticles = (articles ?? [])
-    .map(article => ({
-      ...article,
-      categories: article.categories,
-      datePublished: new Date(new Date(article.datePublished).valueOf() + (- 10 + Math.random() * 20) * 1000 * 60 * 60 * 24),
-      latitude: (55.75 - 0.15 + Math.random() * 0.25).toFixed(4),
-      longitude: (37.57 - 0.25 + Math.random() * 0.5).toFixed(4),
-    }))
-    .sort((a, b) => Number(a.datePublished) - Number(b.datePublished))
+    // .map(article => ({
+    //   ...article,
+    //   datePublished: new Date(new Date(article.datePublished).valueOf() + (- 10 + Math.random() * 20) * 1000 * 60 * 60 * 24),
+    //   latitude: (55.75 - 0.15 + Math.random() * 0.25).toFixed(4),
+    //   longitude: (37.57 - 0.25 + Math.random() * 0.5).toFixed(4),
+    // }))
+    // .sort((a, b) => Number(a.datePublished) - Number(b.datePublished))
     .filter(article => +article.datePublished <= +new Date(filterTime.end))
     .filter(article => +article.datePublished >= +new Date(filterTime.start))
 
@@ -74,7 +73,6 @@ export const YandexMap = () => {
       {mapArticles?.map((article, i) =>
         <Placemark
           key={i}
-          // TODO: цвет в зависимости от издания
           options={{ iconColor: placemarkColors[article.publisher.name] }}
           instanceRef={ref => {
             if (!ref) return
@@ -89,7 +87,7 @@ export const YandexMap = () => {
               openBalloon([Number(coords[0]), Number(coords[1])], article)
             });
           }}
-          defaultGeometry={[article.latitude, article.longitude]} />)}
+          defaultGeometry={[article.publisher.address.coords[1], article.publisher.address.coords[0]]} />)}
     </Map>
   </YMaps>
 }

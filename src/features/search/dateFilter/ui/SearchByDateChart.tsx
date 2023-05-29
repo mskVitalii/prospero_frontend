@@ -94,12 +94,12 @@ const SearchByDateChart = () => {
 
 
   const chartData = (articles ?? [])
-    ?.map(x => new Date(new Date(x.datePublished).valueOf() + (- 10 + Math.random() * 20) * 1000 * 60 * 60 * 24))
+    ?.map(x => new Date(x.datePublished))
     .reduce((acc, current) => {
       const index = acc.findIndex(x => x.publishedDate.getDate() === new Date(current).getDate())
       if (index === -1) {
         acc.push({
-          publishedDate: new Date(current),
+          publishedDate: current,
           publishedCount: 1
         })
       } else {
