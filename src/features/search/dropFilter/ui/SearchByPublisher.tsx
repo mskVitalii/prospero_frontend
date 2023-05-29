@@ -10,7 +10,6 @@ export const SearchByPublisher = () => {
   const [search, setSearch] = useDebouncedState("", 250);
 
   useEffect(() => {
-    // if (search.length === 0) return
     trigger({ name: search })
     data && console.table(data)
   }, [search])
@@ -25,7 +24,8 @@ export const SearchByPublisher = () => {
     placeholder="The New York Times"
     searchable clearable
     onSearchChange={setSearch}
-    nothingFound="..."
+    nothingFound="Издание не найдено"
+    transitionProps={{ duration: 150, transition: 'pop-top-left', timingFunction: 'ease' }}
     filter={(value, selected, item) => !selected}
   />
 }

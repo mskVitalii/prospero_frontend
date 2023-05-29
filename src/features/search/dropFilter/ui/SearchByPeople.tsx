@@ -23,7 +23,8 @@ export const SearchByPeople = () => {
     placeholder="Joe Biden..."
     searchable clearable
     onSearchChange={setSearch}
-    nothingFound="No such person"
+    nothingFound="Человек не найден"
+    transitionProps={{ duration: 150, transition: 'pop-top-left', timingFunction: 'ease' }}
     filter={(value, selected, item) =>
       !selected &&
       (item.value?.toLowerCase().includes(value.toLowerCase().trim()))

@@ -24,6 +24,7 @@ export const SearchByCategory = () => {
     searchable clearable
     onSearchChange={setSearch}
     nothingFound="No such category"
+    transitionProps={{ duration: 150, transition: 'pop-top-left', timingFunction: 'ease' }}
     filter={(value, selected, item) =>
       !selected
       && item.value?.toLowerCase().includes(value.toLowerCase().trim())

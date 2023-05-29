@@ -1,13 +1,18 @@
 import React from 'react'
-import { Group, Flex, Text } from '@mantine/core';
+import { Group, Flex, Text, SegmentedControl } from '@mantine/core';
 import { useAppSelector } from '@shared/lib';
 import { SearchField } from '@widgets/SearchField';
 import { SearchButton, SearchOperatorAND } from '@features/search/stringFilter';
-import { SearchByCategory, SearchByCountry, SearchByPeople, SearchByPublisher } from '@features/search/dropFilter';
+import { SearchByCategory, SearchByCountry, SearchByCountryMiniMap, SearchByPeople, SearchByPublisher } from '@features/search/dropFilter';
 import classes from "./LayoutHeader.module.scss"
 
 
-export const LayoutHeader = () => {
+type Props = {
+  isFeed: boolean
+  setIsFeed: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export const LayoutHeader = (props: Props) => {
   const filterStrings = useAppSelector(({ search }) => search.filterStrings)
   // const filterString = filterStrings
   //   .filter(x => x.search.length !== 0)
@@ -21,7 +26,7 @@ export const LayoutHeader = () => {
     </Text>
   </>
 
-  return <section className={classes.filters}>
+  return <header className={classes.filters}>
 
     <Group position="center">
       {filterStrings.map((searchString, i, arr) => <Group key={searchString.stringId}>
@@ -38,6 +43,16 @@ export const LayoutHeader = () => {
       <SearchByPeople />
       <SearchByPublisher />
       <SearchByCountry />
+      <SearchByCountryMiniMap />
+      {/* Карта VS фид */}
+      <SegmentedControl
+        className={classes.switcher}
+        value={props.isFeed ? "feed" : "map"}
+        onChange={e => props.setIsFeed(e === "feed")}
+        data={[
+          { label: 'Карта', value: 'map' },
+          { label: 'Лента', value: 'feed' },
+        ]} />
     </Flex>
-  </section>
+  </header>
 }

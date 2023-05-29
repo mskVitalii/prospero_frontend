@@ -1,16 +1,20 @@
 import React, { useRef } from "react";
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
 import { useSearchArticlesMutation } from "@entities/search";
-import { Article, config } from "@shared/lib";
-import { mockArticles } from "@pages/api/news";
+import { Article, config, useAppSelector } from "@shared/lib";
+// import { mockArticles } from "@pages/api/news";
 import classes from './YandexMap.module.scss'
 
 
+const colors = ["blue", "red", "green", "gray", "orange", "purple", "black"]
+
 export const YandexMap = () => {
+  const { filterTime } = useAppSelector(({ search }) => search)
+
   const [_, { data: articles }] = useSearchArticlesMutation({
     fixedCacheKey: "shared-search-articles"
   })
-  articles && console.table(articles)
+  // articles && console.table(articles)
 
   const mapsRef = useRef<ymaps.Map>()
   const clickEventsRef = useRef<string[]>([])
@@ -26,7 +30,7 @@ export const YandexMap = () => {
         <p>${article.description}</p>
 
         <div class="${classes.section}">
-          <p><b>Categories</b>: ${article.categories.map(c => `<em>#${c}</em>`).join(" ")}</p>
+          <p><b>Categories</b>: ${article.categories?.map(c => `<em>#${c}</em>`).join(" ")}</p>
           </div>
 
         <div class="${classes.section}">
@@ -35,12 +39,24 @@ export const YandexMap = () => {
       </article>`)
   }
 
-  const mapArticles = mockArticles?.map(article => ({
-    ...article,
-    categories: article.categories,
-    latitude: (55.75 - 0.15 + Math.random() * 0.25).toFixed(4),
-    longitude: (37.57 - 0.25 + Math.random() * 0.5).toFixed(4),
-  })) ?? []
+  const mapArticles = (articles ?? [])
+    .map(article => ({
+      ...article,
+      categories: article.categories,
+      datePublished: new Date(new Date(article.datePublished).valueOf() + (- 10 + Math.random() * 20) * 1000 * 60 * 60 * 24),
+      latitude: (55.75 - 0.15 + Math.random() * 0.25).toFixed(4),
+      longitude: (37.57 - 0.25 + Math.random() * 0.5).toFixed(4),
+    }))
+    .sort((a, b) => Number(a.datePublished) - Number(b.datePublished))
+    .filter(article => +article.datePublished <= +new Date(filterTime.end))
+    .filter(article => +article.datePublished >= +new Date(filterTime.start))
+
+  // console.log("mapArticles", mapArticles.length);
+  const publishersDistinct = Array.from(new Set(articles?.map(x => x.publisher.name)))
+  const placemarkColors = publishersDistinct.reduce((acc, cur, i) => {
+    acc[cur] = colors[i % colors.length]
+    return acc
+  }, {} as { [key: string]: string })
 
 
   return <YMaps preload query={{
@@ -58,6 +74,8 @@ export const YandexMap = () => {
       {mapArticles?.map((article, i) =>
         <Placemark
           key={i}
+          // TODO: цвет в зависимости от издания
+          options={{ iconColor: placemarkColors[article.publisher.name] }}
           instanceRef={ref => {
             if (!ref) return
 
