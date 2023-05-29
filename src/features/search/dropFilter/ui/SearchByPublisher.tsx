@@ -14,6 +14,7 @@ export const SearchByPublisher = () => {
   useEffect(() => {
     trigger({ name: search })
     data && console.table(data)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search])
 
   //#region Redux
