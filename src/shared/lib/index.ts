@@ -3,7 +3,7 @@ export type { NextApiRequestWithBody } from "./NextApiRequestWithBodyType"
 export type {
   Address,
   Article
-} from "./ArticleType"
+} from "../../entities/article/model/type"
 export {
   useAppDispatch,
   useAppSelector

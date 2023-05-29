@@ -1,0 +1,19 @@
+.exact {
+  padding      : 0.5rem 1rem;
+  outline      : black 2px;
+  border-radius: 25px;
+  cursor       : pointer;
+  user-select  : none;
+  background   : gainsboro;
+  border       : gray 2px solid;
+}
+
+.exactTrue {
+  background: aliceblue;
+  border    : aliceblue 2px solid;
+}
+
+.quote {
+  font-size  : 3.125rem;
+  line-height: 1;
+}

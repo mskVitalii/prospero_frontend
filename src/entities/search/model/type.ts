@@ -1,12 +1,17 @@
 /** Поисковая строка */
 export type SearchString = {
-  stringId: number
+  stringId: string
   /** Поисковая строка */
   search: string
   /** Оператор инверсии: новости БЕЗ этого search */
   isNegative: boolean
   /** Оператор полнотекстового поиска: новости ТОЧНО с search */
   isExact: boolean
+}
+
+/** Фильтр по категориям */
+export type SearchCategory = {
+  name: string
 }
 
 /** Фильтр по людям */
@@ -29,9 +34,9 @@ export type SearchCountry = {
 
 export type SeachTime = {
   /** Начало временного диапазона */
-  start: Date
+  start: string
   /** Окончание временного диапазона */
-  end: Date
+  end: string
 }
 
 
@@ -41,6 +46,7 @@ export type SearchState = {
   filterStrings: SearchString[]
   filterPeople: SearchPeople[]
   filterPublishers: SearchPublishers[]
+  filterCategories: SearchCategory[]
   filterCountry: SearchCountry[]
   filterTime: SeachTime
 }

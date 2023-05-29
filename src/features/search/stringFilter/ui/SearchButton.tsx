@@ -1,21 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button } from '@mantine/core'
 import { useAppSelector } from '@shared/lib'
 import { useSearchArticlesMutation } from '@entities/search'
 
 
 export const SearchButton = () => {
-  const filterStrings = useAppSelector(({ search }) => search.filterStrings)
+  const search = useAppSelector(({ search }) => search)
   const [searchTrigger] = useSearchArticlesMutation({
     fixedCacheKey: "shared-search-articles"
   })
 
   function runSearch() {
-    const filterString = filterStrings.map(x => x.search).join(" && ")
-    searchTrigger(filterString)
+    searchTrigger({ ...search, filterStrings: search.filterStrings.filter(x => x.search.length > 0) })
   }
 
-  return <Button onClick={runSearch}>
+  useEffect(() => {
+    runSearch()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  return <Button
+    variant="gradient" gradient={{ from: 'orange', to: 'red' }}
+    onClick={runSearch}>
     Search
   </Button>
 }

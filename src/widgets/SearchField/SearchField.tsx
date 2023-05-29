@@ -1,5 +1,4 @@
 import React from 'react'
-import styles from './SearchField.module.scss'
 import { Group } from '@mantine/core'
 import { SearchString } from '@entities/search'
 import {
@@ -8,16 +7,19 @@ import {
   SearchOperatorEXACT,
   SearchStringRemoveButton
 } from '@features/search/stringFilter'
+import classes from './SearchField.module.scss'
 
 
 type Props = {
+  hasRemove: boolean
   searchString: SearchString
 }
 
-export const SearchField = ({ searchString }: Props) =>
-  <Group className={styles['search-field']}>
-    <SearchOperatorNOT searchString={searchString} />
-    <SearchOperatorEXACT searchString={searchString} />
-    <SearchByString searchString={searchString} />
-    <SearchStringRemoveButton searchString={searchString} />
+export const SearchField = ({ searchString, hasRemove }: Props) =>
+  <Group className={classes['search-field']}>
+    {/* <SearchOperatorNOT searchString={searchString} /> */}
+    <SearchOperatorEXACT searchString={searchString}>
+      <SearchByString searchString={searchString} />
+    </SearchOperatorEXACT>
+    {hasRemove && <SearchStringRemoveButton searchString={searchString} />}
   </Group>
