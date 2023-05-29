@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
+import { YMaps, Map, Placemark, Clusterer } from '@pbe/react-yandex-maps';
 import { useSearchArticlesMutation } from "@entities/search";
 import { Article, config, useAppSelector } from "@shared/lib";
 // import { mockArticles } from "@pages/api/news";
@@ -47,8 +47,8 @@ export const YandexMap = () => {
     //   longitude: (37.57 - 0.25 + Math.random() * 0.5).toFixed(4),
     // }))
     // .sort((a, b) => Number(a.datePublished) - Number(b.datePublished))
-    .filter(article => +article.datePublished <= +new Date(filterTime.end))
-    .filter(article => +article.datePublished >= +new Date(filterTime.start))
+    .filter(article => +new Date(article.datePublished) <= +new Date(filterTime.end))
+    .filter(article => +new Date(article.datePublished) >= +new Date(filterTime.start))
 
   // console.log("mapArticles", mapArticles.length);
   const publishersDistinct = Array.from(new Set(articles?.map(x => x.publisher.name)))
@@ -70,24 +70,29 @@ export const YandexMap = () => {
       defaultOptions={{ autoFitToViewport: "always" }}
       defaultState={{ center: [55.75, 37.57], zoom: 8 }}>
       {/* <SearchControl options={{ float: "right" }} /> */}
-      {mapArticles?.map((article, i) =>
-        <Placemark
-          key={i}
-          options={{ iconColor: placemarkColors[article.publisher.name] }}
-          instanceRef={ref => {
-            if (!ref) return
+      <Clusterer options={{
+        preset: "islands#invertedVioletClusterIcons",
+        groupByCoordinates: false,
+      }}>
+        {mapArticles?.map((article, i) =>
+          <Placemark
+            key={i}
+            options={{ iconColor: placemarkColors[article.publisher.name] }}
+            instanceRef={ref => {
+              if (!ref) return
 
-            if (clickEventsRef.current.includes(article.URL)) return
-            clickEventsRef.current.push(article.URL)
+              if (clickEventsRef.current.includes(article.URL)) return
+              clickEventsRef.current.push(article.URL)
 
-            ref.events.add('click', (e) => {
-              e.stopPropagation()
-              const coords = (e.originalEvent.target.geometry as any)["_coordinates"]
-              console.log("click", coords, article);
-              openBalloon([Number(coords[0]), Number(coords[1])], article)
-            });
-          }}
-          defaultGeometry={[article.publisher.address.coords[1], article.publisher.address.coords[0]]} />)}
+              ref.events.add('click', (e) => {
+                e.stopPropagation()
+                const coords = (e.originalEvent.target.geometry as any)["_coordinates"]
+                console.log("click", coords, article);
+                openBalloon([Number(coords[0]), Number(coords[1])], article)
+              });
+            }}
+            defaultGeometry={[article.publisher.address.coords[1], article.publisher.address.coords[0]]} />)}
+      </Clusterer>
     </Map>
   </YMaps>
 }
