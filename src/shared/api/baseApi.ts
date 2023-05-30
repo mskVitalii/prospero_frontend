@@ -4,7 +4,7 @@ import { tagTypes } from './tags'
 
 export const baseApi = createApi({
   reducerPath: 'api',
-  tagTypes: [tagTypes.COUNTER_TAG, tagTypes.SEARCH_TAG],
+  tagTypes: [tagTypes.SEARCH_TAG],
   baseQuery: fetchBaseQuery({
     baseUrl: config.API_ENDPOINT,
   }),

@@ -19,11 +19,6 @@ export const LayoutMain = () => {
     <main className={classNames(classes.main, inter.className)}>
       <LayoutHeader isFeed={isFeed} setIsFeed={setIsFeed} />
 
-      {/* <section>
-      <Text>Пример redux</Text>
-      <Counter />
-    </section> */}
-
       {isFeed ?
         <section className={classes.news}>
           <Feed />
