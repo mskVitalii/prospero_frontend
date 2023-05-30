@@ -28,15 +28,19 @@ export const FeedItem = ({ article }: Props) => {
 
   return (<article className={classes.article}>
     <h3>
-      <a href={article.URL} className={classes.link}>
-        <Highlight highlight={highlights} sx={highlightColors}>
-          {article.name}
-        </Highlight>
-      </a>
+      <Highlight
+        component='a'
+        href={article.URL}
+        className={classes.link}
+        highlight={highlights}
+        sx={highlightColors}
+      >
+        {article.name}
+      </Highlight>
     </h3>
 
     <TypographyStylesProvider>
-      <Text sx={highlightColors} dangerouslySetInnerHTML={{ __html: article.description }} />
+      <Text dangerouslySetInnerHTML={{ __html: article.description }} />
     </TypographyStylesProvider >
 
     <Text className={classes.section}>

@@ -4,7 +4,7 @@ import { ActionIcon, Center, Divider, Flex, Group, SegmentedControl, Text, Title
 import { ArrowBigTop } from "tabler-icons-react"
 import classes from "./Feed.module.scss"
 import Link from 'next/link';
-import { TableOfContentsFloating } from '@shared/ui';
+import { NothingFoundBackground, TableOfContentsFloating } from '@shared/ui';
 import { feedAggregationData } from './FeedAggregationData';
 import { Article } from '@shared/lib';
 import { FeedItem } from './FeedItem';
@@ -49,8 +49,10 @@ export const Feed = () => {
     return acc;
   }, {} as GroupArticles)
 
-  return <>
+  if (!articles || articles.length === 0)
+    return <NothingFoundBackground />
 
+  return <>
     {/* Группировка */}
     <Center id='top-aggregation' className={classes.aggregation}>
       <Group>
@@ -72,8 +74,8 @@ export const Feed = () => {
     </Link>
 
 
-    {/* Table of content */}
     <Flex direction={"row"}>
+      {/* Оглавление */}
       <div className={classes.contentTable}>
         <TableOfContentsFloating title={aggregation} links={Object
           .entries(groupArticles)
@@ -87,6 +89,7 @@ export const Feed = () => {
         } />
       </div>
 
+      {/* Группы */}
       <div className={classes.feed}>
         {Object
           .entries(groupArticles)
@@ -95,10 +98,7 @@ export const Feed = () => {
             <section className={classes.group} id={`group-${g}`} key={g}>
               <Divider />
               <Title order={2}>{k}</Title>
-
-              {v.map((article, a) =>
-                <FeedItem article={article} key={`${g}-${a}`} />)}
-
+              {v.map((article, a) => <FeedItem article={article} key={`${g}-${a}`} />)}
             </section>)}
       </div>
     </Flex>
