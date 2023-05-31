@@ -22,7 +22,7 @@ export const searchApi = baseApi.injectEndpoints({
         const data = rawResult.data
           ?.map(article => ({
             ...article,
-            datePublished: new Date(new Date(article.datePublished).valueOf() + (- 10 + Math.random() * 20) * 1000 * 60 * 60 * 24),
+            datePublished: new Date(new Date(article.datePublished).valueOf() + (-20 + Math.random() * 20) * 1000 * 60 * 60 * 24),
             address: {
               ...article.address, coords: [
                 Number((55.75 - 0.15 + Math.random() * 0.25).toFixed(4)),

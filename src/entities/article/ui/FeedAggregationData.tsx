@@ -4,7 +4,9 @@ import {
   Users as PeopleIcon,
   GoGame as CategoryIcon,
   World as CountryIcon,
+  CalendarTime as TimeIcon
 } from "tabler-icons-react"
+
 
 export const feedAggregationData = [{
   value: 'Категории',
@@ -29,5 +31,11 @@ export const feedAggregationData = [{
   label: <Center>
     <CountryIcon size="1rem" />
     <Box ml={10}>Странам</Box>
+  </Center>
+}, {
+  value: 'Дата',
+  label: <Center>
+    <TimeIcon size="1rem" />
+    <Box ml={10}>Дате</Box>
   </Center>
 }] 

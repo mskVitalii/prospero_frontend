@@ -30,7 +30,7 @@ export const LayoutHeader = (props: Props) => {
     {i !== arr.length - 1 && <Text className={classes.ampersand}>&&</Text>}
   </>
 
-  const [showFilters, setShowFilters] = useState(true)
+  const [showFilters, setShowFilters] = useState(false)
   function toggleFilters() {
     setShowFilters(prev => !prev)
   }

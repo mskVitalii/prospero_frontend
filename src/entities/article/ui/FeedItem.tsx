@@ -26,6 +26,14 @@ export const FeedItem = ({ article }: Props) => {
     }, {} as { [key: string]: { backgroundColor: string } })
   }
 
+  const dateStr = new Date(article.datePublished).toLocaleString("default", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit"
+  })
+
   return (<article className={classes.article}>
     <h3>
       <Highlight
@@ -51,7 +59,7 @@ export const FeedItem = ({ article }: Props) => {
     </Text>
 
     <div className={classes.section}>
-      <Text>@{article.publisher.name}</Text>
+      <Text>@{article.publisher.name} {dateStr}</Text>
     </div>
   </article >)
 }

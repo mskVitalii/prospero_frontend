@@ -46,6 +46,11 @@ export const Feed = () => {
         const c = cur.address.country
         acc[c] = [...acc[c] ?? [], cur]
         break;
+      case "Дата":
+        const d = new Date(cur.datePublished)
+        const dStr = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`
+        acc[dStr] = [...acc[dStr] ?? [], cur]
+        break;
     }
     return acc;
   }, {} as GroupArticles)
@@ -80,12 +85,30 @@ export const Feed = () => {
       <div className={classes.contentTable}>
         <TableOfContentsFloating title={aggregation} links={Object
           .entries(groupArticles)
-          .sort((a, b) => b[1].length - a[1].length)
-          .map(([k, v], g) => ({
-            label: k,
+          .map(([k, v]) => ({ group: k, data: v }))
+          .sort((a, b) => {
+            switch (aggregation) {
+              case "Дата":
+                return Number(new Date(b.group)) - Number(new Date(a.group))
+              default:
+                return b.data.length - a.data.length
+            }
+          })
+          .map(g => {
+            switch (aggregation) {
+              case "Дата":
+                return {
+                  ...g, group: new Date(g.group).toLocaleString("default", { month: "short", day: "2-digit", year: "numeric" })
+                }
+              default:
+                return { ...g }
+            }
+          })
+          .map(({ group, data }, g) => ({
+            label: group,
             link: `#group-${g}`,
             order: 1,
-            amount: v.length
+            amount: data.length
           }))
         } />
       </div>
@@ -94,12 +117,32 @@ export const Feed = () => {
       <div className={classes.feed}>
         {Object
           .entries(groupArticles)
-          .sort((a, b) => b[1].length - a[1].length)
-          .map(([k, v], g) =>
+          .map(([k, v]) => ({ group: k, data: v }))
+          .sort((a, b) => {
+            switch (aggregation) {
+              case "Дата":
+                return Number(new Date(b.group)) - Number(new Date(a.group))
+              default:
+                return b.data.length - a.data.length
+            }
+          })
+          .map(g => {
+            switch (aggregation) {
+              case "Дата":
+                return {
+                  ...g, group: new Date(g.group).toLocaleString("default", { month: "short", day: "2-digit", year: "numeric" })
+                }
+              default:
+                return { ...g }
+            }
+          })
+          .map(({ group, data }, g) =>
             <section className={classes.group} id={`group-${g}`} key={g}>
               <Divider />
-              <Title order={2}>{k}</Title>
-              {v.map((article, a) => <FeedItem article={article} key={`${g}-${a}`} />)}
+              <Title order={2}>{group}</Title>
+              {data
+                .sort((a, b) => Number(new Date(b.datePublished)) - Number(new Date(a.datePublished)))
+                .map((article, a) => <FeedItem article={article} key={`${g}-${a}`} />)}
             </section>)}
       </div>
     </Flex>
