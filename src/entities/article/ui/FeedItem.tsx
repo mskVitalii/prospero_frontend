@@ -26,17 +26,29 @@ export const FeedItem = ({ article }: Props) => {
     }, {} as { [key: string]: { backgroundColor: string } })
   }
 
+  const dateStr = new Date(article.datePublished).toLocaleString("default", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit"
+  })
+
   return (<article className={classes.article}>
     <h3>
-      <a href={article.URL} className={classes.link}>
-        <Highlight highlight={highlights} sx={highlightColors}>
-          {article.name}
-        </Highlight>
-      </a>
+      <Highlight
+        component='a'
+        href={article.URL}
+        className={classes.link}
+        highlight={highlights}
+        sx={highlightColors}
+      >
+        {article.name}
+      </Highlight>
     </h3>
 
     <TypographyStylesProvider>
-      <Text sx={highlightColors} dangerouslySetInnerHTML={{ __html: article.description }} />
+      <Text dangerouslySetInnerHTML={{ __html: article.description }} />
     </TypographyStylesProvider >
 
     <Text className={classes.section}>
@@ -47,7 +59,7 @@ export const FeedItem = ({ article }: Props) => {
     </Text>
 
     <div className={classes.section}>
-      <Text>@{article.publisher.name}</Text>
+      <Text>@{article.publisher.name} {dateStr}</Text>
     </div>
   </article >)
 }

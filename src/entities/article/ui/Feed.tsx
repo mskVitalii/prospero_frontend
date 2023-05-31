@@ -4,7 +4,7 @@ import { ActionIcon, Center, Divider, Flex, Group, SegmentedControl, Text, Title
 import { ArrowBigTop } from "tabler-icons-react"
 import classes from "./Feed.module.scss"
 import Link from 'next/link';
-import { TableOfContentsFloating } from '@shared/ui';
+import { NothingFoundBackground, TableOfContentsFloating } from '@shared/ui/index';
 import { feedAggregationData } from './FeedAggregationData';
 import { Article } from '@shared/lib';
 import { FeedItem } from './FeedItem';
@@ -15,15 +15,16 @@ type GroupArticles = {
 }
 
 export const Feed = () => {
-  const [_, { data: articles }] = useSearchArticlesMutation({
+  const [_, { data: articlesData }] = useSearchArticlesMutation({
     fixedCacheKey: "shared-search-articles"
   })
+  const articles = articlesData?.data ?? []
 
   const [aggregation, setAggregation] = useState("Категории")
 
   // articles && console.table(articles);
 
-  const groupArticles = (articles ?? []).reduce((acc, cur) => {
+  const groupArticles = articles.reduce((acc, cur) => {
     switch (aggregation) {
       case "Категории":
         cur.categories?.forEach(c => acc[c] = [...acc[c] ?? [], cur])
@@ -45,12 +46,19 @@ export const Feed = () => {
         const c = cur.address.country
         acc[c] = [...acc[c] ?? [], cur]
         break;
+      case "Дата":
+        const d = new Date(cur.datePublished)
+        const dStr = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`
+        acc[dStr] = [...acc[dStr] ?? [], cur]
+        break;
     }
     return acc;
   }, {} as GroupArticles)
 
-  return <>
+  if (articles.length === 0)
+    return <NothingFoundBackground />
 
+  return <>
     {/* Группировка */}
     <Center id='top-aggregation' className={classes.aggregation}>
       <Group>
@@ -72,33 +80,69 @@ export const Feed = () => {
     </Link>
 
 
-    {/* Table of content */}
     <Flex direction={"row"}>
+      {/* Оглавление */}
       <div className={classes.contentTable}>
         <TableOfContentsFloating title={aggregation} links={Object
           .entries(groupArticles)
-          .sort((a, b) => b[1].length - a[1].length)
-          .map(([k, v], g) => ({
-            label: k,
+          .map(([k, v]) => ({ group: k, data: v }))
+          .sort((a, b) => {
+            switch (aggregation) {
+              case "Дата":
+                return Number(new Date(b.group)) - Number(new Date(a.group))
+              default:
+                return b.data.length - a.data.length
+            }
+          })
+          .map(g => {
+            switch (aggregation) {
+              case "Дата":
+                return {
+                  ...g, group: new Date(g.group).toLocaleString("default", { month: "short", day: "2-digit", year: "numeric" })
+                }
+              default:
+                return { ...g }
+            }
+          })
+          .map(({ group, data }, g) => ({
+            label: group,
             link: `#group-${g}`,
             order: 1,
-            amount: v.length
+            amount: data.length
           }))
         } />
       </div>
 
+      {/* Группы */}
       <div className={classes.feed}>
         {Object
           .entries(groupArticles)
-          .sort((a, b) => b[1].length - a[1].length)
-          .map(([k, v], g) =>
+          .map(([k, v]) => ({ group: k, data: v }))
+          .sort((a, b) => {
+            switch (aggregation) {
+              case "Дата":
+                return Number(new Date(b.group)) - Number(new Date(a.group))
+              default:
+                return b.data.length - a.data.length
+            }
+          })
+          .map(g => {
+            switch (aggregation) {
+              case "Дата":
+                return {
+                  ...g, group: new Date(g.group).toLocaleString("default", { month: "short", day: "2-digit", year: "numeric" })
+                }
+              default:
+                return { ...g }
+            }
+          })
+          .map(({ group, data }, g) =>
             <section className={classes.group} id={`group-${g}`} key={g}>
               <Divider />
-              <Title order={2}>{k}</Title>
-
-              {v.map((article, a) =>
-                <FeedItem article={article} key={`${g}-${a}`} />)}
-
+              <Title order={2}>{group}</Title>
+              {data
+                .sort((a, b) => Number(new Date(b.datePublished)) - Number(new Date(a.datePublished)))
+                .map((article, a) => <FeedItem article={article} key={`${g}-${a}`} />)}
             </section>)}
       </div>
     </Flex>

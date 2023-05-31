@@ -10,16 +10,25 @@ const colors = ["blue", "red", "green", "gray", "orange", "purple", "black"]
 
 export const YandexMap = () => {
   const { filterTime } = useAppSelector(({ search }) => search)
-
-  const [_, { data: articles }] = useSearchArticlesMutation({
+  const [_, { data: articlesData }] = useSearchArticlesMutation({
     fixedCacheKey: "shared-search-articles"
   })
+  const articles = articlesData?.data ?? []
   // articles && console.table(articles)
 
   const mapsRef = useRef<ymaps.Map>()
   const clickEventsRef = useRef<string[]>([])
 
   function openBalloon(coords: [number, number], article: Article) {
+    const dateStr = new Date(article.datePublished)
+      .toLocaleString("default", {
+        month: "short",
+        day: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      })
+
     mapsRef.current?.balloon.open(coords,
       `<article class="${classes.balloon}">
         <h3>
@@ -34,12 +43,12 @@ export const YandexMap = () => {
           </div>
 
         <div class="${classes.section}">
-          <p>@${article.publisher.name}</p>
+          <p>@${article.publisher.name} ${dateStr}</p>
         </div>
       </article>`)
   }
 
-  const mapArticles = (articles ?? [])
+  const mapArticles = articles
     // .map(article => ({
     //   ...article,
     //   datePublished: new Date(new Date(article.datePublished).valueOf() + (- 10 + Math.random() * 20) * 1000 * 60 * 60 * 24),
@@ -51,7 +60,7 @@ export const YandexMap = () => {
     .filter(article => +new Date(article.datePublished) >= +new Date(filterTime.start))
 
   // console.log("mapArticles", mapArticles.length);
-  const publishersDistinct = Array.from(new Set(articles?.map(x => x.publisher.name)))
+  const publishersDistinct = Array.from(new Set(articles.map(x => x.publisher.name)))
   const placemarkColors = publishersDistinct.reduce((acc, cur, i) => {
     acc[cur] = colors[i % colors.length]
     return acc
@@ -69,7 +78,6 @@ export const YandexMap = () => {
       modules={["control.ZoomControl"]}
       defaultOptions={{ autoFitToViewport: "always" }}
       defaultState={{ center: [55.75, 37.57], zoom: 8 }}>
-      {/* <SearchControl options={{ float: "right" }} /> */}
       <Clusterer options={{
         preset: "islands#invertedVioletClusterIcons",
         groupByCoordinates: false,
@@ -87,7 +95,6 @@ export const YandexMap = () => {
               ref.events.add('click', (e) => {
                 e.stopPropagation()
                 const coords = (e.originalEvent.target.geometry as any)["_coordinates"]
-                console.log("click", coords, article);
                 openBalloon([Number(coords[0]), Number(coords[1])], article)
               });
             }}
