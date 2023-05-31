@@ -1,6 +1,6 @@
 import React from 'react'
 import { World as WorldIcon } from 'tabler-icons-react';
-import World from "@shared/ui";
+import World from "@shared/ui/index";
 import { SVGMap } from "react-svg-map";
 import { useAppDispatch, useAppSelector } from '@shared/lib';
 import { search } from '@entities/search';

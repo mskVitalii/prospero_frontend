@@ -4,7 +4,7 @@ import { ActionIcon, Center, Divider, Flex, Group, SegmentedControl, Text, Title
 import { ArrowBigTop } from "tabler-icons-react"
 import classes from "./Feed.module.scss"
 import Link from 'next/link';
-import { NothingFoundBackground, TableOfContentsFloating } from '@shared/ui';
+import { NothingFoundBackground, TableOfContentsFloating } from '@shared/ui/index';
 import { feedAggregationData } from './FeedAggregationData';
 import { Article } from '@shared/lib';
 import { FeedItem } from './FeedItem';
@@ -15,15 +15,16 @@ type GroupArticles = {
 }
 
 export const Feed = () => {
-  const [_, { data: articles }] = useSearchArticlesMutation({
+  const [_, { data: articlesData }] = useSearchArticlesMutation({
     fixedCacheKey: "shared-search-articles"
   })
+  const articles = articlesData?.data ?? []
 
   const [aggregation, setAggregation] = useState("Категории")
 
   // articles && console.table(articles);
 
-  const groupArticles = (articles ?? []).reduce((acc, cur) => {
+  const groupArticles = articles.reduce((acc, cur) => {
     switch (aggregation) {
       case "Категории":
         cur.categories?.forEach(c => acc[c] = [...acc[c] ?? [], cur])
@@ -49,7 +50,7 @@ export const Feed = () => {
     return acc;
   }, {} as GroupArticles)
 
-  if (!articles || articles.length === 0)
+  if (articles.length === 0)
     return <NothingFoundBackground />
 
   return <>

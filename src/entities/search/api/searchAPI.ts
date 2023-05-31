@@ -5,7 +5,7 @@ import { SearchState } from '../model/type';
 
 export const searchApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    searchArticles: build.mutation<Article[], SearchState>({
+    searchArticles: build.mutation<{ data: Article[], total: number }, SearchState>({
       query: body => ({
         url: "/grandFilter",
         headers: {
@@ -15,11 +15,11 @@ export const searchApi = baseApi.injectEndpoints({
         method: methodTypes.POST
       }),
       invalidatesTags: [tagTypes.SEARCH_TAG],
-      transformResponse: (rawResult: { data: Article[] }, meta) => {
+      transformResponse: (rawResult: { data: Article[], total: number }, meta) => {
         const traceID = meta?.response?.headers.get("Prospero-Trace-Id")
         console.log(`${meta?.request.url} traceID=${traceID}`)
         // DEMO изменяю дату
-        return rawResult.data
+        const data = rawResult.data
           ?.map(article => ({
             ...article,
             datePublished: new Date(new Date(article.datePublished).valueOf() + (- 10 + Math.random() * 20) * 1000 * 60 * 60 * 24),
@@ -40,6 +40,7 @@ export const searchApi = baseApi.injectEndpoints({
           .sort((a, b) => Number(a.datePublished) - Number(b.datePublished))
           .map(article => ({ ...article, datePublished: article.datePublished.toJSON() }))
         // return rawResult.data
+        return { ...rawResult, data }
       }
     }),
   })

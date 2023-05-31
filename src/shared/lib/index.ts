@@ -1,4 +1,5 @@
 export { config } from "./config"
+export { getNoun } from "./getNoun"
 export type { NextApiRequestWithBody } from "./NextApiRequestWithBodyType"
 export type {
   Address,

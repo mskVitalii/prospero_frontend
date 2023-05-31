@@ -3,52 +3,6 @@ import { useAppDispatch } from '@shared/lib';
 import { BarChart, Bar, Brush, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { search, useSearchArticlesMutation } from '@entities/search';
 
-// const data = [
-//   { published: 456 },
-//   { published: 230 },
-//   { published: 345 },
-//   { published: 450 },
-//   { published: 321 },
-//   { published: 235 },
-//   { published: 267 },
-//   { published: -378 },
-//   { published: -210 },
-//   { published: -23 },
-//   { published: 45 },
-//   { published: 90 },
-//   { published: 130 },
-//   { published: 11 },
-//   { published: 107 },
-//   { published: 926 },
-//   { published: 653 },
-//   { published: 366 },
-//   { published: 486 },
-//   { published: 512 },
-//   { published: 302 },
-//   { published: 425 },
-//   { published: 467 },
-//   { published: -190 },
-//   { published: 194 },
-//   { published: 371 },
-//   { published: 376 },
-//   { published: 295 },
-//   { published: 322 },
-//   { published: 246 },
-//   { published: 33 },
-//   { published: 354 },
-//   { published: 258 },
-//   { published: 359 },
-//   { published: 192 },
-//   { published: 464 },
-//   { published: -2 },
-//   { published: 154 },
-//   { published: 186 },
-// ]
-//   .map<PublishedChart>((x, i) => ({
-//     publishedDate: new Date(Date.now() - i * 1000 * 60 * 60 * 24),
-//     publishedCount: Math.abs(x.published)
-//   }))
-//   .sort((a, b) => Number(a.publishedDate) - Number(b.publishedDate))
 
 type PublishedChart = {
   publishedDate: Date,
@@ -57,9 +11,10 @@ type PublishedChart = {
 
 const SearchByDateChart = () => {
   const dispatch = useAppDispatch()
-  const [_, { data: articles }] = useSearchArticlesMutation({
+  const [_, { data: articlesData }] = useSearchArticlesMutation({
     fixedCacheKey: "shared-search-articles"
   })
+  const articles = articlesData?.data ?? []
   // articles && console.table(articles)
 
 
@@ -83,15 +38,6 @@ const SearchByDateChart = () => {
       end: end.toJSON()
     }))
   }
-
-  // if (articles) {
-  //   const articlesSorted = [...articles]
-  //   articlesSorted?.sort((a, b) => new Date(a.datePublished).getDate() - new Date(b.datePublished).getDate()) ?? []
-  //   const maxDate = articlesSorted.at(0)?.datePublished
-  //   const minDate = articlesSorted.at(articlesSorted.length - 1)?.datePublished
-  //   console.log("SearchByDateChart", maxDate, minDate);
-  // }
-
 
   const chartData = (articles ?? [])
     ?.map(x => new Date(x.datePublished))
