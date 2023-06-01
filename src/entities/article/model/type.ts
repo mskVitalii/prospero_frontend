@@ -28,6 +28,7 @@ export type Article = {
   //   country: string,
   // }],
   links: string[],
+  language: string
   emotionalDescription?: string,
   datePublished: string | Date,
 }

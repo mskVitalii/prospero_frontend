@@ -6,7 +6,7 @@ import classes from "./Feed.module.scss"
 import Link from 'next/link';
 import { NothingFoundBackground, TableOfContentsFloating } from '@shared/ui/index';
 import { feedAggregationData } from './FeedAggregationData';
-import { Article } from '@shared/lib';
+import { Article, langByKey } from '@shared/lib';
 import { FeedItem } from './FeedItem';
 import { InitArticleContext } from '@pages/index';
 
@@ -47,6 +47,10 @@ export const Feed = () => {
       case "Страны":
         const c = cur.address.country
         acc[c] = [...acc[c] ?? [], cur]
+        break;
+      case "Языки":
+        const l = cur.language
+        acc[l] = [...acc[l] ?? [], cur]
         break;
       case "Дата":
         const d = new Date(cur.datePublished)
@@ -102,6 +106,10 @@ export const Feed = () => {
                 return {
                   ...g, group: new Date(g.group).toLocaleString("default", { month: "short", day: "2-digit", year: "numeric" })
                 }
+              case "Языки":
+                return {
+                  ...g, group: langByKey(g.group)
+                }
               default:
                 return { ...g }
             }
@@ -133,6 +141,10 @@ export const Feed = () => {
               case "Дата":
                 return {
                   ...g, group: new Date(g.group).toLocaleString("default", { month: "short", day: "2-digit", year: "numeric" })
+                }
+              case "Языки":
+                return {
+                  ...g, group: langByKey(g.group)
                 }
               default:
                 return { ...g }
