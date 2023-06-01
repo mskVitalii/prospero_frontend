@@ -6,20 +6,23 @@ import { useAppDispatch, useAppSelector } from '@shared/lib';
 import { search } from '@entities/search';
 import { Popover, Flex, ActionIcon } from '@mantine/core';
 import classes from "./SearchByCountryMiniMap.module.scss"
+import { countriesData } from '../model/countriesData';
 
 
 export const SearchByCountryMiniMap = () => {
   const dispatch = useAppDispatch()
-  const countrySearch = useAppSelector(({ search }) => search.filterCountry).map(x => x.country)
+  const countrySearch = useAppSelector(({ search }) => search.filterCountry)
+    .map(x => x.country)
+    .map(x => countriesData.find(c => c.fetchValue === x)!.value)
 
   function onCountryClick(e: any) {
     const { id } = Object.entries(e.target).find(_x => _x[0].startsWith("__reactProps"))?.[1] as { id: string }
+    const country = countriesData.find(c => c.value === id)!.fetchValue
 
     if (countrySearch.includes(id)) {
-      dispatch(search.removeCountryFilter({ country: id }))
+      dispatch(search.removeCountryFilter({ country }))
     } else {
-      // TODO: как включить страну в запрос
-      dispatch(search.addCountryFilter({ country: id }))
+      dispatch(search.addCountryFilter({ country }))
     }
   }
 

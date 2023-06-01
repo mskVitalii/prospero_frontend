@@ -16,7 +16,7 @@ const SearchByDateChart = () => {
     fixedCacheKey: "shared-search-articles"
   })
   const initArticles = useContext(InitArticleContext)
-  const articles = articlesData?.data ?? initArticles.articles ?? []
+  const articles = articlesData !== undefined ? articlesData.data : initArticles.articles
   // articles && console.table(articles)
 
 

@@ -27,8 +27,7 @@ export const LayoutHeader = (props: Props) => {
   const [_, { data: articlesData }] = useSearchArticlesMutation({
     fixedCacheKey: "shared-search-articles"
   })
-  let total: number | "Нет" = articlesData?.total ?? initArticles.total ?? 0
-  if (total === 0) total = "Нет"
+  const total: number = articlesData ? articlesData.total : initArticles.total
   // console.log(articlesData?.total, props.total);
 
   const ampersand = (i: number, arr: any[]) => <>
@@ -51,7 +50,7 @@ export const LayoutHeader = (props: Props) => {
         =
       </Text>
       <Text className={classes.ampersand}>
-        {total} {total === "Нет" ? "Нет статей" : getNoun(total, 'статья', 'статьи', 'статей')}
+        {total === 0 ? `Нет статей` : `${total} ${getNoun(total, 'статья', 'статьи', 'статей')}`}
       </Text>
       <SearchOperatorAND />
       <SearchButton />

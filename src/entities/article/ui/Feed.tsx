@@ -10,6 +10,7 @@ import { langByKey } from '@shared/lib';
 import { FeedItem } from './FeedItem';
 import { Article } from '../model/type';
 import { InitArticleContext } from '@pages/index';
+import { countriesData } from '@features/search/dropFilter/model/countriesData';
 
 
 type GroupArticles = {
@@ -21,8 +22,7 @@ export const Feed = () => {
   const [_, { data: articlesData }] = useSearchArticlesMutation({
     fixedCacheKey: "shared-search-articles"
   })
-  const articles = articlesData?.data ?? initArticles.articles ?? []
-
+  const articles = articlesData !== undefined ? articlesData.data : initArticles.articles
   const [aggregation, setAggregation] = useState("Категории")
 
   // articles && console.table(articles);
@@ -111,6 +111,10 @@ export const Feed = () => {
                 return {
                   ...g, group: langByKey(g.group)
                 }
+              case "Страны":
+                return {
+                  ...g, group: countriesData.find(x => x.fetchValue === g.group)?.label ?? g.group
+                }
               default:
                 return { ...g }
             }
@@ -146,6 +150,10 @@ export const Feed = () => {
               case "Языки":
                 return {
                   ...g, group: langByKey(g.group)
+                }
+              case "Страны":
+                return {
+                  ...g, group: countriesData.find(x => x.fetchValue === g.group)?.label ?? g.group
                 }
               default:
                 return { ...g }

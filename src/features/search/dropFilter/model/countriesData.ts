@@ -1,3 +1,7 @@
+export function countryByValue() {
+  return 
+}
+
 export const countriesData = [
   { label: "ОАЭ", value: "AE" },
   { label: "Афганистан", value: "AF" },
@@ -64,12 +68,14 @@ export const countriesData = [
   { label: "Ирландия", value: "IE" },
   { label: "Израиль", value: "IL" },
   { label: "Италия", value: "IT" },
+  { label: 'Индия', value: 'IN', fetchValue: "India" },
 
   { label: 'Финляндия', value: 'FI' },
-  { label: 'Франция', value: 'FR' },
+  { label: 'Франция', value: 'FR', fetchValue: "France" },
 
   { label: "Габон", value: "GA" },
-  { label: 'Англия', value: 'GB' },
+  { label: 'Англия', value: 'GB', fetchValue: "UK" },
+
   { label: "Гамбия", value: "GM" },
   { label: "Грузия", value: "GE" },
   { label: "Гана", value: "GH" },
@@ -151,7 +157,7 @@ export const countriesData = [
   { label: "Катар", value: "QA" },
 
   { label: "Румыния", value: "RO" },
-  { label: "Россия", value: "RU" },
+  { label: "Россия", value: "RU", fetchValue: "Russia" },
   { label: "Руанда", value: "RW" },
   { label: "Сербия", value: "RS" },
 
@@ -186,7 +192,7 @@ export const countriesData = [
   { label: "Тувалу", value: "TV" },
   { label: "Чад", value: "TD" },
 
-  { label: "США", value: "US" },
+  { label: "США", value: "US", fetchValue: "USA" },
   { label: "Уганда", value: "UG" },
   { label: "Украина", value: "UA" },
   { label: "Уругвай", value: "UY" },
@@ -207,5 +213,6 @@ export const countriesData = [
   { label: "Южная Африка", value: "ZA" },
 ].map(country => ({
   ...country,
-  value: country.value.toLocaleLowerCase()
+  value: country.value.toLocaleLowerCase(),
+  fetchValue: country.fetchValue ?? country.value.toLocaleLowerCase()
 }));

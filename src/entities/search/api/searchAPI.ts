@@ -39,6 +39,7 @@ export const searchApi = baseApi.injectEndpoints({
           }))
           .sort((a, b) => Number(a.datePublished) - Number(b.datePublished))
           .map(article => ({ ...article, datePublished: article.datePublished.toJSON() }))
+          ?? []
         // return rawResult.data
         return { ...rawResult, data }
       }
