@@ -1,6 +1,6 @@
 import { baseApi, methodTypes, tagTypes } from '@shared/api';
-import { Article } from "@shared/lib"
 import { SearchState } from '../model/type';
+import { Article } from '@entities/article/model/type';
 
 
 export const searchApi = baseApi.injectEndpoints({

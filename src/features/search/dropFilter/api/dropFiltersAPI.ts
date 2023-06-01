@@ -1,5 +1,5 @@
 import { baseApi, methodTypes } from "@shared/api"
-import { Category, Language, Publisher, SearchCategories, SearchPublishers } from "./type"
+import { Category, Language, Person, Publisher, SearchCategories, SearchPeople, SearchPublishers } from "./type"
 
 const dropFiltersApi = baseApi.injectEndpoints({
   endpoints: build => ({
@@ -27,11 +27,19 @@ const dropFiltersApi = baseApi.injectEndpoints({
       }),
       transformResponse: (rawResult: { data: Category[] }) => rawResult.data
     }),
+    searchPeople: build.mutation<Person[], SearchPeople>({
+      query: (name) => ({
+        url: `/searchPeopleWithHints?q=${name}`,
+        method: methodTypes.GET
+      }),
+      transformResponse: (rawResult: { data: Person[] }) => rawResult.data
+    })
   })
 })
 
 export const {
   useSearchPublishersMutation,
   useSearchCategoriesMutation,
+  useSearchPeopleMutation,
   useSearchLanguagesQuery
 } = dropFiltersApi

@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import { createContext } from 'react';
 import { LayoutMain } from '@widgets/LayoutMain';
-import { Article, config } from '@shared/lib';
+import { config } from '@shared/lib';
+import { Article } from '@entities/article';
 import { initialSearchState } from '@entities/search/model/searchSlice';
 import { methodTypes } from '@shared/api';
 

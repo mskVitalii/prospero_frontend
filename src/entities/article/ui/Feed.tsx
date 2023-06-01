@@ -6,8 +6,9 @@ import classes from "./Feed.module.scss"
 import Link from 'next/link';
 import { NothingFoundBackground, TableOfContentsFloating } from '@shared/ui/index';
 import { feedAggregationData } from './FeedAggregationData';
-import { Article, langByKey } from '@shared/lib';
+import { langByKey } from '@shared/lib';
 import { FeedItem } from './FeedItem';
+import { Article } from '../model/type';
 import { InitArticleContext } from '@pages/index';
 
 

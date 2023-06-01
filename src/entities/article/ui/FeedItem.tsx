@@ -1,6 +1,6 @@
 import React from 'react'
 import { Article } from '../model/type'
-import { Badge, TypographyStylesProvider, Flex, Text, Highlight, MantineTheme } from '@mantine/core'
+import { Badge, TypographyStylesProvider, Flex, Text, Highlight, MantineTheme, Group } from '@mantine/core'
 import classes from "./FeedItem.module.scss"
 import { useAppSelector } from '@shared/lib'
 
@@ -52,10 +52,32 @@ export const FeedItem = ({ article }: Props) => {
     </TypographyStylesProvider >
 
     <Text className={classes.section}>
-      <Flex gap={"5px"} align={"center"}>
-        <b>Categories</b>:
-        {article.categories?.map((c, i) => <Badge key={`${c}-${i}`}>{c}</Badge>)}
-      </Flex>
+      {article.categories?.length > 0 &&
+        <Flex gap={"5px"} align={"center"}>
+          <b>Категории</b>:
+          <Group style={{ rowGap: "4px" }} spacing="xs">
+            {article.categories?.map((c, i) =>
+              <Badge
+                variant="gradient"
+                gradient={{ from: 'indigo', to: 'cyan' }}
+                key={`${c}-${i}`}>
+                {c}
+              </Badge>)}
+          </Group>
+        </Flex>}
+      {article.people?.length > 0 &&
+        <Flex mt={"6px"} gap={"5px"} align={"center"}>
+          <b>Люди</b>:
+          <Group style={{ rowGap: "4px" }} spacing="xs">
+            {article.people.map(({ fullName }, i) =>
+              <Badge
+                key={`${fullName}-${i}`}
+                variant="gradient"
+                gradient={{ from: 'teal', to: 'blue', deg: 60 }}>
+                {fullName}
+              </Badge>)}
+          </Group>
+        </Flex>}
     </Text>
 
     <div className={classes.section}>

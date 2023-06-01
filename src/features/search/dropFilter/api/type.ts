@@ -19,3 +19,8 @@ export type Category = {
   name: string
 }
 export type SearchCategories = string
+
+export type Person = {
+  fullName: string
+}
+export type SearchPeople = string

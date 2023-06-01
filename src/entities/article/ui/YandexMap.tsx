@@ -1,7 +1,8 @@
 import React, { useContext, useRef } from "react";
 import { YMaps, Map, Placemark, Clusterer } from '@pbe/react-yandex-maps';
 import { useSearchArticlesMutation } from "@entities/search";
-import { Article, config, useAppSelector } from "@shared/lib";
+import { Article } from '../model/type';
+import { config, useAppSelector } from "@shared/lib";
 // import { mockArticles } from "@pages/api/news";
 import classes from './YandexMap.module.scss'
 import { InitArticleContext } from "@pages/index";
@@ -41,8 +42,9 @@ export const YandexMap = () => {
         <p>${article.description}</p>
 
         <div class="${classes.section}">
-          <p><b>Categories</b>: ${article.categories?.map(c => `<em>#${c}</em>`).join(" ")}</p>
-          </div>
+          <p><b>Категории</b>: ${article.categories?.map(c => `<em>#${c}</em>`).join(" ")}</p>
+          <p><b>Люди</b>: ${article.people?.map(c => `<em>#${c.fullName}</em>`).join(" ")}</p>
+        </div>
 
         <div class="${classes.section}">
           <p>@${article.publisher.name} ${dateStr}</p>

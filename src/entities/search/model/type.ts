@@ -10,7 +10,7 @@ export type SearchString = {
 }
 
 export type FilterCategory = { name: string }
-export type FilterPeople = { name: string }
+export type FilterPeople = { fullName: string }
 export type FilterPublishers = { name: string }
 export type FilterCountry = { country: string }
 export type FilterLanguages = { name: string }

@@ -4,7 +4,6 @@ import classes from './LayoutMain.module.scss'
 import classNames from "classnames";
 import { Inter } from 'next/font/google'
 
-import { Article } from '@shared/lib';
 import { LayoutHeader } from '@widgets/LayoutHeader';
 import { Feed, YandexMap } from "@entities/article";
 import SearchByDateChart from '@features/search/dateFilter/ui/SearchByDateChart';
