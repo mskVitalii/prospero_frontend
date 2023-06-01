@@ -36,7 +36,7 @@ export async function getServerSideProps() {
     body: JSON.stringify(body)
   });
   const data: { data: Article[], total: number } = await res.json()
-  console.log(`[SSR] traceID=[${res.headers.get("Prospero-Trace-Id")}] loaded=[${data?.data?.length}] total=[${data?.total}] time=${new Date().toJSON()}`);
+  console.log(`[SSR] traceID=[${res.headers.get("Prospero-Trace-Id")}] loaded=[${data?.data?.length}] total=[${data?.total}] time=[${new Date().toJSON()}]`);
   const articles = data?.data ?? [];
   const total = data?.total ?? 0
   // Pass data to the page via props
