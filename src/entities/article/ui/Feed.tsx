@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useSearchArticlesMutation } from '@entities/search';
 import { ActionIcon, Center, Divider, Flex, Group, SegmentedControl, Text, Title } from '@mantine/core';
 import { ArrowBigTop } from "tabler-icons-react"
@@ -8,6 +8,7 @@ import { NothingFoundBackground, TableOfContentsFloating } from '@shared/ui/inde
 import { feedAggregationData } from './FeedAggregationData';
 import { Article } from '@shared/lib';
 import { FeedItem } from './FeedItem';
+import { InitArticleContext } from '@pages/index';
 
 
 type GroupArticles = {
@@ -15,10 +16,11 @@ type GroupArticles = {
 }
 
 export const Feed = () => {
+  const initArticles = useContext(InitArticleContext)
   const [_, { data: articlesData }] = useSearchArticlesMutation({
     fixedCacheKey: "shared-search-articles"
   })
-  const articles = articlesData?.data ?? []
+  const articles = articlesData?.data ?? initArticles.articles ?? []
 
   const [aggregation, setAggregation] = useState("Категории")
 

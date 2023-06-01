@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useAppDispatch } from '@shared/lib';
 import { BarChart, Bar, Brush, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { search, useSearchArticlesMutation } from '@entities/search';
+import { InitArticleContext } from '@pages/index';
 
 
 type PublishedChart = {
@@ -14,7 +15,8 @@ const SearchByDateChart = () => {
   const [_, { data: articlesData }] = useSearchArticlesMutation({
     fixedCacheKey: "shared-search-articles"
   })
-  const articles = articlesData?.data ?? []
+  const initArticles = useContext(InitArticleContext)
+  const articles = articlesData?.data ?? initArticles.articles ?? []
   // articles && console.table(articles)
 
 

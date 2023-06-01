@@ -31,9 +31,9 @@ export const SearchByString = ({ searchString }: Props) => {
       filterStrings: searchState.filterStrings.filter(x => x.search.length > 0)
     })
   }
-
   return <TextInput
     type='search'
+    w={searchState.filterStrings.length > 1 ? "250px" : "500px"}
     placeholder="Поиск новостей"
     defaultValue={search}
     onChange={e => setSearch(e.currentTarget.value)}

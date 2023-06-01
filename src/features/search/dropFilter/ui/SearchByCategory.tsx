@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { MultiSelect, Highlight } from '@mantine/core';
 import { useDebouncedState } from '@mantine/hooks';
 import { GoGame } from 'tabler-icons-react';
 import classes from "./SearchByCategory.module.scss"
 import { search as store } from '@entities/search';
 import { useAppDispatch, useAppSelector } from '@shared/lib';
+import { useSearchCategoriesMutation } from '../api/dropFiltersAPI';
 
 
 export const SearchByCategory = () => {
   const [search, setSearch] = useDebouncedState("", 250);
-  const [data, setData] = useState(['politics', 'economics', 'tech', 'medicine', 'law', 'games'])
+  const [trigger, { data: dataFetched }] = useSearchCategoriesMutation()
 
   useEffect(() => {
-    if (search.length === 0) return
-    setData(prev => Array.from(new Set([...prev, search])))
+    trigger(search)
+    data.length > 0 && console.table(data)
   }, [search])
 
   //#region Redux
@@ -25,18 +26,19 @@ export const SearchByCategory = () => {
     dispatch(store.changeCategoryFilter(categories))
   }
   //#endregion  
+  const data = [...(dataFetched ?? []).map(x => x.name), ...categoriesStore]
 
 
   return <MultiSelect
     icon={<GoGame size="1rem" />}
     className={classes.filter}
     itemComponent={SelectItemRef}
-    data={data.map(x => ({ value: x, label: x, search }))}
+    data={data.map(name => ({ value: name, label: name, search }))}
     label="Категории"
-    placeholder="politics..."
+    placeholder="Политика"
     searchable clearable
     onSearchChange={setSearch}
-    nothingFound="No such category"
+    nothingFound="Нет такой категории"
     value={categoriesStore}
     onChange={selectCategories}
     transitionProps={{ duration: 150, transition: 'pop-top-left', timingFunction: 'ease' }}

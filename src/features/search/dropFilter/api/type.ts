@@ -10,3 +10,12 @@ export type SearchPublishers = {
   /** название издания */
   name: string
 }
+
+export type Language = {
+  name: string
+}
+
+export type Category = {
+  name: string
+}
+export type SearchCategories = string

@@ -11,7 +11,7 @@ export const searchApi = baseApi.injectEndpoints({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: body,
+        body,
         method: methodTypes.POST
       }),
       invalidatesTags: [tagTypes.SEARCH_TAG],

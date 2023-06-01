@@ -14,10 +14,10 @@ export const SearchButton = () => {
     searchTrigger({ ...search, filterStrings: search.filterStrings.filter(x => x.search.length > 0) })
   }
 
-  useEffect(() => {
-    runSearch()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // useEffect(() => {
+  //   runSearch()
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
   return <Button
     variant="gradient" gradient={{ from: 'orange', to: 'red' }}

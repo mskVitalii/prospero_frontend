@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { YMaps, Map, Placemark, Clusterer } from '@pbe/react-yandex-maps';
 import { useSearchArticlesMutation } from "@entities/search";
 import { Article, config, useAppSelector } from "@shared/lib";
 // import { mockArticles } from "@pages/api/news";
 import classes from './YandexMap.module.scss'
+import { InitArticleContext } from "@pages/index";
 
 
 const colors = ["blue", "red", "green", "gray", "orange", "purple", "black"]
@@ -13,7 +14,8 @@ export const YandexMap = () => {
   const [_, { data: articlesData }] = useSearchArticlesMutation({
     fixedCacheKey: "shared-search-articles"
   })
-  const articles = articlesData?.data ?? []
+  const initArticles = useContext(InitArticleContext)
+  const articles = articlesData?.data ?? initArticles.articles ?? []
   // articles && console.table(articles)
 
   const mapsRef = useRef<ymaps.Map>()

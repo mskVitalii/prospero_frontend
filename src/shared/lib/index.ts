@@ -1,5 +1,6 @@
 export { config } from "./config"
 export { getNoun } from "./getNoun"
+export { langByKey, langKey } from "./langs"
 export type { NextApiRequestWithBody } from "./NextApiRequestWithBodyType"
 export type {
   Address,
