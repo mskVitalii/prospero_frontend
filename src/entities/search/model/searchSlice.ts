@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { SeachTime, SearchCategory, SearchCountry, SearchPeople, SearchPublishers, SearchState, SearchString } from "./type"
+import { FilterTime, FilterCategory, FilterCountry, FilterPeople, FilterPublishers, SearchState, SearchString, FilterLanguages } from "./type"
 
 
 const defaultSearchString: SearchString = {
@@ -9,12 +9,13 @@ const defaultSearchString: SearchString = {
   isExact: false
 }
 
-const initialState: SearchState = {
+export const initialSearchState: SearchState = {
   filterStrings: [defaultSearchString],
   filterCountry: [],
   filterPeople: [],
   filterPublishers: [],
   filterCategories: [],
+  filterLanguages: [],
   filterTime: {
     start: new Date(new Date().getDate() - 7).toJSON(),
     end: new Date(Date.now()).toJSON()
@@ -24,7 +25,7 @@ const initialState: SearchState = {
 //* Общий slice для поисковых сущностей
 export const searchSlice = createSlice({
   name: 'search',
-  initialState,
+  initialState: initialSearchState,
   reducers: {
     //* 1. поисковые строки с операторами !, && и ""
     createSearchString: (state) => {
@@ -51,33 +52,41 @@ export const searchSlice = createSlice({
       state.filterStrings[id].isExact =
         !state.filterStrings[id].isExact
     },
-    //* 2. Выпадающее меню категорий
-    changeCategoryFilter: (state, { payload }: PayloadAction<SearchCategory[]>) => {
+
+    //*---------------------------------------------------------------------- время
+    //* 2. поиск по диапазону времени
+    changeTimeFilter: (state, { payload }: PayloadAction<FilterTime>) => {
+      state.filterTime = payload
+    },
+
+    //*---------------------------------------------------------------------- выпадающие меню
+    //* 3. категорий
+    changeCategoryFilter: (state, { payload }: PayloadAction<FilterCategory[]>) => {
       state.filterCategories = payload
     },
-    //* 3. Выпадающее меню людей
-    changePeopleFilter: (state, { payload }: PayloadAction<SearchPeople[]>) => {
+    //* 4. людей
+    changePeopleFilter: (state, { payload }: PayloadAction<FilterPeople[]>) => {
       state.filterPeople = payload
     },
-    //* 4. Выпадающее меню публицистов
-    changePublishersFilter: (state, { payload }: PayloadAction<SearchPublishers[]>) => {
+    //* 5. публицистов
+    changePublishersFilter: (state, { payload }: PayloadAction<FilterPublishers[]>) => {
       state.filterPublishers = payload
     },
-    //* 5. Выпадающее меню карты
-    addCountryFilter: (state, { payload }: PayloadAction<SearchCountry>) => {
+    //* 6. карта
+    addCountryFilter: (state, { payload }: PayloadAction<FilterCountry>) => {
       state.filterCountry.push(payload)
     },
-    removeCountryFilter: (state, { payload }: PayloadAction<SearchCountry>) => {
+    removeCountryFilter: (state, { payload }: PayloadAction<FilterCountry>) => {
       state.filterCountry = state.filterCountry
         .filter(x => x.country !== payload.country)
     },
-    changeCountryFilter: (state, { payload }: PayloadAction<SearchCountry[]>) => {
+    changeCountryFilter: (state, { payload }: PayloadAction<FilterCountry[]>) => {
       state.filterCountry = payload
     },
-    //* 6. поиск по диапазону времени
-    changeTimeFilter: (state, { payload }: PayloadAction<SeachTime>) => {
-      state.filterTime = payload
-    },
+    //* 7. языки
+    changeLanguagesFilter: (state, { payload }: PayloadAction<FilterLanguages[]>) => {
+      state.filterLanguages = payload
+    }
   }
 })
 
@@ -89,10 +98,11 @@ export const {
   toggleExactSearchString,
   changeTimeFilter,
   addCountryFilter,
+  changePeopleFilter,
   removeCountryFilter,
   changeCountryFilter,
+  changeCategoryFilter,
+  changeLanguagesFilter,
   changePublishersFilter,
-  changePeopleFilter,
-  changeCategoryFilter
 } = searchSlice.actions
 export default searchSlice

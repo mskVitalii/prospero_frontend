@@ -15,15 +15,19 @@ import "react-svg-map/lib/index.css";
 
 export const SearchByCountry = () => {
   const dispatch = useAppDispatch()
-  const countrySearch = useAppSelector(({ search }) => search.filterCountry).map(x => x.country)
+  const countrySearch = useAppSelector(({ search }) => search.filterCountry)
+    .map(x => x.country)
+    .map(x => countriesData.find(c => c.fetchValue === x)!.value)
 
   function selectCountry(value: string[]) {
-    const countries = value.map(id => ({ country: id }))
+    const countries = value.map(id => ({
+      country: countriesData.find(x => x.value === id)!.fetchValue
+    }))
     dispatch(search.changeCountryFilter(countries))
   }
 
   return <MultiSelect
-    data={countriesData}
+    data={countriesData.map(x => ({ value: x.value, label: x.label }))}
     limit={20}
     className={classes.filter}
     value={countrySearch}

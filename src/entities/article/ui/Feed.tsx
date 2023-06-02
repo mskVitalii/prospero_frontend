@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useSearchArticlesMutation } from '@entities/search';
 import { ActionIcon, Center, Divider, Flex, Group, SegmentedControl, Text, Title } from '@mantine/core';
 import { ArrowBigTop } from "tabler-icons-react"
@@ -6,8 +6,11 @@ import classes from "./Feed.module.scss"
 import Link from 'next/link';
 import { NothingFoundBackground, TableOfContentsFloating } from '@shared/ui/index';
 import { feedAggregationData } from './FeedAggregationData';
-import { Article } from '@shared/lib';
+import { langByKey } from '@shared/lib';
 import { FeedItem } from './FeedItem';
+import { Article } from '../model/type';
+import { InitArticleContext } from '@pages/index';
+import { countriesData } from '@features/search/dropFilter/model/countriesData';
 
 
 type GroupArticles = {
@@ -15,11 +18,11 @@ type GroupArticles = {
 }
 
 export const Feed = () => {
+  const initArticles = useContext(InitArticleContext)
   const [_, { data: articlesData }] = useSearchArticlesMutation({
     fixedCacheKey: "shared-search-articles"
   })
-  const articles = articlesData?.data ?? []
-
+  const articles = articlesData !== undefined ? articlesData.data : initArticles.articles
   const [aggregation, setAggregation] = useState("Категории")
 
   // articles && console.table(articles);
@@ -45,6 +48,10 @@ export const Feed = () => {
       case "Страны":
         const c = cur.address.country
         acc[c] = [...acc[c] ?? [], cur]
+        break;
+      case "Языки":
+        const l = cur.language
+        acc[l] = [...acc[l] ?? [], cur]
         break;
       case "Дата":
         const d = new Date(cur.datePublished)
@@ -100,6 +107,14 @@ export const Feed = () => {
                 return {
                   ...g, group: new Date(g.group).toLocaleString("default", { month: "short", day: "2-digit", year: "numeric" })
                 }
+              case "Языки":
+                return {
+                  ...g, group: langByKey(g.group)
+                }
+              case "Страны":
+                return {
+                  ...g, group: countriesData.find(x => x.fetchValue === g.group)?.label ?? g.group
+                }
               default:
                 return { ...g }
             }
@@ -131,6 +146,14 @@ export const Feed = () => {
               case "Дата":
                 return {
                   ...g, group: new Date(g.group).toLocaleString("default", { month: "short", day: "2-digit", year: "numeric" })
+                }
+              case "Языки":
+                return {
+                  ...g, group: langByKey(g.group)
+                }
+              case "Страны":
+                return {
+                  ...g, group: countriesData.find(x => x.fetchValue === g.group)?.label ?? g.group
                 }
               default:
                 return { ...g }

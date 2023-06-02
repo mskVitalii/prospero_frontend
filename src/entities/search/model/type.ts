@@ -9,44 +9,22 @@ export type SearchString = {
   isExact: boolean
 }
 
-/** Фильтр по категориям */
-export type SearchCategory = {
-  name: string
-}
-
-/** Фильтр по людям */
-export type SearchPeople = {
-  /** имя */
-  name: string
-}
-
-/** Фильтр по издания */
-export type SearchPublishers = {
-  /** название издания */
-  name: string
-}
-
-/** Фильтр по местоположению */
-export type SearchCountry = {
-  /** название страны */
-  country: string
-}
-
-export type SeachTime = {
-  /** Начало временного диапазона */
-  start: string
-  /** Окончание временного диапазона */
-  end: string
-}
+export type FilterCategory = { name: string }
+export type FilterPeople = { fullName: string }
+export type FilterPublishers = { name: string }
+export type FilterCountry = { country: string }
+export type FilterLanguages = { name: string }
+export type FilterTime = { start: string, end: string }
 
 
 /** Все поисковые фильтры */
 export type SearchState = {
   /** Массив поисковых строк, оператор объединения && */
   filterStrings: SearchString[]
-  filterPeople: SearchPeople[]
-  filterPublishers: SearchPublishers[]
-  filterCategories: SearchCategory[]
-  filterCountry: SearchCountry[]
-  filterTime: SeachTime
+  filterPeople: FilterPeople[]
+  filterPublishers: FilterPublishers[]
+  filterCategories: FilterCategory[]
+  filterLanguages: FilterLanguages[]
+  filterCountry: FilterCountry[]
+  filterTime: FilterTime
 }

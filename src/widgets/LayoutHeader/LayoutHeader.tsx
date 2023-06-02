@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Group, Flex, Text, SegmentedControl, ActionIcon } from '@mantine/core';
 import { getNoun, useAppSelector } from '@shared/lib';
 import { SearchField } from '@widgets/SearchField';
 import { SearchButton, SearchOperatorAND } from '@features/search/stringFilter';
-import { SearchByCategory, SearchByCountry, SearchByCountryMiniMap, SearchByPeople, SearchByPublisher } from '@features/search/dropFilter';
+import { SearchByCategory, SearchByCountry, SearchByCountryMiniMap, SearchByLanguage, SearchByPeople, SearchByPublisher } from '@features/search/dropFilter';
 import { useSearchArticlesMutation } from '@entities/search';
 import { Filter, FilterOff } from 'tabler-icons-react';
 import classes from "./LayoutHeader.module.scss"
+import { InitArticleContext } from '@pages/index';
 
 
 type Props = {
@@ -21,10 +22,13 @@ export const LayoutHeader = (props: Props) => {
   //   .map(x => `(${x.isNegative ? "НЕ" : ""} ${x.isExact ? `&ldquo;${x.search}&rdquo;` : x.search})`)
   //   .join(" && ")
 
+  const initArticles = useContext(InitArticleContext)
+
   const [_, { data: articlesData }] = useSearchArticlesMutation({
     fixedCacheKey: "shared-search-articles"
   })
-  const total = articlesData?.total ?? 0
+  const total: number = articlesData ? articlesData.total : initArticles.total
+  // console.log(articlesData?.total, props.total);
 
   const ampersand = (i: number, arr: any[]) => <>
     {i !== arr.length - 1 && <Text className={classes.ampersand}>&&</Text>}
@@ -46,7 +50,7 @@ export const LayoutHeader = (props: Props) => {
         =
       </Text>
       <Text className={classes.ampersand}>
-        {total} {getNoun(total, 'статья', 'статьи', 'статей')}
+        {total === 0 ? `Нет статей` : `${total} ${getNoun(total, 'статья', 'статьи', 'статей')}`}
       </Text>
       <SearchOperatorAND />
       <SearchButton />
@@ -61,6 +65,7 @@ export const LayoutHeader = (props: Props) => {
       {/* <Text>[Debounced value]: {filterString}</Text> */}
       <SearchByCategory />
       <SearchByPeople />
+      <SearchByLanguage />
       <SearchByPublisher />
       <SearchByCountry />
       <SearchByCountryMiniMap />

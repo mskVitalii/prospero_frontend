@@ -20,7 +20,7 @@ export type Article = {
   // tags: any[],
   people: {
     // address: Address,
-    type: string,
+    // type: string,
     fullName: string,
   }[],
   // companies?: [{
@@ -28,6 +28,7 @@ export type Article = {
   //   country: string,
   // }],
   links: string[],
+  language: string
   emotionalDescription?: string,
   datePublished: string | Date,
 }

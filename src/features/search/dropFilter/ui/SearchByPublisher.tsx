@@ -8,12 +8,12 @@ import { useAppDispatch, useAppSelector } from '@shared/lib';
 import { search as store } from '@entities/search';
 
 export const SearchByPublisher = () => {
-  const [trigger, { data }] = useSearchPublishersMutation()
   const [search, setSearch] = useDebouncedState("", 250);
+  const [trigger, { data: dataFetched }] = useSearchPublishersMutation()
 
   useEffect(() => {
     trigger({ name: search })
-    data && console.table(data)
+    data.length > 0 && console.table(data)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search])
 
@@ -26,12 +26,14 @@ export const SearchByPublisher = () => {
     dispatch(store.changePublishersFilter(publishers))
   }
   //#endregion
+  const data = [...(dataFetched ?? []).map(x => x.name), ...publishersStore]
+
 
   return <MultiSelect
     icon={<News size="1rem" />}
     className={classes.filter}
     itemComponent={SelectItemRef}
-    data={data?.map(x => ({ value: x.name, label: x.name, search })) ?? []}
+    data={data.map(name => ({ value: name, label: name, search })) ?? []}
     label="Издание"
     placeholder="The New York Times"
     searchable clearable

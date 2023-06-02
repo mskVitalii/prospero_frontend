@@ -1,29 +1,32 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { MultiSelect, Highlight } from '@mantine/core';
 import { useDebouncedState } from '@mantine/hooks';
 import { Users } from 'tabler-icons-react';
 import { search as store } from '@entities/search';
 import { useAppDispatch, useAppSelector } from '@shared/lib';
+import { useSearchPeopleMutation } from '../api/dropFiltersAPI';
 import classes from "./SearchByPeople.module.scss"
 
 export const SearchByPeople = () => {
   const [search, setSearch] = useDebouncedState("", 250);
-  const [data, setData] = useState(['Joe Biden', 'Donald Tramp', 'Barack Obama', 'George Bush', 'Bill Klinton'])
+  const [trigger, { data: dataFetched }] = useSearchPeopleMutation()
 
   useEffect(() => {
-    if (search.length === 0) return
-    setData(prev => Array.from(new Set([...prev, search])))
+    trigger(search)
+    data.length > 0 && console.table(data)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search])
 
   //#region Redux
   const dispatch = useAppDispatch()
-  const peopleStore = useAppSelector(({ search }) => search.filterPeople).map(x => x.name)
+  const peopleStore = useAppSelector(({ search }) => search.filterPeople).map(x => x.fullName)
 
   function selectPeople(value: string[]) {
-    const publishers = value.map(id => ({ name: id }))
-    dispatch(store.changePeopleFilter(publishers))
+    const people = value.map(id => ({ fullName: id }))
+    dispatch(store.changePeopleFilter(people))
   }
   //#endregion
+  const data = [...(dataFetched ?? []).map(x => x.fullName), ...peopleStore]
 
   return <MultiSelect
     icon={<Users size="1rem" />}
@@ -31,7 +34,7 @@ export const SearchByPeople = () => {
     itemComponent={SelectItemRef}
     data={data.map(x => ({ value: x, label: x, search }))}
     label="Люди"
-    placeholder="Joe Biden..."
+    placeholder="Joe Biden"
     searchable clearable
     onSearchChange={setSearch}
     nothingFound="Человек не найден"

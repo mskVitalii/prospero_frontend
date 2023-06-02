@@ -1,6 +1,6 @@
 import { baseApi, methodTypes, tagTypes } from '@shared/api';
-import { Article } from "@shared/lib"
 import { SearchState } from '../model/type';
+import { Article } from '@entities/article/model/type';
 
 
 export const searchApi = baseApi.injectEndpoints({
@@ -11,7 +11,7 @@ export const searchApi = baseApi.injectEndpoints({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: body,
+        body,
         method: methodTypes.POST
       }),
       invalidatesTags: [tagTypes.SEARCH_TAG],
@@ -39,6 +39,7 @@ export const searchApi = baseApi.injectEndpoints({
           }))
           .sort((a, b) => Number(a.datePublished) - Number(b.datePublished))
           .map(article => ({ ...article, datePublished: article.datePublished.toJSON() }))
+          ?? []
         // return rawResult.data
         return { ...rawResult, data }
       }

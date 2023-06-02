@@ -4,7 +4,8 @@ import {
   Users as PeopleIcon,
   GoGame as CategoryIcon,
   World as CountryIcon,
-  CalendarTime as TimeIcon
+  CalendarTime as TimeIcon,
+  MessageLanguage as LanguageIcon,
 } from "tabler-icons-react"
 
 
@@ -31,6 +32,12 @@ export const feedAggregationData = [{
   label: <Center>
     <CountryIcon size="1rem" />
     <Box ml={10}>Странам</Box>
+  </Center>
+}, {
+  value: 'Языки',
+  label: <Center>
+    <LanguageIcon size="1rem" />
+    <Box ml={10}>Языкам</Box>
   </Center>
 }, {
   value: 'Дата',
