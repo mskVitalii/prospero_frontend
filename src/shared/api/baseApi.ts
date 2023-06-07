@@ -1,12 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { config } from '@shared/lib'
 import { tagTypes } from './tags'
 
 export const baseApi = createApi({
   reducerPath: 'api',
   tagTypes: [tagTypes.SEARCH_TAG],
   baseQuery: fetchBaseQuery({
-    baseUrl: config.API_ENDPOINT,
+    baseUrl: "/api"
   }),
   endpoints: _ => ({})
 })
