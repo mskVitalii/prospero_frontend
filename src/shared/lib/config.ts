@@ -15,7 +15,7 @@ declare global {
 }
 
 export const config = {
-  API_ENDPOINT: process.env.NEXT_PUBLIC_API_ENDPOINT,
+  API_ENDPOINT: String(process.env.API_ENDPOINT),
   Y_METRICA_ID: Number(process.env.NEXT_PUBLIC_Y_METRICA_ID),
   Y_MAPS_ID: process.env.NEXT_PUBLIC_Y_MAPS_ID,
   IS_DEV: process.env.NODE_ENV === "development",
