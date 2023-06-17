@@ -35,7 +35,7 @@ const useStyles = createStyles((theme) => ({
 
   links: {
     position: 'relative',
-    marginLeft: "4rem"
+    marginLeft: "min(4rem, 5vw)"
   },
 
   indicator: {
@@ -77,9 +77,7 @@ export function TableOfContentsFloating({ links, title }: TableOfContentsFloatin
   )
 
   return <>
-    <Group mb="md" h={"3rem"} pl={"2rem"}>
-      <Title order={2}>{title}</Title>
-    </Group>
+    <Title mb="md" h={"3rem"} pl={"min(5vw,2rem)"} order={2}>{title}</Title>
     <ScrollArea h={"calc(100vh - 6.5rem)"} type="scroll">
       <div className={classesInner.links}>
         <div

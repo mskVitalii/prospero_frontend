@@ -1,30 +1,14 @@
 import React from 'react'
 import { Article } from '../model/type'
-import { Badge, TypographyStylesProvider, Flex, Text, Highlight, MantineTheme, Group } from '@mantine/core'
+import { Badge, TypographyStylesProvider, Flex, Text, Group } from '@mantine/core'
 import classes from "./FeedItem.module.css"
-import { useAppSelector } from '@shared/lib'
+import Link from 'next/link'
 
-const getColors = (theme: MantineTheme) => [
-  theme.colors.teal[4],
-  theme.colors.grape[4],
-]
 
 type Props = {
   article: Article
 }
 export const FeedItem = ({ article }: Props) => {
-  const highlights = useAppSelector(({ search }) => search.filterStrings)
-    .filter(x => x.isExact && x.search.length > 0)
-    .map(x => x.search)
-
-  function highlightColors(theme: MantineTheme) {
-    const colors = getColors(theme)
-
-    return highlights.reduce((acc, curr, i) => {
-      acc[`& [data-highlight="${curr}"]`] = { backgroundColor: colors[i % colors.length] }
-      return acc
-    }, {} as { [key: string]: { backgroundColor: string } })
-  }
 
   const dateStr = new Date(article.datePublished).toLocaleString("default", {
     month: "short",
@@ -36,15 +20,11 @@ export const FeedItem = ({ article }: Props) => {
 
   return (<article className={classes.article}>
     <h3>
-      <Highlight
-        component='a'
+      <Link
         href={article.URL}
-        className={classes.link}
-        highlight={highlights}
-        sx={highlightColors}
-      >
+        className={classes.link}>
         {article.name}
-      </Highlight>
+      </Link>
     </h3>
 
     <TypographyStylesProvider>
@@ -71,6 +51,7 @@ export const FeedItem = ({ article }: Props) => {
           <Group style={{ rowGap: "4px" }} spacing="xs">
             {article.people.map(({ fullName }, i) =>
               <Badge
+                maw={"30ch"}
                 key={`${fullName}-${i}`}
                 variant="gradient"
                 gradient={{ from: 'teal', to: 'blue', deg: 60 }}>
@@ -80,8 +61,9 @@ export const FeedItem = ({ article }: Props) => {
         </Flex>}
     </Text>
 
-    <div className={classes.section}>
-      <Text>@{article.publisher.name} {dateStr}</Text>
-    </div>
-  </article >)
+    <Flex justify={"space-between"} className={classes.section}>
+      <Text c={"#adadad"}>@{article.publisher.name}</Text>
+      <Text c={"#adadad"}>{dateStr}</Text>
+    </Flex>
+  </article>)
 }

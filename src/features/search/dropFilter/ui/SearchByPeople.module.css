@@ -1,3 +1,9 @@
 .filter {
   width: 250px;
 }
+
+@media screen and (max-width: 900px) {
+  .filter {
+    width: initial;
+  }
+}

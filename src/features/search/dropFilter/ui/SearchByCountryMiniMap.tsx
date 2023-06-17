@@ -40,7 +40,7 @@ export const SearchByCountryMiniMap = () => {
     position="bottom"
     shadow="md">
     <Popover.Target>
-      <Flex align={"flex-end"}>
+      <Flex justify={"center"} align={"flex-end"}>
         <ActionIcon className={classes.filterWrapper}>
           <WorldIcon
             size={"2.125rem"}

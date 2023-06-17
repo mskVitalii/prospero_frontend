@@ -10,3 +10,39 @@
   margin-block  : 2rem;
   padding-inline: 10vw;
 }
+
+@media screen and (max-width: 900px) {
+  .article {
+    border             : 0;
+    border-bottom-width: 0.0625rem;
+    border-bottom-color: #ced4da;
+    border-bottom-style: solid;
+    padding-block      : 1rem;
+    padding-inline     : 0;
+    margin-inline      : 2rem;
+    margin-block       : 0rem 2rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .article {
+    margin-inline: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .article {
+    margin-inline: 1rem;
+  }
+
+  .section {
+    flex-direction: column;
+  }
+}
+
+
+@media screen and (max-width: 330px) {
+  .article {
+    margin-inline: 0.75rem;
+  }
+}

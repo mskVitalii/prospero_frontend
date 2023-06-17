@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useSearchArticlesMutation } from '@entities/search';
-import { ActionIcon, Center, Divider, Flex, Group, SegmentedControl, Text, Title } from '@mantine/core';
+import { ActionIcon, Center, Divider, Flex, Group, ScrollArea, SegmentedControl, Text, Title } from '@mantine/core';
 import { ArrowBigTop } from "tabler-icons-react"
 import classes from "./Feed.module.css"
 import Link from 'next/link';
@@ -68,16 +68,18 @@ export const Feed = () => {
   return <>
     {/* Группировка */}
     <Center id='top-aggregation' className={classes.aggregation}>
-      <Group>
-        <Text>Группировать по</Text>
-        <SegmentedControl value={aggregation} onChange={setAggregation} data={feedAggregationData} />
+      <Group maw={"90vw"}>
+        <Text className={classes.groupByLabel}>Группировать по</Text>
+        <ScrollArea type="never">
+          <SegmentedControl value={aggregation} onChange={setAggregation} data={feedAggregationData} />
+        </ScrollArea>
       </Group>
     </Center>
 
 
     {/* Кнопка наверх */}
-    <Link href='#top-aggregation' className={classes.goTopBtn}>
-      <ActionIcon>
+    <Link href='#top-aggregation'>
+      <ActionIcon className={classes.goTopBtn}>
         <ArrowBigTop
           size={48}
           strokeWidth={2}
@@ -89,7 +91,7 @@ export const Feed = () => {
 
     <Flex direction={"row"}>
       {/* Оглавление */}
-      <div className={classes.contentTable}>
+      <aside className={classes.contentTable}>
         <TableOfContentsFloating title={aggregation} links={Object
           .entries(groupArticles)
           .map(([k, v]) => ({ group: k, data: v }))
@@ -126,7 +128,7 @@ export const Feed = () => {
             amount: data.length
           }))
         } />
-      </div>
+      </aside>
 
       {/* Группы */}
       <div className={classes.feed}>
@@ -161,8 +163,8 @@ export const Feed = () => {
           })
           .map(({ group, data }, g) =>
             <section className={classes.group} id={`group-${g}`} key={g}>
-              <Divider />
-              <Title order={2}>{group}</Title>
+              <Divider className={classes.divider} />
+              <Title className={classes.groupTitle} order={2}>{group}</Title>
               {data
                 .sort((a, b) => Number(new Date(b.datePublished)) - Number(new Date(a.datePublished)))
                 .map((article, a) => <FeedItem article={article} key={`${g}-${a}`} />)}
