@@ -39,9 +39,17 @@ export async function getServerSideProps() {
     });
     const data: { data: Article[], total: number } = await res.json()
     console.log(`[SSR] traceID=[${res.headers.get("Prospero-Trace-Id")}] loaded=[${data?.data?.length}] total=[${data?.total}] time=[${new Date().toJSON()}]`);
-    const articles = data?.data ?? [];
-    const total = data?.total ?? 0
-    // Pass data to the page via props
+    const articles = (data?.data ?? []).map(a => ({
+      ...a, publisher: {
+        ...a.publisher, address: {
+          ...a.publisher.address, coords: [
+            Number((a.publisher.address.coords[0] - 0.1 + Math.random() * 0.2).toFixed(4)),
+            Number((a.publisher.address.coords[1] - 0.1 + Math.random() * 0.2).toFixed(4))] as [number, number]
+        }
+      }
+    }));
+    const total = data?.total ?? articles.length ?? 0
+
     return { props: { articles, total } as Props };
   } catch (error) {
     console.error("[SSR] Не смогли достучаться до сервера", error)

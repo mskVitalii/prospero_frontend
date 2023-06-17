@@ -3,7 +3,7 @@ import { Group } from '@mantine/core'
 import { SearchString } from '@entities/search'
 import {
   SearchByString,
-  SearchOperatorNOT,
+  // SearchOperatorNOT,
   SearchOperatorEXACT,
   SearchStringRemoveButton
 } from '@features/search/stringFilter'

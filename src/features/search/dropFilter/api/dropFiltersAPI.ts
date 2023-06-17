@@ -9,28 +9,28 @@ const dropFiltersApi = baseApi.injectEndpoints({
         headers: {
           'Content-Type': 'application/json',
         },
-        method: methodTypes.GET
+        method: methodTypes.POST
       }),
       transformResponse: (rawResult: { data: Publisher[] }) => rawResult.data
     }),
     searchLanguages: build.query<Language[], void>({
       query: () => ({
         url: `/searchLanguages`,
-        method: methodTypes.GET
+        method: methodTypes.POST
       }),
       transformResponse: (rawResult: { data: Language[] }) => rawResult.data
     }),
     searchCategories: build.mutation<Category[], SearchCategories>({
       query: (name) => ({
         url: `/searchCategoryWithHints?q=${name}`,
-        method: methodTypes.GET
+        method: methodTypes.POST
       }),
       transformResponse: (rawResult: { data: Category[] }) => rawResult.data
     }),
     searchPeople: build.mutation<Person[], SearchPeople>({
       query: (name) => ({
         url: `/searchPeopleWithHints?q=${name}`,
-        method: methodTypes.GET
+        method: methodTypes.POST
       }),
       transformResponse: (rawResult: { data: Person[] }) => rawResult.data
     })

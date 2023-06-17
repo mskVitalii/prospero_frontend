@@ -15,6 +15,7 @@ export default async function handler(
     })
     res.status(prosperoRes.status).json(prosperoResBody)
   } catch (error) {
+    console.error("[PROXY] ошибка", error)
     res.status(500).json({ error })
   }
 };
