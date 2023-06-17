@@ -14,7 +14,6 @@ type Props = {
   isFeed: boolean
   setIsFeed: React.Dispatch<React.SetStateAction<boolean>>
 }
-
 export const LayoutHeader = (props: Props) => {
   const filterStrings = useAppSelector(({ search }) => search.filterStrings)
   // const filterString = filterStrings
