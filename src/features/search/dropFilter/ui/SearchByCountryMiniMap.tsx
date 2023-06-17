@@ -5,7 +5,7 @@ import { SVGMap } from "react-svg-map";
 import { useAppDispatch, useAppSelector } from '@shared/lib';
 import { search } from '@entities/search';
 import { Popover, Flex, ActionIcon } from '@mantine/core';
-import classes from "./SearchByCountryMiniMap.module.scss"
+import classes from "./SearchByCountryMiniMap.module.css"
 import { countriesData } from '../model/countriesData';
 
 

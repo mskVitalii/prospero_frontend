@@ -9,7 +9,7 @@ import {
 } from '@mantine/core';
 import { search } from '@entities/search';
 import { Noto_Color_Emoji } from 'next/font/google';
-import classes from "./SearchByCountry.module.scss"
+import classes from "./SearchByCountry.module.css"
 import "react-svg-map/lib/index.css";
 
 

@@ -5,7 +5,7 @@ import { Users } from 'tabler-icons-react';
 import { search as store } from '@entities/search';
 import { useAppDispatch, useAppSelector } from '@shared/lib';
 import { useSearchPeopleMutation } from '../api/dropFiltersAPI';
-import classes from "./SearchByPeople.module.scss"
+import classes from "./SearchByPeople.module.css"
 
 export const SearchByPeople = () => {
   const [search, setSearch] = useDebouncedState("", 250);

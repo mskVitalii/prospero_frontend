@@ -3,7 +3,6 @@ import { SearchString, search as searchSlice, useSearchArticlesMutation } from '
 import { TextInput } from '@mantine/core'
 import { useDebouncedState } from '@mantine/hooks'
 import { useAppDispatch, useAppSelector } from '@shared/lib'
-import classes from './SearchByString.module.scss'
 
 
 type Props = {

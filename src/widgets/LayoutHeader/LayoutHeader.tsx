@@ -6,7 +6,7 @@ import { SearchButton, SearchOperatorAND } from '@features/search/stringFilter';
 import { SearchByCategory, SearchByCountry, SearchByCountryMiniMap, SearchByLanguage, SearchByPeople, SearchByPublisher } from '@features/search/dropFilter';
 import { useSearchArticlesMutation } from '@entities/search';
 import { Filter, FilterOff } from 'tabler-icons-react';
-import classes from "./LayoutHeader.module.scss"
+import classes from "./LayoutHeader.module.css"
 import { InitArticleContext } from '@pages/index';
 
 

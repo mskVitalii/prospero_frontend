@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import classes from './LayoutMain.module.scss'
+import classes from './LayoutMain.module.css'
 import classNames from "classnames";
 import { Inter } from 'next/font/google'
 

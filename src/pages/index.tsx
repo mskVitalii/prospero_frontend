@@ -28,18 +28,23 @@ export default function Home(props: Props) {
 
 // Подгружаю изначальные статьи
 export async function getServerSideProps() {
-  const body = { ...initialSearchState, filterStrings: initialSearchState.filterStrings.filter(x => x.search.length > 0) }
-  const res = await fetch(`${config.API_ENDPOINT}/grandFilter?size=${25}`, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    method: methodTypes.POST,
-    body: JSON.stringify(body)
-  });
-  const data: { data: Article[], total: number } = await res.json()
-  console.log(`[SSR] traceID=[${res.headers.get("Prospero-Trace-Id")}] loaded=[${data?.data?.length}] total=[${data?.total}] time=[${new Date().toJSON()}]`);
-  const articles = data?.data ?? [];
-  const total = data?.total ?? 0
-  // Pass data to the page via props
-  return { props: { articles, total } as Props };
+  try {
+    const body = { ...initialSearchState, filterStrings: initialSearchState.filterStrings.filter(x => x.search.length > 0) }
+    const res = await fetch(`${config.API_ENDPOINT}/grandFilter?size=${25}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: methodTypes.POST,
+      body: JSON.stringify(body)
+    });
+    const data: { data: Article[], total: number } = await res.json()
+    console.log(`[SSR] traceID=[${res.headers.get("Prospero-Trace-Id")}] loaded=[${data?.data?.length}] total=[${data?.total}] time=[${new Date().toJSON()}]`);
+    const articles = data?.data ?? [];
+    const total = data?.total ?? 0
+    // Pass data to the page via props
+    return { props: { articles, total } as Props };
+  } catch (error) {
+    console.error("[SSR] Не смогли достучаться до сервера", error)
+    return { props: { articles: [], total: 0 } as Props };
+  }
 }

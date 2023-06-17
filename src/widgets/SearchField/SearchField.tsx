@@ -7,7 +7,7 @@ import {
   SearchOperatorEXACT,
   SearchStringRemoveButton
 } from '@features/search/stringFilter'
-import classes from './SearchField.module.scss'
+import classes from './SearchField.module.css'
 
 
 type Props = {

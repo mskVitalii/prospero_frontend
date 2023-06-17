@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { useSearchArticlesMutation } from '@entities/search';
 import { ActionIcon, Center, Divider, Flex, Group, SegmentedControl, Text, Title } from '@mantine/core';
 import { ArrowBigTop } from "tabler-icons-react"
-import classes from "./Feed.module.scss"
+import classes from "./Feed.module.css"
 import Link from 'next/link';
 import { NothingFoundBackground, TableOfContentsFloating } from '@shared/ui/index';
 import { feedAggregationData } from './FeedAggregationData';

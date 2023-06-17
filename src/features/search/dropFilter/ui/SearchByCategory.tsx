@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { MultiSelect, Highlight } from '@mantine/core';
 import { useDebouncedState } from '@mantine/hooks';
 import { GoGame } from 'tabler-icons-react';
-import classes from "./SearchByCategory.module.scss"
+import classes from "./SearchByCategory.module.css"
 import { search as store } from '@entities/search';
 import { useAppDispatch, useAppSelector } from '@shared/lib';
 import { useSearchCategoriesMutation } from '../api/dropFiltersAPI';

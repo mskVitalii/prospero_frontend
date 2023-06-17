@@ -1,7 +1,7 @@
 import React from 'react'
 import { Article } from '../model/type'
 import { Badge, TypographyStylesProvider, Flex, Text, Highlight, MantineTheme, Group } from '@mantine/core'
-import classes from "./FeedItem.module.scss"
+import classes from "./FeedItem.module.css"
 import { useAppSelector } from '@shared/lib'
 
 const getColors = (theme: MantineTheme) => [

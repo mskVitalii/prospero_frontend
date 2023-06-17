@@ -3,7 +3,7 @@ import { useSearchPublishersMutation } from '../api/dropFiltersAPI';
 import { MultiSelect, Highlight } from '@mantine/core';
 import { useDebouncedState } from '@mantine/hooks';
 import { News } from 'tabler-icons-react';
-import classes from "./SearchByPublisher.module.scss"
+import classes from "./SearchByPublisher.module.css"
 import { useAppDispatch, useAppSelector } from '@shared/lib';
 import { search as store } from '@entities/search';
 

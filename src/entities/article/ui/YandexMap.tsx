@@ -4,7 +4,7 @@ import { useSearchArticlesMutation } from "@entities/search";
 import { Article } from '../model/type';
 import { config, useAppSelector } from "@shared/lib";
 // import { mockArticles } from "@pages/api/news";
-import classes from './YandexMap.module.scss'
+import classes from './YandexMap.module.css'
 import { InitArticleContext } from "@pages/index";
 
 

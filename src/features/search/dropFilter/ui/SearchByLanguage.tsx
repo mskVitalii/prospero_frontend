@@ -4,7 +4,7 @@ import { useSearchLanguagesQuery } from '../api/dropFiltersAPI';
 import { langByKey, langKey, useAppDispatch, useAppSelector } from '@shared/lib';
 import { MessageLanguage } from 'tabler-icons-react';
 import { search as store } from '@entities/search';
-import classes from "./SearchByLanguage.module.scss"
+import classes from "./SearchByLanguage.module.css"
 
 
 export const SearchByLanguage = () => {
