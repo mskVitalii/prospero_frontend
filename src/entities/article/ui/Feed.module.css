@@ -25,6 +25,10 @@
   top     : 3rem;
 }
 
+.contentTableMobile {
+  display: none;
+}
+
 .feed {
   width: 80%;
 }
@@ -43,6 +47,11 @@
   .contentTable {
     display: none;
   }
+
+  .contentTableMobile {
+    display: block;
+  }
+
 
   .feed {
     width: 100%;

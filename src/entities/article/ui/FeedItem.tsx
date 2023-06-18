@@ -39,9 +39,10 @@ export const FeedItem = ({ article }: Props) => {
           <Group style={{ rowGap: "4px" }} spacing="xs">
             {article.categories?.map((c, i) =>
               <Badge
+                maw={"30ch"}
                 variant="gradient"
-                gradient={{ from: 'indigo', to: 'cyan' }}
-                key={`${c}-${i}`}>
+                key={`${c}-${i}`}
+                gradient={{ from: 'indigo', to: 'cyan' }}>
                 {c}
               </Badge>)}
           </Group>
@@ -53,8 +54,8 @@ export const FeedItem = ({ article }: Props) => {
             {article.people.map(({ fullName }, i) =>
               <Badge
                 maw={"30ch"}
-                key={`${fullName}-${i}`}
                 variant="gradient"
+                key={`${fullName}-${i}`}
                 gradient={{ from: 'teal', to: 'blue', deg: 60 }}>
                 {fullName}
               </Badge>)}

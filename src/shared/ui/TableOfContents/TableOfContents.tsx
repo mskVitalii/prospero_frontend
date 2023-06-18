@@ -85,7 +85,7 @@ export const TableOfContents = ({ links, title, allShown }: Props) => {
 
   return <>
     <Title mb="md" h={"3rem"} pl={"min(5vw,2rem)"} order={2}>{title}</Title>
-    <ScrollArea h={"calc(100vh - 6.5rem)"} type="scroll">
+    <ScrollArea mah={"calc(100vh - 6.5rem)"} type="scroll">
       <div className={classesInner.links}>
         <div
           className={classesInner.indicator}

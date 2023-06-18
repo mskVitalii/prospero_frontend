@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import Link from 'next/link';
 import { useSearchArticlesMutation } from '@entities/search';
-import { ActionIcon, Button, Center, Flex, Group, ScrollArea, SegmentedControl, Text } from '@mantine/core';
+import { Accordion, ActionIcon, Button, Center, Flex, Group, ScrollArea, SegmentedControl, Text } from '@mantine/core';
 import { ArrowBigTop } from "tabler-icons-react"
 import { NothingFoundBackground, TableOfContents } from '@shared/ui/index';
 import { feedAggregationData } from './FeedAggregationData';
@@ -166,6 +166,15 @@ export const Feed = () => {
       </ActionIcon>
     </Link>
 
+    {/* Мб пускай он ездит до низу? */}
+    <Accordion variant="separated" defaultValue="tableOfContent" className={classes.contentTableMobile}>
+      <Accordion.Item value="tableOfContent">
+        <Accordion.Control>Оглавление</Accordion.Control>
+        <Accordion.Panel>
+          <TableOfContents title={aggregation} links={tableOfContent} allShown={showAll} />
+        </Accordion.Panel>
+      </Accordion.Item>
+    </Accordion>
 
     <Flex direction={"row"}>
       {/* Оглавление */}
