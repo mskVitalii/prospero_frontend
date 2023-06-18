@@ -19,7 +19,6 @@ export const SearchByString = ({ searchString }: Props) => {
 
   useEffect(() => {
     dispatch(searchSlice.updateSearchString({ ...searchString, search }))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, dispatch])
 
   function enterPress(e: React.KeyboardEvent<HTMLInputElement>) {

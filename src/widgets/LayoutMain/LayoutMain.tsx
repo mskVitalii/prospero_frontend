@@ -17,13 +17,14 @@ export const LayoutMain = () => {
   useEffect(() => {
     if (isFeed) return
     if (initialRender) setFirstRender(false)
+    
   }, [isFeed])
 
   return <ScrollArea h={"100vh"} w={"100vw"} type="scroll" className={classes.scroll}>
     <main className={classNames(classes.main, fonts.inter.className)}>
       <LayoutHeader isFeed={isFeed} setIsFeed={setIsFeed} />
 
-      <section className={classes.news} style={{ display: isFeed ? "block" : "none" }}>
+      <section className={classes.news} style={{ display: !isFeed ? "none" : "block" }}>
         <Feed />
       </section>
 

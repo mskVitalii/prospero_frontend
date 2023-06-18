@@ -17,7 +17,7 @@ type GroupArticles = {
   [key: string]: Article[]
 }
 
-export const Feed = React.memo(() => {
+export const Feed = () => {
   //#region Articles
   const initArticles = useContext(InitArticleContext)
   const [_, { data: articlesData }] = useSearchArticlesMutation({
@@ -26,13 +26,13 @@ export const Feed = React.memo(() => {
   const articles = articlesData?.data ?? initArticles.articles
   // articles && console.table(articles);
   //#endregion
+
+  const [aggregation, setAggregation] = useState("Страны")
+  const [showAll, setShowAll] = useState(false)
   if (articles.length === 0)
     return <NothingFoundBackground />
 
   //#region UI
-  const [aggregation, setAggregation] = useState("Страны")
-  const [showAll, setShowAll] = useState(false)
-
   const groupArticles = articles.reduce((acc, cur) => {
     switch (aggregation) {
       case "Категории":
@@ -191,4 +191,4 @@ export const Feed = React.memo(() => {
       </div>
     </Flex>
   </>
-})
+}

@@ -14,7 +14,6 @@ export const SearchByPeople = () => {
   useEffect(() => {
     trigger(search)
     data.length > 0 && console.table(data)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search])
 
   //#region Redux

@@ -58,7 +58,7 @@ type Props = {
   title: string
   allShown: boolean
 }
-export const TableOfContents = React.memo(({ links, title, allShown }: Props) => {
+export const TableOfContents = ({ links, title, allShown }: Props) => {
   const { classes: classesInner, cx } = useStyles();
   const [active, setActive] = useState(0);
   const [showAll, setShowAll] = useState(allShown)
@@ -103,4 +103,4 @@ export const TableOfContents = React.memo(({ links, title, allShown }: Props) =>
         </Button>}
     </ScrollArea>
   </>
-})
+}
