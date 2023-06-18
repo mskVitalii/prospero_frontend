@@ -30,6 +30,7 @@ export const SearchByPeople = () => {
 
   return <MultiSelect
     icon={<Users size="1rem" />}
+    dropdownPosition="bottom"
     className={classes.filter}
     itemComponent={SelectItemRef}
     data={data.map(x => ({ value: x, label: x, search }))}

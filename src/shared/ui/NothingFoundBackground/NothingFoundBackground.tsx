@@ -58,7 +58,7 @@ export function NothingFoundBackground() {
       </svg>
       <div className={classes.content}>
         <Title className={classes.title}>Статей не найдено</Title>
-        <Text color="dimmed" size="lg" align="center" className={classes.description}>
+        <Text component='p' color="dimmed" size="lg" align="center" className={classes.description}>
           Обновите фильтры. По выбранной конфигурации ничего нет
         </Text>
       </div>

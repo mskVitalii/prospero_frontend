@@ -25,6 +25,7 @@ export const SearchByLanguage = () => {
 
   return <MultiSelect
     icon={<MessageLanguage size="1rem" />}
+    dropdownPosition="bottom"
     className={classes.filter}
     itemComponent={SelectItemRef}
     data={data.map(name => ({ value: langByKey(name), label: langByKey(name), search }))}

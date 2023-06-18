@@ -21,6 +21,7 @@ export const FeedItem = ({ article }: Props) => {
   return (<article className={classes.article}>
     <h3>
       <Link
+        target='_blank'
         href={article.URL}
         className={classes.link}>
         {article.name}
@@ -31,7 +32,7 @@ export const FeedItem = ({ article }: Props) => {
       <Text dangerouslySetInnerHTML={{ __html: article.description }} />
     </TypographyStylesProvider >
 
-    <Text className={classes.section}>
+    <Group className={classes.section}>
       {article.categories?.length > 0 &&
         <Flex gap={"5px"} align={"center"}>
           <b>Категории</b>:
@@ -46,7 +47,7 @@ export const FeedItem = ({ article }: Props) => {
           </Group>
         </Flex>}
       {article.people?.length > 0 &&
-        <Flex mt={"6px"} gap={"5px"} align={"center"}>
+        <Flex gap={"5px"} align={"center"}>
           <b>Люди</b>:
           <Group style={{ rowGap: "4px" }} spacing="xs">
             {article.people.map(({ fullName }, i) =>
@@ -59,11 +60,11 @@ export const FeedItem = ({ article }: Props) => {
               </Badge>)}
           </Group>
         </Flex>}
-    </Text>
+    </Group>
 
     <Flex justify={"space-between"} className={classes.section}>
-      <Text c={"#adadad"}>@{article.publisher.name}</Text>
-      <Text c={"#adadad"}>{dateStr}</Text>
+      <Text component='p' c={"#adadad"}>@{article.publisher.name}</Text>
+      <Text component='p' c={"#adadad"}>{dateStr}</Text>
     </Flex>
   </article>)
 }

@@ -19,11 +19,9 @@ export const SearchByCountryMiniMap = () => {
     const { id } = Object.entries(e.target).find(_x => _x[0].startsWith("__reactProps"))?.[1] as { id: string }
     const country = countriesData.find(c => c.value === id)!.fetchValue
 
-    if (countrySearch.includes(id)) {
-      dispatch(search.removeCountryFilter({ country }))
-    } else {
-      dispatch(search.addCountryFilter({ country }))
-    }
+    countrySearch.includes(id)
+      ? dispatch(search.removeCountryFilter({ country }))
+      : dispatch(search.addCountryFilter({ country }))
   }
 
   function isCountrySelected(e: any): boolean {
@@ -41,7 +39,7 @@ export const SearchByCountryMiniMap = () => {
     shadow="md">
     <Popover.Target>
       <Flex justify={"center"} align={"flex-end"}>
-        <ActionIcon className={classes.filterWrapper}>
+        <ActionIcon className={classes.filterWrapper} aria-label='Выбор страны на карте'>
           <WorldIcon
             size={"2.125rem"}
             strokeWidth={1.5}

@@ -31,10 +31,11 @@ export const SearchByCategory = () => {
 
 
   return <MultiSelect
+    dropdownPosition="bottom"
     icon={<GoGame size="1rem" />}
     className={classes.filter}
-    itemComponent={SelectItemRef}
     data={data.map(name => ({ value: name, label: name, search }))}
+    itemComponent={SelectItemRef}
     label="Категории"
     placeholder="Политика"
     searchable clearable

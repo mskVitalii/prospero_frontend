@@ -1,16 +1,16 @@
 import React, { useContext, useState } from 'react'
 import { useSearchArticlesMutation } from '@entities/search';
-import { ActionIcon, Center, Divider, Flex, Group, ScrollArea, SegmentedControl, Text, Title } from '@mantine/core';
+import { ActionIcon, Button, Center, Flex, Group, ScrollArea, SegmentedControl, Text } from '@mantine/core';
 import { ArrowBigTop } from "tabler-icons-react"
-import classes from "./Feed.module.css"
 import Link from 'next/link';
 import { NothingFoundBackground, TableOfContentsFloating } from '@shared/ui/index';
 import { feedAggregationData } from './FeedAggregationData';
 import { langByKey } from '@shared/lib';
-import { FeedItem } from './FeedItem';
 import { Article } from '../model/type';
 import { InitArticleContext } from '@pages/index';
 import { countriesData } from '@features/search/dropFilter/model/countriesData';
+import classes from "./Feed.module.css"
+import FeedGroup from './FeedGroup';
 
 
 type GroupArticles = {
@@ -18,15 +18,21 @@ type GroupArticles = {
 }
 
 export const Feed = () => {
+  //#region Articles
   const initArticles = useContext(InitArticleContext)
   const [_, { data: articlesData }] = useSearchArticlesMutation({
     fixedCacheKey: "shared-search-articles"
   })
   const articles = articlesData !== undefined ? articlesData.data : initArticles.articles
-  const [aggregation, setAggregation] = useState("Категории")
-
   // articles && console.table(articles);
+  //#endregion
+  if (articles.length === 0)
+    return <NothingFoundBackground />
 
+  //#region UI
+  const [aggregation, setAggregation] = useState("Страны")
+  const [showAll, setShowAll] = useState(false)
+  //TODO: useMemo
   const groupArticles = articles.reduce((acc, cur) => {
     switch (aggregation) {
       case "Категории":
@@ -61,9 +67,7 @@ export const Feed = () => {
     }
     return acc;
   }, {} as GroupArticles)
-
-  if (articles.length === 0)
-    return <NothingFoundBackground />
+  //#endregion
 
   return <>
     {/* Группировка */}
@@ -78,8 +82,8 @@ export const Feed = () => {
 
 
     {/* Кнопка наверх */}
-    <Link href='#top-aggregation'>
-      <ActionIcon className={classes.goTopBtn}>
+    <Link href={{ hash: 'top-aggregation' }} title='наверх' scroll={false}>
+      <ActionIcon aria-label="наверх" className={classes.goTopBtn}>
         <ArrowBigTop
           size={48}
           strokeWidth={2}
@@ -134,6 +138,7 @@ export const Feed = () => {
       <div className={classes.feed}>
         {Object
           .entries(groupArticles)
+          .slice(0, showAll ? Object.entries(groupArticles).length : 10)
           .map(([k, v]) => ({ group: k, data: v }))
           .sort((a, b) => {
             switch (aggregation) {
@@ -162,13 +167,24 @@ export const Feed = () => {
             }
           })
           .map(({ group, data }, g) =>
-            <section className={classes.group} id={`group-${g}`} key={g}>
-              <Divider className={classes.divider} />
-              <Title className={classes.groupTitle} order={2}>{group}</Title>
-              {data
-                .sort((a, b) => Number(new Date(b.datePublished)) - Number(new Date(a.datePublished)))
-                .map((article, a) => <FeedItem article={article} key={`${g}-${a}`} />)}
-            </section>)}
+            <FeedGroup
+              key={g}
+              groupId={`group-${g}`}
+              data={data}
+              group={group}
+            />)}
+
+        {Object.entries(groupArticles).length > 10 && !showAll &&
+          <Button
+            className={classes.showAllBtn}
+            variant="outline" color="pink"
+            onClick={() => setShowAll(true)}
+            m={"auto"} mt={"md"}
+            w={"100%"} h={"5rem"}
+            sx={() => ({ color: "#9b3156" })}
+          >
+            Все категории
+          </Button>}
       </div>
     </Flex>
   </>

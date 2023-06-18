@@ -28,6 +28,7 @@ export const SearchByCountry = () => {
 
   return <MultiSelect
     data={countriesData.map(x => ({ value: x.value, label: x.label }))}
+    dropdownPosition="bottom"
     limit={20}
     className={classes.filter}
     value={countrySearch}

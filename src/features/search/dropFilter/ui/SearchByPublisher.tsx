@@ -3,9 +3,9 @@ import { useSearchPublishersMutation } from '../api/dropFiltersAPI';
 import { MultiSelect, Highlight } from '@mantine/core';
 import { useDebouncedState } from '@mantine/hooks';
 import { News } from 'tabler-icons-react';
-import classes from "./SearchByPublisher.module.css"
 import { useAppDispatch, useAppSelector } from '@shared/lib';
 import { search as store } from '@entities/search';
+import classes from "./SearchByPublisher.module.css"
 
 export const SearchByPublisher = () => {
   const [search, setSearch] = useDebouncedState("", 250);
@@ -26,10 +26,11 @@ export const SearchByPublisher = () => {
     dispatch(store.changePublishersFilter(publishers))
   }
   //#endregion
+
   const data = [...(dataFetched ?? []).map(x => x.name), ...publishersStore]
 
-
   return <MultiSelect
+    dropdownPosition="bottom"
     icon={<News size="1rem" />}
     className={classes.filter}
     itemComponent={SelectItemRef}
@@ -42,7 +43,7 @@ export const SearchByPublisher = () => {
     value={publishersStore}
     onChange={selectPublisher}
     transitionProps={{ duration: 150, transition: 'pop-top-left', timingFunction: 'ease' }}
-    filter={(value, selected, item) => !selected}
+    filter={(_, selected) => !selected}
   />
 }
 
