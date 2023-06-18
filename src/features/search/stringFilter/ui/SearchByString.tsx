@@ -3,7 +3,7 @@ import { SearchString, search as searchSlice, useSearchArticlesMutation } from '
 import { TextInput } from '@mantine/core'
 import { useDebouncedState } from '@mantine/hooks'
 import { useAppDispatch, useAppSelector } from '@shared/lib'
-
+import classes from "./SearchByString.module.css"
 
 type Props = {
   searchString: SearchString
@@ -31,6 +31,7 @@ export const SearchByString = ({ searchString }: Props) => {
   }
   return <TextInput
     type='search'
+    className={classes.input}
     w={searchState.filterStrings.length > 1 ? "250px" : "min(40vw,500px)"}
     placeholder="Поиск новостей"
     defaultValue={search}

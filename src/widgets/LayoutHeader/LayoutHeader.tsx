@@ -8,6 +8,7 @@ import { SearchByCategory, SearchByCountry, SearchByCountryMiniMap, SearchByLang
 import { useSearchArticlesMutation } from '@entities/search';
 import { Filter, FilterOff } from 'tabler-icons-react';
 import classes from "./LayoutHeader.module.css"
+import classNames from 'classnames';
 
 
 type Props = {
@@ -44,10 +45,10 @@ export const LayoutHeader = (props: Props) => {
         <SearchField searchString={searchString} hasRemove={arr.length > 1} />
         {ampersand(i, arr)}
       </Group>)}
-      <Text className={classes.equation}>
+      <Text className={classNames(classes.equation, classes.equationEquals)}>
         =
       </Text>
-      <Title order={1} className={classes.equation}>
+      <Title order={1} className={classNames(classes.equation, classes.equationResult)}>
         {total === 0 ? `Нет статей` : `${total} ${getNoun(total, 'статья', 'статьи', 'статей')}`}
       </Title>
       <SearchOperatorAND />
@@ -59,27 +60,29 @@ export const LayoutHeader = (props: Props) => {
       </ActionIcon>
     </Group>
 
-    {showFilters && <ScrollArea w={"90vw"} pb={"sm"} m={"auto"} offsetScrollbars type='hover' className={classes.dropDownFiltersScrollArea}>
-      <Flex gap="xl" justify={"center"} className={classes.dropDownFilters}>
-        <SearchByCategory />
-        <SearchByPeople />
-        <SearchByLanguage />
-        <SearchByPublisher />
-        <Group className={classes.countryGrid} align="end">
-          <SearchByCountry />
-          <SearchByCountryMiniMap />
-        </Group>
-        {/* Карта VS фид */}
-        <SegmentedControl
-          className={classes.switcher}
-          value={props.isFeed ? "feed" : "map"}
-          onChange={e => props.setIsFeed(e === "feed")}
-          data={[
-            { label: 'Лента', value: 'feed' },
-            { label: 'Карта', value: 'map' },
-          ]} />
-      </Flex>
-    </ScrollArea>}
+    {
+      showFilters && <ScrollArea w={"90vw"} pb={"sm"} m={"auto"} offsetScrollbars type='hover' className={classes.dropDownFiltersScrollArea}>
+        <Flex gap="xl" justify={"center"} className={classes.dropDownFilters}>
+          <SearchByCategory />
+          <SearchByPeople />
+          <SearchByLanguage />
+          <SearchByPublisher />
+          <Group className={classes.countryGrid} align="end">
+            <SearchByCountry />
+            <SearchByCountryMiniMap />
+          </Group>
+          {/* Карта VS фид */}
+          <SegmentedControl
+            className={classes.switcher}
+            value={props.isFeed ? "feed" : "map"}
+            onChange={e => props.setIsFeed(e === "feed")}
+            data={[
+              { label: 'Лента', value: 'feed' },
+              { label: 'Карта', value: 'map' },
+            ]} />
+        </Flex>
+      </ScrollArea>
+    }
 
   </header >
 }

@@ -36,7 +36,16 @@
   }
 }
 
-@media screen and (max-width: 330px) {
+@media screen and (max-width: 350px) {
+  .badges {
+    flex-direction: column;
+  }
+
+  .badges>b {
+    text-align: left;
+    width     : 100%;
+  }
+
   .article {
     margin-inline: 0.75rem;
   }

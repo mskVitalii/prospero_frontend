@@ -1,13 +1,13 @@
 .filters {
-  position       : relative;
-  width          : 100%;
-  backdrop-filter: blur(5px);
-  background     : rgba(227, 219, 219, 0.5);
-  border         : 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow     : 0 4px 12px -4px rgba(31, 38, 135, 0.37);
-  padding-block  : 1.5rem;
-  max-height     : max(100%, 20vh);
-  z-index        : 3;
+  position          : relative;
+  width             : 100%;
+  backdrop-filter   : blur(5px);
+  background        : rgba(227, 219, 219, 0.5);
+  border            : 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow        : 0 4px 12px -4px rgba(31, 38, 135, 0.37);
+  padding-block     : 1.5rem;
+  /* max-height     : max(100%, 20vh); */
+  z-index           : 3;
 }
 
 .dropDownFiltersScrollArea {
@@ -43,6 +43,11 @@
   grid-template-columns: auto 1fr;
 }
 
+.equationEquals {
+  width     : 2ch;
+  text-align: center;
+}
+
 @media screen and (max-width: 900px) {
   .dropDownFilters {
     display              : grid;
@@ -64,5 +69,10 @@
 
   .equation {
     font-size: 2.5rem;
+  }
+
+  .equationResult {
+    width     : 100%;
+    text-align: center;
   }
 }

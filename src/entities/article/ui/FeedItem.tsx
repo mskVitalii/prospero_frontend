@@ -1,8 +1,8 @@
 import React from 'react'
+import Link from 'next/link'
 import { Article } from '../model/type'
 import { Badge, TypographyStylesProvider, Flex, Text, Group } from '@mantine/core'
 import classes from "./FeedItem.module.css"
-import Link from 'next/link'
 
 
 type Props = {
@@ -18,7 +18,7 @@ export const FeedItem = ({ article }: Props) => {
     minute: "2-digit"
   })
 
-  return (<article className={classes.article}>
+  return <article className={classes.article}>
     <h3>
       <Link
         target='_blank'
@@ -34,8 +34,8 @@ export const FeedItem = ({ article }: Props) => {
 
     <Group className={classes.section}>
       {article.categories?.length > 0 &&
-        <Flex gap={"5px"} align={"center"}>
-          <b>Категории</b>:
+        <Flex gap={"5px"} align={"center"} className={classes.badges}>
+          <b>Категории:</b>
           <Group style={{ rowGap: "4px" }} spacing="xs">
             {article.categories?.map((c, i) =>
               <Badge
@@ -47,9 +47,9 @@ export const FeedItem = ({ article }: Props) => {
               </Badge>)}
           </Group>
         </Flex>}
-      {article.people?.length > 0 &&
-        <Flex gap={"5px"} align={"center"}>
-          <b>Люди</b>:
+      {article.people?.filter(x => x.fullName.trim() !== "").length > 0 &&
+        <Flex gap={"5px"} align={"center"} className={classes.badges}>
+          <b>Люди:</b>
           <Group style={{ rowGap: "4px" }} spacing="xs">
             {article.people.map(({ fullName }, i) =>
               <Badge
@@ -67,5 +67,5 @@ export const FeedItem = ({ article }: Props) => {
       <Text component='p' c={"#585858"}>@{article.publisher.name}</Text>
       <Text component='p' c={"#585858"}>{dateStr}</Text>
     </Flex>
-  </article>)
+  </article>
 }

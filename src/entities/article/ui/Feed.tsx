@@ -167,7 +167,7 @@ export const Feed = () => {
     </Link>
 
     {/* Мб пускай он ездит до низу? */}
-    <Accordion variant="separated" defaultValue="tableOfContent" className={classes.contentTableMobile}>
+    <Accordion variant="separated" className={classes.contentTableMobile}>
       <Accordion.Item value="tableOfContent">
         <Accordion.Control>Оглавление</Accordion.Control>
         <Accordion.Panel>

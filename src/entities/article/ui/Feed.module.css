@@ -41,7 +41,7 @@
   }
 
   .aggregation {
-    padding-bottom: 4.5rem;
+    padding-bottom: 3rem;
   }
 
   .contentTable {
@@ -49,7 +49,10 @@
   }
 
   .contentTableMobile {
-    display: block;
+    display      : block;
+    width        : calc(100% - 10vw);
+    margin-inline: auto;
+    margin-bottom: 3rem;
   }
 
 
