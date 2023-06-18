@@ -1,3 +1,12 @@
+.divider {
+  width: calc(100% - 10vw);
+}
+
+
+.group {
+  padding-left: 2rem;
+}
+
 .showAllBtn {
   margin-right : 10vw;
   margin-left  : 10vw;
@@ -6,20 +15,16 @@
   padding      : 0;
 }
 
-.group {
-  padding-left: 2rem;
-}
-
 @media screen and (max-width: 900px) {
   .divider {
     display: none;
   }
 
-  .title {
-    font-weight: 900;
-  }
-
   .group {
     padding-inline: 5vw;
+  }
+
+  .title {
+    font-weight: 900;
   }
 }

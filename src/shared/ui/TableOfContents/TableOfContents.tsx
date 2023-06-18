@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, createStyles, rem, Title, Text, Flex, ScrollArea, Button } from '@mantine/core';
 
 const LINK_HEIGHT = 38;
@@ -48,15 +48,22 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-interface TableOfContentsProps {
-  links: { label: string; link: string; order: number, amount: number }[]
+type Props = {
+  links: {
+    label: string;
+    link: string;
+    order: number,
+    amount: number
+  }[]
   title: string
+  allShown: boolean
 }
-
-export function TableOfContents({ links, title }: TableOfContentsProps) {
+export const TableOfContents = React.memo(({ links, title, allShown }: Props) => {
   const { classes: classesInner, cx } = useStyles();
   const [active, setActive] = useState(0);
-  const [showAll, setShowAll] = useState(false)
+  const [showAll, setShowAll] = useState(allShown)
+  useEffect(() => { allShown && setShowAll(true) }, [allShown])
+  useEffect(() => { setActive(0) }, [links])
 
   const size = showAll ? links.length : 10
   const items = links.slice(0, size).map(({ amount, label, link, order }, index) =>
@@ -96,4 +103,4 @@ export function TableOfContents({ links, title }: TableOfContentsProps) {
         </Button>}
     </ScrollArea>
   </>
-}
+})

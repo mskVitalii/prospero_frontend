@@ -8,9 +8,9 @@ import Link from 'next/link'
 type Props = {
   article: Article
 }
-export const FeedItem = ({ article }: Props) => {
+export const FeedItem = React.memo(({ article }: Props) => {
 
-  const dateStr = new Date(article.datePublished).toLocaleString("default", {
+  const dateStr = new Date(article.datePublished).toLocaleString("ru-RU", {
     month: "short",
     day: "2-digit",
     year: "numeric",
@@ -67,4 +67,4 @@ export const FeedItem = ({ article }: Props) => {
       <Text component='p' c={"#585858"}>{dateStr}</Text>
     </Flex>
   </article>)
-}
+})
