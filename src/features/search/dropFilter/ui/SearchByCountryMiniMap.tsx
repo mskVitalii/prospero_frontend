@@ -5,7 +5,7 @@ import { SVGMap } from "react-svg-map";
 import { useAppDispatch, useAppSelector } from '@shared/lib';
 import { search } from '@entities/search';
 import { Popover, Flex, ActionIcon } from '@mantine/core';
-import classes from "./SearchByCountryMiniMap.module.scss"
+import classes from "./SearchByCountryMiniMap.module.css"
 import { countriesData } from '../model/countriesData';
 
 
@@ -19,11 +19,9 @@ export const SearchByCountryMiniMap = () => {
     const { id } = Object.entries(e.target).find(_x => _x[0].startsWith("__reactProps"))?.[1] as { id: string }
     const country = countriesData.find(c => c.value === id)!.fetchValue
 
-    if (countrySearch.includes(id)) {
-      dispatch(search.removeCountryFilter({ country }))
-    } else {
-      dispatch(search.addCountryFilter({ country }))
-    }
+    countrySearch.includes(id)
+      ? dispatch(search.removeCountryFilter({ country }))
+      : dispatch(search.addCountryFilter({ country }))
   }
 
   function isCountrySelected(e: any): boolean {
@@ -40,8 +38,8 @@ export const SearchByCountryMiniMap = () => {
     position="bottom"
     shadow="md">
     <Popover.Target>
-      <Flex align={"flex-end"}>
-        <ActionIcon className={classes.filterWrapper}>
+      <Flex justify={"center"} align={"flex-end"}>
+        <ActionIcon className={classes.filterWrapper} aria-label='Выбор страны на карте'>
           <WorldIcon
             size={"2.125rem"}
             strokeWidth={1.5}

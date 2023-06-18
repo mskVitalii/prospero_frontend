@@ -4,7 +4,7 @@ import { useSearchLanguagesQuery } from '../api/dropFiltersAPI';
 import { langByKey, langKey, useAppDispatch, useAppSelector } from '@shared/lib';
 import { MessageLanguage } from 'tabler-icons-react';
 import { search as store } from '@entities/search';
-import classes from "./SearchByLanguage.module.scss"
+import classes from "./SearchByLanguage.module.css"
 
 
 export const SearchByLanguage = () => {
@@ -25,6 +25,7 @@ export const SearchByLanguage = () => {
 
   return <MultiSelect
     icon={<MessageLanguage size="1rem" />}
+    dropdownPosition="bottom"
     className={classes.filter}
     itemComponent={SelectItemRef}
     data={data.map(name => ({ value: langByKey(name), label: langByKey(name), search }))}

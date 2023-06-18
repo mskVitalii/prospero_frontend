@@ -1,16 +1,16 @@
 import React, { useContext, useState } from 'react'
-import { useSearchArticlesMutation } from '@entities/search';
-import { ActionIcon, Center, Divider, Flex, Group, SegmentedControl, Text, Title } from '@mantine/core';
-import { ArrowBigTop } from "tabler-icons-react"
-import classes from "./Feed.module.scss"
 import Link from 'next/link';
-import { NothingFoundBackground, TableOfContentsFloating } from '@shared/ui/index';
+import { useSearchArticlesMutation } from '@entities/search';
+import { Accordion, ActionIcon, Button, Center, Flex, Group, ScrollArea, SegmentedControl, Text } from '@mantine/core';
+import { ArrowBigTop } from "tabler-icons-react"
+import { NothingFoundBackground, TableOfContents } from '@shared/ui/index';
 import { feedAggregationData } from './FeedAggregationData';
 import { langByKey } from '@shared/lib';
-import { FeedItem } from './FeedItem';
 import { Article } from '../model/type';
 import { InitArticleContext } from '@pages/index';
 import { countriesData } from '@features/search/dropFilter/model/countriesData';
+import FeedGroup from './FeedGroup';
+import classes from "./Feed.module.css"
 
 
 type GroupArticles = {
@@ -18,15 +18,21 @@ type GroupArticles = {
 }
 
 export const Feed = () => {
+  //#region Articles
   const initArticles = useContext(InitArticleContext)
   const [_, { data: articlesData }] = useSearchArticlesMutation({
     fixedCacheKey: "shared-search-articles"
   })
-  const articles = articlesData !== undefined ? articlesData.data : initArticles.articles
-  const [aggregation, setAggregation] = useState("Категории")
-
+  const articles = articlesData?.data ?? initArticles.articles
   // articles && console.table(articles);
+  //#endregion
 
+  const [aggregation, setAggregation] = useState("Страны")
+  const [showAll, setShowAll] = useState(false)
+  if (articles.length === 0)
+    return <NothingFoundBackground />
+
+  //#region UI
   const groupArticles = articles.reduce((acc, cur) => {
     switch (aggregation) {
       case "Категории":
@@ -62,22 +68,96 @@ export const Feed = () => {
     return acc;
   }, {} as GroupArticles)
 
-  if (articles.length === 0)
-    return <NothingFoundBackground />
+  const groupEntries = Object.entries(groupArticles)
+
+  const tableOfContent = groupEntries
+    .map(([k, v]) => ({ group: k, data: v }))
+    .sort((a, b) => {
+      switch (aggregation) {
+        case "Дата":
+          return Number(new Date(b.group)) - Number(new Date(a.group))
+        default:
+          return b.data.length - a.data.length
+      }
+    })
+    .map(g => {
+      switch (aggregation) {
+        case "Дата":
+          return {
+            ...g, group: new Date(g.group).toLocaleString("ru-RU", { month: "short", day: "2-digit", year: "numeric" })
+          }
+        case "Языки":
+          return {
+            ...g, group: langByKey(g.group)
+          }
+        case "Страны":
+          return {
+            ...g, group: countriesData.find(x => x.fetchValue === g.group)?.label ?? g.group
+          }
+        default:
+          return { ...g }
+      }
+    })
+    .map(({ group, data }, g) => ({
+      label: group,
+      link: `#group-${g}`,
+      order: 1,
+      amount: data.length
+    }))
+
+  const groupsUI = groupEntries
+    .slice(0, showAll ? groupEntries.length : 10)
+    .map(([k, v]) => ({ group: k, data: v }))
+    .sort((a, b) => {
+      switch (aggregation) {
+        case "Дата":
+          return Number(new Date(b.group)) - Number(new Date(a.group))
+        default:
+          return b.data.length - a.data.length
+      }
+    })
+    .map(g => {
+      switch (aggregation) {
+        case "Дата":
+          return {
+            ...g, group: new Date(g.group).toLocaleString("ru-RU", { month: "short", day: "2-digit", year: "numeric" })
+          }
+        case "Языки":
+          return {
+            ...g, group: langByKey(g.group)
+          }
+        case "Страны":
+          return {
+            ...g, group: countriesData.find(x => x.fetchValue === g.group)?.label ?? g.group
+          }
+        default:
+          return { ...g }
+      }
+    })
+    .map(({ group, data }, g) =>
+      <FeedGroup
+        key={g}
+        groupId={`group-${g}`}
+        data={data}
+        group={group}
+      />)
+  //#endregion
 
   return <>
     {/* Группировка */}
     <Center id='top-aggregation' className={classes.aggregation}>
-      <Group>
-        <Text>Группировать по</Text>
-        <SegmentedControl value={aggregation} onChange={setAggregation} data={feedAggregationData} />
+      <Group maw={"90vw"}>
+        <Text className={classes.groupByLabel}>Группировать по</Text>
+        <ScrollArea type="never">
+          <SegmentedControl value={aggregation} onChange={setAggregation} data={feedAggregationData} />
+        </ScrollArea>
       </Group>
     </Center>
 
 
     {/* Кнопка наверх */}
-    <Link href='#top-aggregation' className={classes.goTopBtn}>
-      <ActionIcon>
+    <Link href={{ hash: 'top-aggregation' }} title='наверх' scroll={false}>
+      <ActionIcon aria-label="наверх" className={classes.goTopBtn}>
         <ArrowBigTop
           size={48}
           strokeWidth={2}
@@ -86,87 +166,37 @@ export const Feed = () => {
       </ActionIcon>
     </Link>
 
+    {/* Мб пускай он ездит до низу? */}
+    <Accordion variant="separated" className={classes.contentTableMobile}>
+      <Accordion.Item value="tableOfContent">
+        <Accordion.Control>Оглавление</Accordion.Control>
+        <Accordion.Panel>
+          <TableOfContents title={aggregation} links={tableOfContent} allShown={showAll} />
+        </Accordion.Panel>
+      </Accordion.Item>
+    </Accordion>
 
     <Flex direction={"row"}>
       {/* Оглавление */}
-      <div className={classes.contentTable}>
-        <TableOfContentsFloating title={aggregation} links={Object
-          .entries(groupArticles)
-          .map(([k, v]) => ({ group: k, data: v }))
-          .sort((a, b) => {
-            switch (aggregation) {
-              case "Дата":
-                return Number(new Date(b.group)) - Number(new Date(a.group))
-              default:
-                return b.data.length - a.data.length
-            }
-          })
-          .map(g => {
-            switch (aggregation) {
-              case "Дата":
-                return {
-                  ...g, group: new Date(g.group).toLocaleString("default", { month: "short", day: "2-digit", year: "numeric" })
-                }
-              case "Языки":
-                return {
-                  ...g, group: langByKey(g.group)
-                }
-              case "Страны":
-                return {
-                  ...g, group: countriesData.find(x => x.fetchValue === g.group)?.label ?? g.group
-                }
-              default:
-                return { ...g }
-            }
-          })
-          .map(({ group, data }, g) => ({
-            label: group,
-            link: `#group-${g}`,
-            order: 1,
-            amount: data.length
-          }))
-        } />
-      </div>
+      <aside className={classes.contentTable}>
+        <TableOfContents title={aggregation} links={tableOfContent} allShown={showAll} />
+      </aside>
 
       {/* Группы */}
       <div className={classes.feed}>
-        {Object
-          .entries(groupArticles)
-          .map(([k, v]) => ({ group: k, data: v }))
-          .sort((a, b) => {
-            switch (aggregation) {
-              case "Дата":
-                return Number(new Date(b.group)) - Number(new Date(a.group))
-              default:
-                return b.data.length - a.data.length
-            }
-          })
-          .map(g => {
-            switch (aggregation) {
-              case "Дата":
-                return {
-                  ...g, group: new Date(g.group).toLocaleString("default", { month: "short", day: "2-digit", year: "numeric" })
-                }
-              case "Языки":
-                return {
-                  ...g, group: langByKey(g.group)
-                }
-              case "Страны":
-                return {
-                  ...g, group: countriesData.find(x => x.fetchValue === g.group)?.label ?? g.group
-                }
-              default:
-                return { ...g }
-            }
-          })
-          .map(({ group, data }, g) =>
-            <section className={classes.group} id={`group-${g}`} key={g}>
-              <Divider />
-              <Title order={2}>{group}</Title>
-              {data
-                .sort((a, b) => Number(new Date(b.datePublished)) - Number(new Date(a.datePublished)))
-                .map((article, a) => <FeedItem article={article} key={`${g}-${a}`} />)}
-            </section>)}
+        {groupsUI}
+
+        {groupEntries.length > 10 && !showAll &&
+          <Button
+            className={classes.showAllBtn}
+            variant="outline" color="pink"
+            onClick={() => setShowAll(true)}
+            m={"auto"} mt={"md"}
+            w={"calc(100% - 10vw)"} h={"5rem"}
+            sx={() => ({ color: "#9b3156" })}
+          >
+            Все категории
+          </Button>}
       </div>
     </Flex>
   </>

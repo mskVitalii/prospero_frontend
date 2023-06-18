@@ -3,11 +3,11 @@ import { Group } from '@mantine/core'
 import { SearchString } from '@entities/search'
 import {
   SearchByString,
-  SearchOperatorNOT,
+  // SearchOperatorNOT,
   SearchOperatorEXACT,
   SearchStringRemoveButton
 } from '@features/search/stringFilter'
-import classes from './SearchField.module.scss'
+import classes from './SearchField.module.css'
 
 
 type Props = {

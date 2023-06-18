@@ -3,8 +3,7 @@ import { SearchString, search as searchSlice, useSearchArticlesMutation } from '
 import { TextInput } from '@mantine/core'
 import { useDebouncedState } from '@mantine/hooks'
 import { useAppDispatch, useAppSelector } from '@shared/lib'
-import classes from './SearchByString.module.scss'
-
+import classes from "./SearchByString.module.css"
 
 type Props = {
   searchString: SearchString
@@ -20,7 +19,6 @@ export const SearchByString = ({ searchString }: Props) => {
 
   useEffect(() => {
     dispatch(searchSlice.updateSearchString({ ...searchString, search }))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, dispatch])
 
   function enterPress(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -33,7 +31,8 @@ export const SearchByString = ({ searchString }: Props) => {
   }
   return <TextInput
     type='search'
-    w={searchState.filterStrings.length > 1 ? "250px" : "500px"}
+    className={classes.input}
+    w={searchState.filterStrings.length > 1 ? "250px" : "min(40vw,500px)"}
     placeholder="Поиск новостей"
     defaultValue={search}
     onChange={e => setSearch(e.currentTarget.value)}

@@ -5,7 +5,7 @@ import { Users } from 'tabler-icons-react';
 import { search as store } from '@entities/search';
 import { useAppDispatch, useAppSelector } from '@shared/lib';
 import { useSearchPeopleMutation } from '../api/dropFiltersAPI';
-import classes from "./SearchByPeople.module.scss"
+import classes from "./SearchByPeople.module.css"
 
 export const SearchByPeople = () => {
   const [search, setSearch] = useDebouncedState("", 250);
@@ -14,7 +14,6 @@ export const SearchByPeople = () => {
   useEffect(() => {
     trigger(search)
     data.length > 0 && console.table(data)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search])
 
   //#region Redux
@@ -30,6 +29,7 @@ export const SearchByPeople = () => {
 
   return <MultiSelect
     icon={<Users size="1rem" />}
+    dropdownPosition="bottom"
     className={classes.filter}
     itemComponent={SelectItemRef}
     data={data.map(x => ({ value: x, label: x, search }))}

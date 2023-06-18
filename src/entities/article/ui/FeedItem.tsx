@@ -1,32 +1,16 @@
 import React from 'react'
+import Link from 'next/link'
 import { Article } from '../model/type'
-import { Badge, TypographyStylesProvider, Flex, Text, Highlight, MantineTheme, Group } from '@mantine/core'
-import classes from "./FeedItem.module.scss"
-import { useAppSelector } from '@shared/lib'
+import { Badge, TypographyStylesProvider, Flex, Text, Group } from '@mantine/core'
+import classes from "./FeedItem.module.css"
 
-const getColors = (theme: MantineTheme) => [
-  theme.colors.teal[4],
-  theme.colors.grape[4],
-]
 
 type Props = {
   article: Article
 }
 export const FeedItem = ({ article }: Props) => {
-  const highlights = useAppSelector(({ search }) => search.filterStrings)
-    .filter(x => x.isExact && x.search.length > 0)
-    .map(x => x.search)
 
-  function highlightColors(theme: MantineTheme) {
-    const colors = getColors(theme)
-
-    return highlights.reduce((acc, curr, i) => {
-      acc[`& [data-highlight="${curr}"]`] = { backgroundColor: colors[i % colors.length] }
-      return acc
-    }, {} as { [key: string]: { backgroundColor: string } })
-  }
-
-  const dateStr = new Date(article.datePublished).toLocaleString("default", {
+  const dateStr = new Date(article.datePublished).toLocaleString("ru-RU", {
     month: "short",
     day: "2-digit",
     year: "numeric",
@@ -34,54 +18,54 @@ export const FeedItem = ({ article }: Props) => {
     minute: "2-digit"
   })
 
-  return (<article className={classes.article}>
+  return <article className={classes.article}>
     <h3>
-      <Highlight
-        component='a'
+      <Link
+        target='_blank'
         href={article.URL}
-        className={classes.link}
-        highlight={highlights}
-        sx={highlightColors}
-      >
+        className={classes.link}>
         {article.name}
-      </Highlight>
+      </Link>
     </h3>
 
     <TypographyStylesProvider>
       <Text dangerouslySetInnerHTML={{ __html: article.description }} />
     </TypographyStylesProvider >
 
-    <Text className={classes.section}>
+    <Group className={classes.section}>
       {article.categories?.length > 0 &&
-        <Flex gap={"5px"} align={"center"}>
-          <b>Категории</b>:
+        <Flex gap={"5px"} align={"center"} className={classes.badges}>
+          <b>Категории:</b>
           <Group style={{ rowGap: "4px" }} spacing="xs">
             {article.categories?.map((c, i) =>
               <Badge
+                maw={"30ch"}
                 variant="gradient"
-                gradient={{ from: 'indigo', to: 'cyan' }}
-                key={`${c}-${i}`}>
+                key={`${c}-${i}`}
+                gradient={{ from: 'indigo', to: 'cyan' }}>
                 {c}
               </Badge>)}
           </Group>
         </Flex>}
-      {article.people?.length > 0 &&
-        <Flex mt={"6px"} gap={"5px"} align={"center"}>
-          <b>Люди</b>:
+      {article.people?.filter(x => x.fullName.trim() !== "").length > 0 &&
+        <Flex gap={"5px"} align={"center"} className={classes.badges}>
+          <b>Люди:</b>
           <Group style={{ rowGap: "4px" }} spacing="xs">
             {article.people.map(({ fullName }, i) =>
               <Badge
-                key={`${fullName}-${i}`}
+                maw={"30ch"}
                 variant="gradient"
+                key={`${fullName}-${i}`}
                 gradient={{ from: 'teal', to: 'blue', deg: 60 }}>
                 {fullName}
               </Badge>)}
           </Group>
         </Flex>}
-    </Text>
+    </Group>
 
-    <div className={classes.section}>
-      <Text>@{article.publisher.name} {dateStr}</Text>
-    </div>
-  </article >)
+    <Flex justify={"space-between"} className={classes.section}>
+      <Text component='p' c={"#585858"}>@{article.publisher.name}</Text>
+      <Text component='p' c={"#585858"}>{dateStr}</Text>
+    </Flex>
+  </article>
 }

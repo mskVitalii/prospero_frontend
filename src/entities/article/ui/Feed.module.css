@@ -1,0 +1,71 @@
+.goTopBtn {
+  position: fixed;
+  bottom  : 4rem;
+  right   : 4rem;
+}
+
+.showAllBtn {
+  margin-right : 10vw;
+  margin-left  : 2rem;
+  margin-bottom: 3rem;
+  width        : -webkit-fill-available;
+  padding      : 0;
+}
+
+.aggregation {
+  padding-block: 3rem 1.5rem;
+  z-index      : 0;
+  position     : relative;
+}
+
+.contentTable {
+  width   : 20%;
+  height  : min-content;
+  position: sticky;
+  top     : 3rem;
+}
+
+.contentTableMobile {
+  display: none;
+}
+
+.feed {
+  width: 80%;
+}
+
+@media screen and (max-width: 900px) {
+  .goTopBtn {
+    bottom: 2rem;
+    right : 1.5rem;
+    width : fit-content;
+  }
+
+  .aggregation {
+    padding-bottom: 3rem;
+  }
+
+  .contentTable {
+    display: none;
+  }
+
+  .contentTableMobile {
+    display      : block;
+    width        : calc(100% - 10vw);
+    margin-inline: auto;
+    margin-bottom: 3rem;
+  }
+
+
+  .feed {
+    width: 100%;
+  }
+
+
+  .groupByLabel {
+    position      : sticky;
+    left          : 50%;
+    width         : fit-content;
+    transform     : translateX(-50%);
+    padding-bottom: 0.25rem;
+  }
+}

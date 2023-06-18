@@ -1,0 +1,35 @@
+.divider {
+  width: calc(100% - 10vw);
+}
+
+
+.group {
+  padding-left: 2rem;
+}
+
+.showAllBtn {
+  margin-inline: 10vw;
+  margin-bottom: 3rem;
+  width        : -webkit-fill-available;
+  padding      : 0;
+}
+
+@media screen and (max-width: 900px) {
+  .divider {
+    display: none;
+  }
+
+  .group {
+    padding-inline: 5vw;
+  }
+
+  .showAllBtn {
+    margin-top   : 0;
+    margin-inline: 5vw;
+    margin-bottom: 5rem;
+  }
+
+  .title {
+    font-weight: 900;
+  }
+}

@@ -3,7 +3,7 @@ import { SearchString, search } from '@entities/search'
 import { useAppDispatch } from '@shared/lib'
 import { Group } from '@mantine/core'
 import { Blockquote } from 'tabler-icons-react'
-import classes from "./SearchOperatorEXACT.module.scss"
+import classes from "./SearchOperatorEXACT.module.css"
 import classNames from 'classnames'
 
 type Props = {

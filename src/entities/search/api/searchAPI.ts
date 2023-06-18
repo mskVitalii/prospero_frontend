@@ -18,13 +18,15 @@ export const searchApi = baseApi.injectEndpoints({
       transformResponse: (rawResult: { data: Article[], total: number }, meta) => {
         const traceID = meta?.response?.headers.get("Prospero-Trace-Id")
         console.log(`${meta?.request.url} traceID=${traceID}`)
-        // DEMO изменяю дату
         const data = rawResult.data
           ?.map(article => ({
             ...article,
-            datePublished: new Date(new Date(article.datePublished).valueOf() + (-20 + Math.random() * 20) * 1000 * 60 * 60 * 24),
+            // DEMO изменяю дату
+            // datePublished: new Date(new Date(article.datePublished).valueOf() + (-20 + Math.random() * 20) * 1000 * 60 * 60 * 24),
+            datePublished: new Date(article.datePublished),
             address: {
               ...article.address, coords: [
+                // Mock координаты статьи в пределах Москвы
                 Number((55.75 - 0.15 + Math.random() * 0.25).toFixed(4)),
                 Number((37.57 - 0.25 + Math.random() * 0.5).toFixed(4))] as [number, number]
             },

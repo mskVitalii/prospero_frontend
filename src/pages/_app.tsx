@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { MantineProvider } from '@mantine/core';
 import { config } from '@shared/lib';
 import { YandexMetricaProvider } from 'next-yandex-metrica';
-import '@shared/ui/base.scss'
+import '@shared/ui/base.css'
 
 
 export default function App({ Component, pageProps }: AppProps) {

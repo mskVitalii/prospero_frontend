@@ -1,30 +1,36 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useMemo, useRef } from "react";
 import { YMaps, Map, Placemark, Clusterer } from '@pbe/react-yandex-maps';
 import { useSearchArticlesMutation } from "@entities/search";
 import { Article } from '../model/type';
 import { config, useAppSelector } from "@shared/lib";
-// import { mockArticles } from "@pages/api/news";
-import classes from './YandexMap.module.scss'
 import { InitArticleContext } from "@pages/index";
+import classes from './YandexMap.module.css'
 
 
 const colors = ["blue", "red", "green", "gray", "orange", "purple", "black"]
 
 export const YandexMap = () => {
+  //#region Articles
   const { filterTime } = useAppSelector(({ search }) => search)
   const [_, { data: articlesData }] = useSearchArticlesMutation({
     fixedCacheKey: "shared-search-articles"
   })
   const initArticles = useContext(InitArticleContext)
-  const articles = articlesData !== undefined ? articlesData.data : initArticles.articles
+  const articles = articlesData?.data ?? initArticles.articles
   // articles && console.table(articles)
 
+  const mapArticles = articles
+    .filter(article => +new Date(article.datePublished) <= +new Date(filterTime.end))
+    .filter(article => +new Date(article.datePublished) >= +new Date(filterTime.start))
+  //#endregion
+
+  //#region YMap
   const mapsRef = useRef<ymaps.Map>()
   const clickEventsRef = useRef<string[]>([])
 
   function openBalloon(coords: [number, number], article: Article) {
     const dateStr = new Date(article.datePublished)
-      .toLocaleString("default", {
+      .toLocaleString("ru-RU", {
         month: "short",
         day: "2-digit",
         year: "numeric",
@@ -52,24 +58,14 @@ export const YandexMap = () => {
       </article>`)
   }
 
-  const mapArticles = articles
-    // .map(article => ({
-    //   ...article,
-    //   datePublished: new Date(new Date(article.datePublished).valueOf() + (- 10 + Math.random() * 20) * 1000 * 60 * 60 * 24),
-    //   latitude: (55.75 - 0.15 + Math.random() * 0.25).toFixed(4),
-    //   longitude: (37.57 - 0.25 + Math.random() * 0.5).toFixed(4),
-    // }))
-    // .sort((a, b) => Number(a.datePublished) - Number(b.datePublished))
-    .filter(article => +new Date(article.datePublished) <= +new Date(filterTime.end))
-    .filter(article => +new Date(article.datePublished) >= +new Date(filterTime.start))
-
-  // console.log("mapArticles", mapArticles.length);
-  const publishersDistinct = Array.from(new Set(articles.map(x => x.publisher.name)))
-  const placemarkColors = publishersDistinct.reduce((acc, cur, i) => {
-    acc[cur] = colors[i % colors.length]
-    return acc
-  }, {} as { [key: string]: string })
-
+  const placemarkColors = useMemo(() => Array
+    .from(new Set(articles.map(x => x.publisher.name)))
+    .reduce((acc, cur, i) => {
+      acc[cur] = colors[i % colors.length]
+      return acc
+    }, {} as { [key: string]: string })
+    , [articles])
+  //#endregion
 
   return <YMaps preload query={{
     apikey: config.Y_MAPS_ID,
@@ -107,3 +103,5 @@ export const YandexMap = () => {
     </Map>
   </YMaps>
 }
+
+export default React.memo(YandexMap)

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { MultiSelect, Highlight } from '@mantine/core';
 import { useDebouncedState } from '@mantine/hooks';
 import { GoGame } from 'tabler-icons-react';
-import classes from "./SearchByCategory.module.scss"
+import classes from "./SearchByCategory.module.css"
 import { search as store } from '@entities/search';
 import { useAppDispatch, useAppSelector } from '@shared/lib';
 import { useSearchCategoriesMutation } from '../api/dropFiltersAPI';
@@ -15,7 +15,6 @@ export const SearchByCategory = () => {
   useEffect(() => {
     trigger(search)
     data.length > 0 && console.table(data)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search])
 
   //#region Redux
@@ -31,10 +30,11 @@ export const SearchByCategory = () => {
 
 
   return <MultiSelect
+    dropdownPosition="bottom"
     icon={<GoGame size="1rem" />}
     className={classes.filter}
-    itemComponent={SelectItemRef}
     data={data.map(name => ({ value: name, label: name, search }))}
+    itemComponent={SelectItemRef}
     label="Категории"
     placeholder="Политика"
     searchable clearable
