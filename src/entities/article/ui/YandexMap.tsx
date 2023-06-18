@@ -107,3 +107,6 @@ export const YandexMap = () => {
     </Map>
   </YMaps>
 }
+
+// React.lazy
+export default YandexMap

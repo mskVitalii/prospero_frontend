@@ -63,8 +63,8 @@ export const FeedItem = ({ article }: Props) => {
     </Group>
 
     <Flex justify={"space-between"} className={classes.section}>
-      <Text component='p' c={"#adadad"}>@{article.publisher.name}</Text>
-      <Text component='p' c={"#adadad"}>{dateStr}</Text>
+      <Text component='p' c={"#585858"}>@{article.publisher.name}</Text>
+      <Text component='p' c={"#585858"}>{dateStr}</Text>
     </Flex>
   </article>)
 }
