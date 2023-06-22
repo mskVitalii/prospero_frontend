@@ -1,22 +1,21 @@
 import { proxyFetch } from '@shared/api/proxyFetch';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export async function POST(req: NextRequest) {
   try {
     const prosperoRes = await proxyFetch(req, "/searchCategoryWithHints")
     const prosperoResBody = await prosperoRes.json()
 
-    prosperoRes.headers.forEach((v, k) => {
-      if (k === "transfer-encoding") return
-      res.setHeader(k, v)
+    const newHeaders = new Headers(req.headers)
+    newHeaders.delete("transfer-encoding")
+
+    return NextResponse.json(prosperoResBody, {
+      headers: newHeaders,
+      status: prosperoRes.status
     })
-    res.status(prosperoRes.status).json(prosperoResBody)
   } catch (error) {
     console.error("[PROXY] ошибка", error)
-    res.status(500).json({ error })
+    return NextResponse.json(error, { status: 500 })
   }
 };
 
