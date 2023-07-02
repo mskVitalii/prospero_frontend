@@ -48,8 +48,8 @@ export const YandexMap = () => {
         <p>${article.description}</p>
 
         <div class="${classes.section}">
-          <p><b>Категории</b>: ${article.categories?.map(c => `<em>#${c}</em>`).join(" ")}</p>
-          <p><b>Люди</b>: ${article.people?.map(c => `<em>#${c.fullName}</em>`).join(" ")}</p>
+          ${article.categories?.length > 0 ? `<p><b>Категории</b>: ${article.categories?.map(c => `<em>#${c}</em>`).join(" ")}</p>` : ""}
+          ${article.people?.length > 0 ? `<p><b>Люди</b>: ${article.people.map(c => `<em>#${c.fullName}</em>`).join(" ")}</p>` : ""}
         </div>
 
         <div class="${classes.section}">

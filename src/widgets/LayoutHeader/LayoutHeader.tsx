@@ -36,6 +36,12 @@ export const LayoutHeader = (props: Props) => {
   function toggleFilters() {
     setShowFilters(prev => !prev)
   }
+
+  function getTotalStr(total: number) {
+    if (total === 0) return `Нет статей`
+    if (total >= 10000) return `≥10000`
+    return total
+  }
   //#endregion
 
   return <header className={classes.filters}>
@@ -49,7 +55,7 @@ export const LayoutHeader = (props: Props) => {
         =
       </Text>
       <Title order={1} className={classNames(classes.equation, classes.equationResult)}>
-        {total === 0 ? `Нет статей` : `${total} ${getNoun(total, 'статья', 'статьи', 'статей')}`}
+        {getTotalStr(total)} {getNoun(total, 'статья', 'статьи', 'статей')}
       </Title>
       <SearchOperatorAND />
       <SearchButton />
@@ -60,8 +66,8 @@ export const LayoutHeader = (props: Props) => {
       </ActionIcon>
     </Group>
 
-    {
-      showFilters && <ScrollArea w={"90vw"} pb={"sm"} m={"auto"} offsetScrollbars type='hover' className={classes.dropDownFiltersScrollArea}>
+    {showFilters &&
+      <ScrollArea w={"90vw"} pb={"sm"} m={"auto"} offsetScrollbars type='hover' className={classes.dropDownFiltersScrollArea}>
         <Flex gap="xl" justify={"center"} className={classes.dropDownFilters}>
           <SearchByCategory />
           <SearchByPeople />
@@ -81,8 +87,7 @@ export const LayoutHeader = (props: Props) => {
               { label: 'Карта', value: 'map' },
             ]} />
         </Flex>
-      </ScrollArea>
-    }
+      </ScrollArea>}
 
   </header >
 }

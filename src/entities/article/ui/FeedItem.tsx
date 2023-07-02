@@ -28,9 +28,10 @@ export const FeedItem = ({ article }: Props) => {
       </Link>
     </h3>
 
-    <TypographyStylesProvider>
-      <Text dangerouslySetInnerHTML={{ __html: article.description }} />
-    </TypographyStylesProvider >
+    {article.description.length > 0 &&
+      <TypographyStylesProvider>
+        <Text dangerouslySetInnerHTML={{ __html: article.description }} />
+      </TypographyStylesProvider>}
 
     <Group className={classes.section}>
       {article.categories?.length > 0 &&
